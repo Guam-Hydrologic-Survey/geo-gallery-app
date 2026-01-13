@@ -1,0 +1,27 @@
+{
+  "name": "geo-gallery-app",
+  "version": "1.0.0",
+  "description": "MAppFx: Geology Photo Gallery",
+  "homepage": "https://github.com/Guam-Hydrologic-Survey/geo-gallery-app#readme",
+  "bugs": {
+    "url": "https://github.com/Guam-Hydrologic-Survey/geo-gallery-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guam-Hydrologic-Survey/geo-gallery-app.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm run dev --prefix client",
+    "server": "npm run dev --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.11"
+  }
+}
