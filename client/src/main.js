@@ -152,6 +152,7 @@ document.getElementById('locate').addEventListener('click', () => {
 });
 
 getSurveyPoints();
+getSurveyPolygons();
 
 // getPolyPoints();
 
@@ -174,11 +175,41 @@ function getSurveyPoints() {
             onEachFeature: (feature, layer) => {
                 layer.on('click', async () => {
                     console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
-                    findImagesSet('/api/photos/', feature.properties.images).then(images => {
+                    findImagesSet_v2('/api/photos/', feature.properties.images).then(images => {
 
                         document.getElementById("point-clicked").innerText = `${feature.properties.description}`;
 
                         if (images.paths != null) {
+                            displayImages_v3(images.paths);
+                        } else {
+                            console.log(`Sorry, could not find images :-(`);
+                        }
+
+                        modalDialog.show();
+                    });
+                    getImageDescription_v2(feature.properties.id);
+                });
+            }
+        }).addTo(map);
+    });
+}
+
+function getSurveyPolygons() {
+    fetch(`./src/data/polygons.json`) 
+    .then(response => response.json())
+    .then(data => {
+        L.geoJSON(data, {
+            onEachFeature: (feature, layer) => {
+                layer.on('click', async () => {
+                    console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
+                    console.log(feature.properties.images);
+                    console.log(feature.properties.id, feature.properties.name)
+                    findImagesSet('/api/photos/', feature.properties.name).then(images => {
+                        console.log(images)
+                        document.getElementById("point-clicked").innerText = `${feature.properties.description}`;
+
+                        if (images.paths != null) {
+                            console.log("Found pictures!")
                             displayImages_v3(images.paths);
                         } else {
                             console.log(`Sorry, could not find images :-(`);
@@ -203,6 +234,44 @@ async function findImagesSet(apiUrl, searchId) {
         }
 
         const data = await response.json();
+        const photos = data.photos;
+
+        let imageList = {
+            paths: [],
+            description: "",
+        }
+
+        for (const [point, pointData] of Object.entries(photos)) {
+            if (point.match(searchId.split("_", 1)[0])) {
+                if (pointData.images && Array.isArray(pointData.images)) {
+                    pointData.images.forEach((photo) => {
+                        imageList.paths.push('/photos/' + photo);
+                    });
+                }
+                break;
+            }
+        }
+
+        console.log(imageList);
+
+        return imageList;
+    } catch (error) {
+        console.error('Error fetching file: ', error);
+        return null;
+    }
+}
+
+// for polygons (to implement for points as well)
+async function findImagesSet_v2(apiUrl, searchId) {
+    try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
         const photos = data.photos;
 
         let imageList = {
