@@ -54,6 +54,66 @@
           [144.8300, 13.5100]
         ]]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "poly4",
+        "description": "Example MultiPolygon Area - Squares",
+        "id": 9
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [144.70, 13.30],
+              [144.75, 13.30],
+              [144.75, 13.35],
+              [144.70, 13.35],
+              [144.70, 13.30]
+            ]
+          ],
+          [
+            [
+              [144.80, 13.40],
+              [144.85, 13.40],
+              [144.85, 13.45],
+              [144.80, 13.45],
+              [144.80, 13.40]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "poly5",
+        "description": "Example MultiPolygon Area - Triangles",
+        "id": 10
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [144.74, 13.33],
+              [144.77, 13.36],
+              [144.71, 13.36],
+              [144.74, 13.33]
+            ]
+          ],
+          [
+            [
+              [144.83, 13.31],
+              [144.87, 13.35],
+              [144.82, 13.37],
+              [144.83, 13.31]
+            ]
+          ]
+        ]
+      }
     }
   ]
 }
