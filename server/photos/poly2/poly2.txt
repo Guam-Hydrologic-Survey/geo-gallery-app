@@ -1,0 +1,1 @@
+This is the text file containing a description about contents in the poly2 directory
