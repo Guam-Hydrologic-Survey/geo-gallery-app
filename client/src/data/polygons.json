@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "poly1",
+        "description": "Hagatna Area",
+        "id": 6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [144.7425, 13.4680],
+          [144.7525, 13.4680],
+          [144.7525, 13.4760],
+          [144.7425, 13.4760],
+          [144.7425, 13.4680]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "poly2",
+        "description": "Tamuning Area",
+        "id": 7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [144.7700, 13.4900],
+          [144.7850, 13.4900],
+          [144.7850, 13.5050],
+          [144.7700, 13.5050],
+          [144.7700, 13.4900]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "poly3",
+        "description": "Dededo Area",
+        "id": 8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [144.8300, 13.5100],
+          [144.8500, 13.5100],
+          [144.8500, 13.5300],
+          [144.8300, 13.5300],
+          [144.8300, 13.5100]
+        ]]
+      }
+    }
+  ]
+}
