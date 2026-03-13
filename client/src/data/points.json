@@ -5,9 +5,8 @@
         "type": "Feature",
         "properties": {
           "id": 1,
-          "name": "Point 1",
-          "description": "Agana",
-          "images": "point1_images.json"
+          "name": "point1",
+          "description": "Agana"
         },
         "geometry": {
           "type": "Point",
@@ -18,9 +17,8 @@
         "type": "Feature",
         "properties": {
           "id": 2,
-          "name": "Point 2",
-          "description": "Tumon Bay",
-          "images": "point2_images.json"
+          "name": "point2",
+          "description": "Tumon Bay"
         },
         "geometry": {
           "type": "Point",
@@ -31,9 +29,8 @@
         "type": "Feature",
         "properties": {
           "id": 3,
-          "name": "Point 3",
-          "description": "Yigo",
-          "images": "point3_images.json"
+          "name": "point3",
+          "description": "Yigo"
         },
         "geometry": {
           "type": "Point",
@@ -44,9 +41,8 @@
         "type": "Feature",
         "properties": {
           "id": 4,
-          "name": "Point 4",
-          "description": "Inarajan",
-          "images": "point4_images.json"
+          "name": "point4",
+          "description": "Inarajan"
         },
         "geometry": {
           "type": "Point",
@@ -57,9 +53,8 @@
         "type": "Feature",
         "properties": {
           "id": 5,
-          "name": "Point 5",
-          "description": "Merizo",
-          "images": "point5_images.json"
+          "name": "point5",
+          "description": "Merizo"
         },
         "geometry": {
           "type": "Point",
