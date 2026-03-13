@@ -4,9 +4,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 6,
         "name": "poly1",
-        "description": "Hagatna Area",
-        "id": 6
+        "description": "Hagatna Area"
       },
       "geometry": {
         "type": "Polygon",
@@ -22,9 +22,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 7,
         "name": "poly2",
-        "description": "Tamuning Area",
-        "id": 7
+        "description": "Tamuning Area"
       },
       "geometry": {
         "type": "Polygon",
@@ -40,9 +40,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 8,
         "name": "poly3",
-        "description": "Dededo Area",
-        "id": 8
+        "description": "Dededo Area"
       },
       "geometry": {
         "type": "Polygon",
@@ -58,9 +58,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 9,
         "name": "poly4",
-        "description": "Example MultiPolygon Area - Squares",
-        "id": 9
+        "description": "Example MultiPolygon Area - Squares"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -89,9 +89,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 10,
         "name": "poly5",
-        "description": "Example MultiPolygon Area - Triangles",
-        "id": 10
+        "description": "Example MultiPolygon Area - Triangles"
       },
       "geometry": {
         "type": "MultiPolygon",
