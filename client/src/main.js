@@ -151,24 +151,27 @@ document.getElementById('locate').addEventListener('click', () => {
     alert('Clicked on locate');
 });
 
-getSurveyPoints();
-getSurveyPolygons();
+// getSurveyPoints();
+// getSurveyPolygons();
+
+getLayers("./src/data/points.json")
+getLayers("./src/data/polygons.json")
 
 // getPolyPoints();
 
 /* ------------------------------------------------------------ */
 /* ------------------------------------------------------------ */
 
-function getPolyPoints() {
-    fetch(`./src/data/polygons-points.json`)
-    .then(response => response.json())
-    .then(data => {
-        L.geoJSON(data).addTo(map);
-    })
-}
+// function getPolyPoints() {
+//     fetch(`./src/data/polygons-points.json`)
+//     .then(response => response.json())
+//     .then(data => {
+//         L.geoJSON(data).addTo(map);
+//     })
+// }
 
-function getSurveyPoints() {
-    fetch(`./src/data/points.json`) 
+function getLayers(data) {
+    fetch(data) 
     .then(response => response.json())
     .then(data => {
         L.geoJSON(data, {
@@ -194,35 +197,62 @@ function getSurveyPoints() {
     });
 }
 
-function getSurveyPolygons() {
-    fetch(`./src/data/polygons.json`) 
-    .then(response => response.json())
-    .then(data => {
-        L.geoJSON(data, {
-            onEachFeature: (feature, layer) => {
-                layer.on('click', async () => {
-                    console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
-                    console.log(feature.properties.images);
-                    console.log(feature.properties.id, feature.properties.name)
-                    findImagesSet('/api/photos/', feature.properties.name).then(images => {
-                        console.log(images)
-                        document.getElementById("point-clicked").innerText = `${feature.properties.description}`;
+// function getSurveyPoints() {
+//     fetch(`./src/data/points.json`) 
+//     .then(response => response.json())
+//     .then(data => {
+//         L.geoJSON(data, {
+//             onEachFeature: (feature, layer) => {
+//                 layer.on('click', async () => {
+//                     console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
+//                     findImagesSet_v2('/api/photos/', feature.properties.name).then(images => {
 
-                        if (images.paths != null) {
-                            console.log("Found pictures!")
-                            displayImages_v3(images.paths);
-                        } else {
-                            console.log(`Sorry, could not find images :-(`);
-                        }
+//                         document.getElementById("point-clicked").innerText = `${feature.properties.description}`;
 
-                        modalDialog.show();
-                    });
-                    getImageDescription_v2(feature.properties.id);
-                });
-            }
-        }).addTo(map);
-    });
-}
+//                         if (images.paths != null) {
+//                             displayImages_v3(images.paths);
+//                         } else {
+//                             console.log(`Sorry, could not find images :-(`);
+//                         }
+
+//                         modalDialog.show();
+//                     });
+//                     // getImageDescription_v2(feature.properties.id);
+//                 });
+//             }
+//         }).addTo(map);
+//     });
+// }
+
+// function getSurveyPolygons() {
+//     fetch(`./src/data/polygons.json`) 
+//     .then(response => response.json())
+//     .then(data => {
+//         L.geoJSON(data, {
+//             onEachFeature: (feature, layer) => {
+//                 layer.on('click', async () => {
+//                     console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
+//                     console.log(feature.properties.images);
+//                     console.log(feature.properties.id, feature.properties.name)
+//                     findImagesSet('/api/photos/', feature.properties.name).then(images => {
+//                         console.log(images)
+//                         document.getElementById("point-clicked").innerText = `${feature.properties.description}`;
+
+//                         if (images.paths != null) {
+//                             console.log("Found pictures!")
+//                             displayImages_v3(images.paths);
+//                         } else {
+//                             console.log(`Sorry, could not find images :-(`);
+//                         }
+
+//                         modalDialog.show();
+//                     });
+//                     getImageDescription_v2(feature.properties.id);
+//                 });
+//             }
+//         }).addTo(map);
+//     });
+// }
 
 // for method 4
 async function findImagesSet(apiUrl, searchId) {
