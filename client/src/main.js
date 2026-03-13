@@ -175,7 +175,7 @@ function getSurveyPoints() {
             onEachFeature: (feature, layer) => {
                 layer.on('click', async () => {
                     console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
-                    findImagesSet_v2('/api/photos/', feature.properties.images).then(images => {
+                    findImagesSet_v2('/api/photos/', feature.properties.name).then(images => {
 
                         document.getElementById("point-clicked").innerText = `${feature.properties.description}`;
 
@@ -187,7 +187,7 @@ function getSurveyPoints() {
 
                         modalDialog.show();
                     });
-                    getImageDescription_v2(feature.properties.id);
+                    // getImageDescription_v2(feature.properties.id);
                 });
             }
         }).addTo(map);
