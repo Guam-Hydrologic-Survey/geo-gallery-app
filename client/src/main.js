@@ -6,6 +6,12 @@ import Viewer from 'viewerjs';
 import 'viewerjs/dist/viewer.css';
 import 'leaflet/dist/leaflet.css';
 
+
+/* ------------------------------------------------------------
+initialize app and leaflet map 
+------------------------------------------------------------ */
+
+
 let app = document.getElementById("app");
 
 app.innerHTML = /*html*/ `
@@ -154,8 +160,11 @@ document.getElementById('locate').addEventListener('click', () => {
 getLayers("./src/data/points.json")
 getLayers("./src/data/polygons.json")
 
-/* ------------------------------------------------------------ */
-/* ------------------------------------------------------------ */
+
+/* ------------------------------------------------------------
+functions for leaflet map layers, image retrieval   
+------------------------------------------------------------ */
+
 
 function getLayers(data) {
     fetch(data) 
@@ -331,6 +340,12 @@ function displayImages_v3_sub(images) {
         gallery.append(img);
     });
 }
+
+
+/* ------------------------------------------------------------
+functions to create gallery viewer and reset 
+------------------------------------------------------------ */
+
 
 function initializeViewer() {
     // destroy existing viewer instance if it exists
