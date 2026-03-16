@@ -5,6 +5,15 @@ LMap.js
 import { BaseLayers } from "./Baselayers";
 
 export function LMap(element) {
+
+    const map = initMap(element);
+
+    mapControls(map, maxZoom);
+    getMapData(map);
+}
+
+// initialize map 
+function initMap(element) {
     const center = [13.5286582,144.8251116];
     const defaultZoom = 13;
     const maxZoom = 19; 
@@ -16,8 +25,7 @@ export function LMap(element) {
         zoomControl: false,
     });
 
-    mapControls(map, maxZoom);
-    getMapData(map);
+    return map;
 }
 
 // adds map controls to maps 
