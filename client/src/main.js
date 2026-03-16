@@ -193,43 +193,6 @@ function getLayers(data) {
     });
 }
 
-// for method 4
-async function findImagesSet(apiUrl, searchId) {
-    try {
-        const response = await fetch(apiUrl);
-
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        const photos = data.photos;
-
-        let imageList = {
-            paths: [],
-            description: "",
-        }
-
-        for (const [point, pointData] of Object.entries(photos)) {
-            if (point.match(searchId.split("_", 1)[0])) {
-                if (pointData.images && Array.isArray(pointData.images)) {
-                    pointData.images.forEach((photo) => {
-                        imageList.paths.push('/photos/' + photo);
-                    });
-                }
-                break;
-            }
-        }
-
-        console.log(imageList);
-
-        return imageList;
-    } catch (error) {
-        console.error('Error fetching file: ', error);
-        return null;
-    }
-}
-
 // for polygons (to implement for points as well)
 async function findImagesSet_v2(apiUrl, searchId) {
     try {
