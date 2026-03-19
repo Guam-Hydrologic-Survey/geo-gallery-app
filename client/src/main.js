@@ -39,6 +39,26 @@ app.innerHTML = /*html*/ `
     </div>
 </div>
 
+<div class="modal fade" id="tutorial" tabindex="-1" data-bs-backdrop="true">
+    <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Welcome to the Geology Photo Gallery!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            How to use<br>
+            To view available field photos for a site, please click on a map feature (e.g., polygon, point).<br>
+            Brought to you by the GHS Information Management Team at WERI-UOG.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Back to map view">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- dock -->
 <div class="dock-wrapper">
 <div class="dock" id="dock-control">
@@ -127,9 +147,30 @@ osm.addTo(map);
 
 let currentLayer = 'osm';
 
-const gallery = document.getElementById('gallery');
 
-// modal handling 
+/* ------------------------------------------------------------
+modal handling for short tutorial
+------------------------------------------------------------ */
+const tutorialElement = document.getElementById("tutorial");
+const tutorialModal = new bootstrap.Modal(tutorialElement);
+
+// show modal 
+tutorialModal.show();
+
+// auto-hide after some seconds 
+setTimeout(() => {
+    tutorialModal.hide();
+}, 5000);
+
+/* ------------------------------------------------------------
+modal handling for photo gallery 
+------------------------------------------------------------ */
+
+
+// modal body 
+const gallery = document.getElementById('gallery'); 
+
+// modal element instance 
 const modalElement = document.getElementById('results');
 const modalDialog = new bootstrap.Modal(modalElement);
 
