@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 
 
 /* ------------------------------------------------------------
-initialize app and leaflet map 
+initialize app 
 ------------------------------------------------------------ */
 
 
@@ -17,9 +17,10 @@ let app = document.getElementById("app");
 app.innerHTML = /*html*/ `
 <h1>Test map with sample images</h1>
 <div id="map"></div>
+
 <!-- modal -->
-<div class="modal fade" id="results" tabindex="-1" data-bs-backdrop="false">
-    <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+<div class="modal fade" id="results" tabindex="-1" data-bs-backdrop="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="point-clicked"></h5>
@@ -39,7 +40,8 @@ app.innerHTML = /*html*/ `
 </div>
 
 <!-- dock -->
-<div class="dock">
+<div class="dock-wrapper">
+<div class="dock" id="dock-control">
     <button id="toggle-layer">
         <i data-lucide="layers"></i>
         <span class="dock-icon-tooltip">Toggle Layer</span>
@@ -89,7 +91,14 @@ app.innerHTML = /*html*/ `
         </ul>
     </div>
 </div>
+</div>
 `;
+
+
+/* ------------------------------------------------------------
+initialize leaflet map 
+------------------------------------------------------------ */
+
 
 const center = [13.4443, 144.7937];
 const defaultZoom = 12;
@@ -124,10 +133,31 @@ const gallery = document.getElementById('gallery');
 const modalElement = document.getElementById('results');
 const modalDialog = new bootstrap.Modal(modalElement);
 
+const dock = document.getElementById('dock-control');
+
+// hide and show dock based on visibility of modal
+if (!dock || !modalElement) {
+    console.error('Dock or modal not found');
+} else {
+    modalElement.addEventListener('show.bs.modal', () => {
+        dock.classList.add('hidden');
+    });
+
+    modalElement.addEventListener('hidden.bs.modal', () => {
+        dock.classList.remove('hidden');
+    });
+}
+
 // for photo lightbox
 let viewer;
 
 lucide.createIcons();
+
+
+/* ------------------------------------------------------------
+event listeners for dock buttons 
+------------------------------------------------------------ */
+
 
 document.getElementById('toggle-layer').addEventListener('click', () => { 
     if (currentLayer === 'osm') {
@@ -156,6 +186,17 @@ document.getElementById('recenter').addEventListener('click', () => {
 document.getElementById('locate').addEventListener('click', () => {
     alert('Clicked on locate');
 });
+
+document.addEventListener('keydown', (pressed) => {
+    if (pressed.key === "Escape") {
+        if (viewer && viewer.isShown) {
+            pressed.preventDefault();
+            pressed.stopPropagation(); // prevent boostrap from noticing this event 
+            pressed.stopImmediatePropagation(); 
+            viewer.hide(); // close the viewer only 
+        }
+    }
+}, true);
 
 getLayers("./src/data/points.json")
 getLayers("./src/data/polygons.json")
