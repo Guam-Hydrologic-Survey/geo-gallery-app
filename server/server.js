@@ -1,4 +1,4 @@
-require('dotenv').config(); // load environment variables 
+// require('dotenv').config(); // load environment variables 
 
 const express = require('express');
 const cors = require('cors');
@@ -10,9 +10,14 @@ const fileType = require('file-type');
 const Papa = require('papaparse');
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
+// const PORT = process.env.PORT || 3000; 
 
-const photosDirectory = path.join(__dirname, 'photos');
+const PORT = 3000; 
+
+// const photosDirectory = path.join(__dirname, 'photos');
+const photosDirectory = '../uploads';
+
+const image_extensions = ['.jpg', '.jpeg', '.png']
 
 app.use(cors()); // enable cors for frontend requests
 
@@ -46,12 +51,14 @@ async function getPhotosInDirectory(dir, basePath) {
                     } 
                 } else {
                     if (isTextFile(buffer)) {
-                        if (!results['text']) { results['text'] = []; }
+                        if (!results['text']) { results['text'] = []; results['description'] = ''; }
                         results['text'].push(relativePath);
-                    } else {
-                        if (!results['unknown']) { results['unknown'] = []; }
-                        results['unknown'].push(relativePath);
-                    }
+                        results['description'] = buffer.toString('utf-8');
+                    } 
+                    // else {
+                    //     if (!results['unknown']) { results['unknown'] = []; }
+                    //     results['unknown'].push(relativePath);
+                    // }
                 }
             }
         }
@@ -65,10 +72,12 @@ async function getPhotosInDirectory(dir, basePath) {
 function isTextFile(buffer) {
     // convert buffer to string and check for non-printable characters 
     const text = buffer.toString('utf-8');
-    return /^[\x20-\x7E\r\n\t]*$/.test(text); // ensures it contains only printable characters 
+
+    // ensures it contains only printable characters 
+    return /^[\x20-\x7E\r\n\t]*$/.test(text);
 }
 
-// endpoint to read and parse csv file 
+// endpoint to read and parse a master csv file containing descriptions for each 
 app.get('/descriptions', (req, res) => {
     const filePath = photosDirectory + '/descriptions.csv';
     const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -86,6 +95,11 @@ app.get('/descriptions', (req, res) => {
             res.status(500).send('Error parsing CSV file :-(');
         }
     })
+});
+
+// endpoint to read and parse description 
+app.get('/api/descriptions', (req, res) => {
+    const filePath = photosDirectory;
 });
 
 // endpoint to get photo directories and subdirectories 
