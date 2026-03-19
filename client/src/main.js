@@ -151,6 +151,7 @@ let currentLayer = 'osm';
 /* ------------------------------------------------------------
 modal handling for short tutorial
 ------------------------------------------------------------ */
+
 const tutorialElement = document.getElementById("tutorial");
 const tutorialModal = new bootstrap.Modal(tutorialElement);
 
@@ -160,7 +161,8 @@ tutorialModal.show();
 // auto-hide after some seconds 
 setTimeout(() => {
     tutorialModal.hide();
-}, 5000);
+}, 3000);
+
 
 /* ------------------------------------------------------------
 modal handling for photo gallery 
