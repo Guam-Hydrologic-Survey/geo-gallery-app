@@ -161,7 +161,7 @@ tutorialModal.show();
 // auto-hide after some seconds 
 setTimeout(() => {
     tutorialModal.hide();
-}, 3000);
+}, 4000);
 
 
 /* ------------------------------------------------------------
