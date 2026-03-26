@@ -152,6 +152,22 @@ let currentLayer = 'osm';
 modal handling for short tutorial
 ------------------------------------------------------------ */
 
+
+// fix marker icons
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+  iconUrl: '/leaflet/marker-icon.png',
+  shadowUrl: '/leaflet/marker-shadow.png',
+});
+
+
+/* ------------------------------------------------------------
+modal handling for short tutorial
+------------------------------------------------------------ */
+
+
 const tutorialElement = document.getElementById("tutorial");
 const tutorialModal = new bootstrap.Modal(tutorialElement);
 
@@ -241,8 +257,8 @@ document.addEventListener('keydown', (pressed) => {
     }
 }, true);
 
-getLayers("./src/data/points.json")
-getLayers("./src/data/polygons.json")
+getLayers("/data/points.json")
+getLayers("/data/polygons.json")
 
 
 /* ------------------------------------------------------------
