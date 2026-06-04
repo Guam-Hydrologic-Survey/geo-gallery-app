@@ -149,7 +149,7 @@ let currentLayer = 'osm';
 
 
 /* ------------------------------------------------------------
-modal handling for short tutorial
+leaflet marker icon adjustment 
 ------------------------------------------------------------ */
 
 
