@@ -15,7 +15,9 @@ const app = express();
 const PORT = 3000; 
 
 // const photosDirectory = path.join(__dirname, 'photos');
-const photosDirectory = '../uploads';
+// const photosDirectory = '../uploads';
+
+const photosDirectory = path.join(__dirname, '../uploads');
 
 const image_extensions = ['.jpg', '.jpeg', '.png']
 
@@ -24,6 +26,9 @@ app.use(cors()); // enable cors for frontend requests
 // serve static files 
 app.use('/photos', express.static(photosDirectory));
 // app.use('/description', express.static(photosDirectory));
+
+// server frontend
+// app.use(express.static(path.join(__dirname, '../client/dist')));
 
 async function getPhotosInDirectory(dir, basePath) {
     let results = {};
@@ -122,6 +127,11 @@ app.get('/api/data/:filename', (req, res) => {
         res.json(JSON.parse(geojson));
     });
 });
+
+// // SPA fallback for vite apps 
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+// });
 
 // start the backend server 
 app.listen(PORT, () => {

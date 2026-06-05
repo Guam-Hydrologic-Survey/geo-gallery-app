@@ -27,9 +27,9 @@ app.innerHTML = /*html*/ `
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <p id="text-description"></p>
                 <p id="num-photos"></p>
                 <div id="gallery"></div>
-                <p id="text-description"></p>        
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Back to map view">Close</button>
@@ -149,8 +149,24 @@ let currentLayer = 'osm';
 
 
 /* ------------------------------------------------------------
+leaflet marker icon adjustment 
+------------------------------------------------------------ */
+
+
+// fix marker icons
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+  iconUrl: '/leaflet/marker-icon.png',
+  shadowUrl: '/leaflet/marker-shadow.png',
+});
+
+
+/* ------------------------------------------------------------
 modal handling for short tutorial
 ------------------------------------------------------------ */
+
 
 const tutorialElement = document.getElementById("tutorial");
 const tutorialModal = new bootstrap.Modal(tutorialElement);
@@ -241,8 +257,10 @@ document.addEventListener('keydown', (pressed) => {
     }
 }, true);
 
-getLayers("./src/data/points.json")
-getLayers("./src/data/polygons.json")
+// demo purposes 
+// getLayers("/data/points.json")
+// getLayers("/data/polygons.json")
+getLayers("/data/GeoGal2026.json");
 
 
 /* ------------------------------------------------------------
@@ -257,10 +275,12 @@ function getLayers(data) {
         L.geoJSON(data, {
             onEachFeature: (feature, layer) => {
                 layer.on('click', async () => {
-                    console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
-                    findImagesSet_v2('/api/photos/', feature.properties.name).then(images => {
-
-                        document.getElementById("point-clicked").innerText = `${feature.properties.description}`;
+                    // console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
+                    // console.log(`Clicked on ${feature.properties.Place} with ID ${feature.properties.PID}`);
+                    // TODO - check JSON properties (get list of keys)
+                    findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
+                        document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
+                        document.getElementById("text-description").innerText = images.description || '';
 
                         if (images.paths != null) {
                             displayImages_v3(images.paths);
@@ -271,6 +291,7 @@ function getLayers(data) {
                         modalDialog.show();
                     });
                     // getImageDescription_v2(feature.properties.id);
+                    // getImageDescription_v2(feature.properties.PID);
                 });
             }
         }).addTo(map);
@@ -287,7 +308,7 @@ async function findImagesSet_v2(apiUrl, searchId) {
         }
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         const photos = data.photos;
 
         let imageList = {
@@ -296,12 +317,14 @@ async function findImagesSet_v2(apiUrl, searchId) {
         }
 
         for (const [point, pointData] of Object.entries(photos)) {
+            console.log(`Checking point ${point} against search ID ${searchId}`);
             if (point.match(searchId.split("_", 1)[0])) {
                 if (pointData.images && Array.isArray(pointData.images)) {
                     pointData.images.forEach((photo) => {
                         imageList.paths.push('/photos/' + photo);
                     });
                 }
+                imageList.description = pointData.description || "";
                 break;
             }
         }
@@ -350,6 +373,7 @@ async function displayImages_v3(images) {
         } else {
             plural = "photos";
         }
+
         document.getElementById("num-photos").innerText = `${images.length} ${plural} available for this location: `;
 
         let loadedImgs = [];
