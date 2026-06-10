@@ -1,0 +1,160 @@
+{
+    "geologic_units": [
+        {
+            "number": 1,
+            "label": "Tf",
+            "description": "Facpi",
+            "hexcode": "dfc7a3"
+        },
+        {
+            "number": 2,
+            "label": "Ta",
+            "description": "Alutom",
+            "hexcode": "e5e3d6"
+        },
+        {
+            "number": 3,
+            "label": "Tam",
+            "description": "Alutom, Mahlac member",
+            "hexcode": "c3b8b6"
+        },
+        {
+            "number": 4,
+            "label": "Tt",
+            "description": "Talisay",
+            "hexcode": "bcaf9f"
+        },
+        {
+            "number": 5,
+            "label": "Tug",
+            "description": "Geus River member",
+            "hexcode": "af99ca"
+        },
+        {
+            "number": 6,
+            "label": "Tus",
+            "description": "Schroeder flow member",
+            "hexcode": "d2a2ca"
+        },
+        {
+            "number": 7,
+            "label": "Tub",
+            "description": "Bolanos pyroclastic member",
+            "hexcode": "fde9f2"
+        },
+        {
+            "number": 8,
+            "label": "Tud",
+            "description": "Dandan flow member",
+            "hexcode": "f8adcc"
+        },
+        {
+            "number": 9,
+            "label": "Tu",
+            "description": "Umatac formation undifferentiated",
+            "hexcode": "c77bb2"
+        },
+        {
+            "number": 10,
+            "label": "Tm",
+            "description": "Maemong limestone",
+            "hexcode": "84d6e2"
+        },
+        {
+            "number": 11,
+            "label": "Tb",
+            "description": "Bonya limestone",
+            "hexcode": "6acdca"
+        },
+        {
+            "number": 12,
+            "label": "Tbl",
+            "description": "Barrigada limestone",
+            "hexcode": "c1e1bc"
+        },
+        {
+            "number": 13,
+            "label": "Tj",
+            "description": "Janum formation",
+            "hexcode": "00ac9c"
+        },
+        {
+            "number": 14,
+            "label": "Tal",
+            "description": "Alifan limestone",
+            "hexcode": "89c5a3"
+        },
+        {
+            "number": 15,
+            "label": "QTmp",
+            "description": "Mariana, Phosphorite facies",
+            "hexcode": "f99885"
+        },
+        {
+            "number": 16,
+            "label": "QTmh",
+            "description": "Mariana, Halameda facies",
+            "hexcode": "00ade9"
+        },
+        {
+            "number": 17,
+            "label": "QTma",
+            "description": "Mariana, Hagåtña argillacous member",
+            "hexcode": "ade9ff"
+        },
+        {
+            "number": 18,
+            "label": "QTmf",
+            "description": "Mariana, Fore-reef facies",
+            "hexcode": "66aec5"
+        },
+        {
+            "number": 19,
+            "label": "QTmm",
+            "description": "Mariana, Molluscan facies",
+            "hexcode": "badaf3"
+        },
+        {
+            "number": 20,
+            "label": "QTmd",
+            "description": "Mariana, Detrital facies",
+            "hexcode": "9ddefa"
+        },
+        {
+            "number": 21,
+            "label": "QTmr",
+            "description": "Mariana, Reef facies",
+            "hexcode": "8cbde5"
+        },
+        {
+            "number": 22,
+            "label": "Qt",
+            "description": "Tarague limestone",
+            "hexcode": "53a7dd"
+        },
+        {
+            "number": 23,
+            "label": "Qal",
+            "description": "Alluvium",
+            "hexcode": "fff9bd"
+        },
+        {
+            "number": 24,
+            "label": "Qrm",
+            "description": "Merizo limestone",
+            "hexcode": "00cbf6"
+        },
+        {
+            "number": 25,
+            "label": "Qrb",
+            "description": "Beach deposits",
+            "hexcode": "fec689"
+        },
+        {
+            "number": 26,
+            "label": "Qaf",
+            "description": "Artificial fill",
+            "hexcode": "c38a5f"
+        }
+    ]
+}
