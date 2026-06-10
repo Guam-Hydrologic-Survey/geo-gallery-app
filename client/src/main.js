@@ -7,6 +7,19 @@ import 'viewerjs/dist/viewer.css';
 import 'leaflet/dist/leaflet.css';
 
 
+
+/* ------------------------------------------------------------
+adjust header
+------------------------------------------------------------ */
+
+// let header = document.querySelector("header");
+
+// header.innerHTML = /*html*/ `
+// <h1>Geology Photo Gallery</h1>
+// <span>// WERI MAppFx | Guam Hydrologic Survey</span>
+// `;
+
+
 /* ------------------------------------------------------------
 initialize app 
 ------------------------------------------------------------ */
@@ -15,7 +28,6 @@ initialize app
 let app = document.getElementById("app");
 
 app.innerHTML = /*html*/ `
-<h1>Test map with sample images</h1>
 <div id="map"></div>
 
 <!-- modal -->
