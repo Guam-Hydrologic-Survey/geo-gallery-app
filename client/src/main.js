@@ -275,9 +275,9 @@ document.addEventListener('keydown', (pressed) => {
 // getLayers("/data/polygons.json")
 
 // official layers
-getLayers("/data/GeoGalGMG2026.json");
-getLayers("/data/GeoGalPoints2026.json");
-getLayers("/data/GeoGalGMGBndry2026.json");
+getLayers("/data/GeoGalGMG2026.json", 1);
+getLayers("/data/GeoGalGMGBndry2026.json", 2);
+getLayers("/data/GeoGalPoints2026.json", 3);
 
 /* ------------------------------------------------------------
 functions for leaflet map layers, image retrieval   
@@ -319,89 +319,102 @@ function getLineColor(code) {
     }
 }
 
-function getLayers(data) {
+// params: data (url to geojson), ftype (feature type: 1 = polygon, 2 = boundary, 3 = point)
+function getLayers(data, ftype) {
     fetch(data) 
     .then(response => response.json())
     .then(data => {
-        L.geoJSON(data, {
-            // style points 
-            pointToLayer: (feature, latlng) => {
-                return L.circleMarker(latlng, {
-                    radius: 8, 
-                    fillColor: getColor(feature.properties.SCode),
-                    color: "#000",
-                    weight: 2,
-                    fillOpacity: 1
-                });
-            },
-            // style polygons and lines 
-            style: (feature) => {
-                if (feature.geometry.type === "Polygon" | feature.geometry.type === "MultiPolygon") { 
-                    return {
-                        color: `#${feature.properties.Hex}`,
-                        weight: 2,
-                        fillColor: `#${feature.properties.Hex}`,
-                        fillOpacity: 1
-                    };
-                }
 
-                if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
-                    return {
-                        color: getLineColor(feature.properties.Code1),
-                        weight: 2, 
-                        dashArray: getLineType(feature.properties.Code1),
+        // polygons 
+        if (ftype === 1) {
+            L.geoJSON(data, {
+                // style polygons and lines 
+                style: (feature) => {
+                    if (feature.geometry.type === "Polygon" | feature.geometry.type === "MultiPolygon") { 
+                        return {
+                            color: `#${feature.properties.Hex}`,
+                            weight: 2,
+                            fillColor: `#${feature.properties.Hex}`,
+                            fillOpacity: 1
+                        };
+                    }
+                },
+                // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
+                onEachFeature: (feature, layer) => {
+                    if (feature.geometry.type === "MultiPolygon" | feature.geometry.type === "Polygon") { 
+                        layer.on('click', async () => {
+                            // TODO - check JSON properties (get list of keys)
+                            findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
+                                document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
+                                document.getElementById("text-description").innerText = images.description || '';
+
+                                if (images.paths != null) {
+                                    displayImages_v3(images.paths);
+                                } else {
+                                    console.log(`Sorry, could not find images :-(`);
+                                }
+
+                                modalDialog.show();
+                            });
+                            // getImageDescription_v2(feature.properties.id);
+                            // getImageDescription_v2(feature.properties.PID);
+                        });
+                    } 
+                }
+            }).addTo(map);
+
+        // boundaries
+        } else if (ftype === 2) {
+            L.geoJSON(data, {
+                // style polygons and lines 
+                style: (feature) => {
+                    if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
+                        return {
+                            color: getLineColor(feature.properties.Code1),
+                            weight: 2, 
+                            dashArray: getLineType(feature.properties.Code1),
+                        }
                     }
                 }
-            },
-            // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
-            onEachFeature: (feature, layer) => {
-                if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
-                    // console.log("Checking geometry type:")
-                    // console.log(feature.geometry.type);
-                    // console.log("Checking SCode");
-                    // console.log(`Place: ${feature.properties.Place}, SCode: ${feature.properties.SCode}`);
-                    console.log("Checking LineString");
-                    console.log(feature.properties.Code1)
-                } 
-                if (feature.geometry.type === "Point") {
-                    layer.on('click', async () => {
-                        // TODO - check JSON properties (get list of keys)
-                        findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
-                            document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
-                            document.getElementById("text-description").innerText = images.description || '';
-
-                            if (images.paths != null) {
-                                displayImages_v3(images.paths);
-                            } else {
-                                console.log(`Sorry, could not find images :-(`);
-                            }
-
-                            modalDialog.show();
-                        });
-                        // getImageDescription_v2(feature.properties.id);
-                        // getImageDescription_v2(feature.properties.PID);
+            }).addTo(map);
+        
+        // points 
+        } else if (ftype === 3) {
+            L.geoJSON(data, {
+                // style points 
+                pointToLayer: (feature, latlng) => {
+                    return L.circleMarker(latlng, {
+                        radius: 8, 
+                        fillColor: getColor(feature.properties.SCode),
+                        color: "#000",
+                        weight: 2,
+                        fillOpacity: 1
                     });
-                } else if (feature.geometry.type === "MultiPolygon" | feature.geometry.type === "Polygon") { 
-                    layer.on('click', async () => {
-                        // TODO - check JSON properties (get list of keys)
-                        findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
-                            document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
-                            document.getElementById("text-description").innerText = images.description || '';
+                },
+                // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
+                onEachFeature: (feature, layer) => {
+                    if (feature.geometry.type === "Point") {
+                        layer.on('click', async () => {
+                            // TODO - check JSON properties (get list of keys)
+                            findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
+                                document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
+                                document.getElementById("text-description").innerText = images.description || '';
 
-                            if (images.paths != null) {
-                                displayImages_v3(images.paths);
-                            } else {
-                                console.log(`Sorry, could not find images :-(`);
-                            }
+                                if (images.paths != null) {
+                                    displayImages_v3(images.paths);
+                                } else {
+                                    console.log(`Sorry, could not find images :-(`);
+                                }
 
-                            modalDialog.show();
+                                modalDialog.show();
+                            });
+                            // getImageDescription_v2(feature.properties.id);
+                            // getImageDescription_v2(feature.properties.PID);
                         });
-                        // getImageDescription_v2(feature.properties.id);
-                        // getImageDescription_v2(feature.properties.PID);
-                    });
-                } 
-            }
-        }).addTo(map);
+                    } 
+                }
+            }).addTo(map);
+        }
     });
 }
 
