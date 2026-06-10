@@ -291,9 +291,11 @@ getLayers("/data/GeoGalGMG2026.json", 1);
 getLayers("/data/GeoGalGMGBndry2026.json", 2);
 getLayers("/data/GeoGalPoints2026.json", 3);
 
+
 /* ------------------------------------------------------------
-functions for leaflet map layers, image retrieval   
+functions for styling map features (e.g., points, polygons, lines)
 ------------------------------------------------------------ */
+
 
 // temporary function to set the point color
 function getColor(code) {
@@ -330,6 +332,20 @@ function getLineColor(code) {
         return "#62d4f4";
     }
 }
+
+
+/* ------------------------------------------------------------
+leaflet pattern fill rendering 
+------------------------------------------------------------ */
+
+
+const renderer = L.svg().addTo(map);
+
+
+/* ------------------------------------------------------------
+functions for leaflet map layers, image retrieval   
+------------------------------------------------------------ */
+
 
 // params: data (url to geojson), ftype (feature type: 1 = polygon, 2 = boundary, 3 = point)
 function getLayers(data, ftype) {
