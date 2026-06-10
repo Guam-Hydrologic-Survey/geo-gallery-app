@@ -260,13 +260,13 @@ document.addEventListener('keydown', (pressed) => {
 // demo purposes 
 // getLayers("/data/points.json")
 // getLayers("/data/polygons.json")
-getLayers("/data/GeoGal2026.json");
+getLayers("/data/GeoGalPoints2026.json");
+getLayers("/data/GeoGalGMG2026.json");
 
 
 /* ------------------------------------------------------------
 functions for leaflet map layers, image retrieval   
 ------------------------------------------------------------ */
-
 
 function getLayers(data) {
     fetch(data) 
@@ -274,25 +274,55 @@ function getLayers(data) {
     .then(data => {
         L.geoJSON(data, {
             onEachFeature: (feature, layer) => {
-                layer.on('click', async () => {
-                    // console.log(`Clicked on ${feature.properties.description} with ID ${feature.properties.id}`);
-                    // console.log(`Clicked on ${feature.properties.Place} with ID ${feature.properties.PID}`);
-                    // TODO - check JSON properties (get list of keys)
-                    findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
-                        document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
-                        document.getElementById("text-description").innerText = images.description || '';
+                if (feature.geometry.type === "Point") {
+                    // console.log("Checking geometry type:")
+                    // console.log(feature.geometry.type);
+                    console.log("Checking SCode");
+                    console.log(`Place: ${feature.properties.Place}, SCode: ${feature.properties.SCode}`);
+                } 
 
-                        if (images.paths != null) {
-                            displayImages_v3(images.paths);
-                        } else {
-                            console.log(`Sorry, could not find images :-(`);
-                        }
+                // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
+                if (feature.geometry.type === "Point") {
+                    layer.on('click', async () => {
+                        // TODO - check JSON properties (get list of keys)
+                        findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
+                            document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
+                            document.getElementById("text-description").innerText = images.description || '';
 
-                        modalDialog.show();
+                            if (images.paths != null) {
+                                displayImages_v3(images.paths);
+                            } else {
+                                console.log(`Sorry, could not find images :-(`);
+                            }
+
+                            modalDialog.show();
+                        });
+                        // getImageDescription_v2(feature.properties.id);
+                        // getImageDescription_v2(feature.properties.PID);
                     });
-                    // getImageDescription_v2(feature.properties.id);
-                    // getImageDescription_v2(feature.properties.PID);
-                });
+                } else if (feature.geometry.type === "MultiPolygon" | feature.geometry.type === "Polygon") { 
+                    layer.on('click', async () => {
+                        // TODO - check JSON properties (get list of keys)
+                        findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
+                            document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
+                            document.getElementById("text-description").innerText = images.description || '';
+
+                            if (images.paths != null) {
+                                displayImages_v3(images.paths);
+                            } else {
+                                console.log(`Sorry, could not find images :-(`);
+                            }
+
+                            modalDialog.show();
+                        });
+                        // getImageDescription_v2(feature.properties.id);
+                        // getImageDescription_v2(feature.properties.PID);
+                    });
+                } else { // fallback for boundaries: LineString or MultiLineString
+
+                }
+
+                
             }
         }).addTo(map);
     });
