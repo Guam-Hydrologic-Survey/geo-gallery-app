@@ -339,7 +339,48 @@ leaflet pattern fill rendering
 ------------------------------------------------------------ */
 
 
-const renderer = L.svg().addTo(map);
+// const renderer = L.svg().addTo(map);
+
+// define patterns - each have a different id 
+const pattern_defs = /*html*/`
+<!-- blue stripes with id -->
+<pattern id="" x="0" y="0" width ="14", height="14" patternUnits="userSpaceOnUse"
+         patternTransform="rotate(45)">
+    <rect width="14" height="14" fill="#ffffff"/>
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#7dd9ef" stroke-width="8"/>
+</pattern>
+
+<!-- beige strips with id -->
+<pattern id=""x="0" y="0" width="7" height="7"
+         patternUnits="userSpaceOnUse"
+         patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ffffff"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#d4a8a8" stroke-width="1.5"/>
+</pattern>
+
+<!-- magenta stripes with id -->
+<pattern id="" x="0" y="0" width="14" height="14"
+         patternUnits="userSpaceOnUse">
+    <rect width="14" height="14" fill="#d63f82"/>
+    <circle cx="7" cy="7" r="3" fill="#ffffff"/>
+</pattern>
+`;
+
+// inject defs into leaflet's overlay svg 
+function injectDefs() {
+    const svg = document.querySelector(".leaflet-overlay-pane svg");
+
+    if (!svg) return;
+
+    let defs = svg.querySelector("defs");
+
+    if (!defs) {
+        defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+        svg.insertBefore(defs, svg.firstChild)
+    }
+
+    defs.innerHTML = pattern_defs;
+}
 
 
 /* ------------------------------------------------------------
@@ -355,7 +396,7 @@ function getLayers(data, ftype) {
 
         // polygons 
         if (ftype === 1) {
-            L.geoJSON(data, {
+            let polygons = L.geoJSON(data, {
                 // style polygons and lines 
                 style: (feature) => {
                     if (feature.geometry.type === "Polygon" | feature.geometry.type === "MultiPolygon") { 
@@ -390,6 +431,22 @@ function getLayers(data, ftype) {
                     } 
                 }
             }).addTo(map);
+    //         polygons.bringToBack();
+
+    //         const svg = map.getPanes().overlayPane.querySelector("svg");
+
+    //         svg.insertAdjacentHTML("afterbegin",
+    //             `
+    //             <pattern id="diagonalStripes" patternUnits="userSpaceOnUse"
+    //   width="12" height="12" patternTransform="rotate(45)">
+    //   <rect width="12" height="12" fill="#d9edf7"/>
+    //   <line x1="0" y1="0" x2="0" y2="12"
+    //     stroke="#0077b6" stroke-width="4"/>
+    // </pattern>
+    //             `
+    //         );
+
+    //         console.log("Added pattern")
 
         // boundaries
         } else if (ftype === 2) {
@@ -408,7 +465,7 @@ function getLayers(data, ftype) {
         
         // points 
         } else if (ftype === 3) {
-            L.geoJSON(data, {
+            let points = L.geoJSON(data, {
                 // style points 
                 pointToLayer: (feature, latlng) => {
                     return L.circleMarker(latlng, {
@@ -442,6 +499,7 @@ function getLayers(data, ftype) {
                     } 
                 }
             }).addTo(map);
+            points.bringToFront();
         }
     });
 }
