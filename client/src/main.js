@@ -142,10 +142,23 @@ const ewi = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Wo
         className: 'fade-layer',
     }); 
 
-// use osm as default map tiles 
-osm.addTo(map);
+// esri world topo map 
+const ewtm = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri',
+        className: 'fade-layer',
+    });
 
-let currentLayer = 'osm';
+// esri world gray canvas map 
+const ewgc = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri',
+        className: 'fade-layer',
+    });
+
+// use osm as default map tiles 
+// osm.addTo(map);
+ewtm.addTo(map);
+
+let currentLayer = 'ewtm';
 
 
 /* ------------------------------------------------------------
@@ -219,14 +232,14 @@ event listeners for dock buttons
 
 
 document.getElementById('toggle-layer').addEventListener('click', () => { 
-    if (currentLayer === 'osm') {
-        map.removeLayer(osm);
+    if (currentLayer === 'ewtm') {
+        map.removeLayer(ewtm);
         ewi.addTo(map);
         currentLayer = 'ewi';
     } else {
         map.removeLayer(ewi);
-        osm.addTo(map);
-        currentLayer = 'osm';
+        ewtm.addTo(map);
+        currentLayer = 'ewtm';
     }
 });
 
@@ -260,28 +273,96 @@ document.addEventListener('keydown', (pressed) => {
 // demo purposes 
 // getLayers("/data/points.json")
 // getLayers("/data/polygons.json")
-getLayers("/data/GeoGalPoints2026.json");
-getLayers("/data/GeoGalGMG2026.json");
 
+// official layers
+getLayers("/data/GeoGalGMG2026.json");
+getLayers("/data/GeoGalPoints2026.json");
+getLayers("/data/GeoGalGMGBndry2026.json");
 
 /* ------------------------------------------------------------
 functions for leaflet map layers, image retrieval   
 ------------------------------------------------------------ */
+
+// temporary function to set the point color
+function getColor(code) {
+    switch(code) {
+        case 0:
+            return "#000";
+        case 1:
+            return "#fff";
+        case 2:
+            return "#AA4A44";
+        case 3:
+            return "#FFDE21";
+        case 4:
+            return "#50C878";
+        default:
+            return "#708090";
+    }
+}
+
+// style the line type
+function getLineType(code) {
+    if (code != 1) {
+        return null;
+    } else {
+        return "5, 5";
+    }
+}
+
+// style the line color 
+function getLineColor(code) {
+    if (code === 0 | code === 1) {
+        return "#000"
+    } else {
+        return "#62d4f4";
+    }
+}
 
 function getLayers(data) {
     fetch(data) 
     .then(response => response.json())
     .then(data => {
         L.geoJSON(data, {
+            // style points 
+            pointToLayer: (feature, latlng) => {
+                return L.circleMarker(latlng, {
+                    radius: 8, 
+                    fillColor: getColor(feature.properties.SCode),
+                    color: "#000",
+                    weight: 2,
+                    fillOpacity: 1
+                });
+            },
+            // style polygons and lines 
+            style: (feature) => {
+                if (feature.geometry.type === "Polygon" | feature.geometry.type === "MultiPolygon") { 
+                    return {
+                        color: `#${feature.properties.Hex}`,
+                        weight: 2,
+                        fillColor: `#${feature.properties.Hex}`,
+                        fillOpacity: 1
+                    };
+                }
+
+                if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
+                    return {
+                        color: getLineColor(feature.properties.Code1),
+                        weight: 2, 
+                        dashArray: getLineType(feature.properties.Code1),
+                    }
+                }
+            },
+            // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
             onEachFeature: (feature, layer) => {
-                if (feature.geometry.type === "Point") {
+                if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
                     // console.log("Checking geometry type:")
                     // console.log(feature.geometry.type);
-                    console.log("Checking SCode");
-                    console.log(`Place: ${feature.properties.Place}, SCode: ${feature.properties.SCode}`);
+                    // console.log("Checking SCode");
+                    // console.log(`Place: ${feature.properties.Place}, SCode: ${feature.properties.SCode}`);
+                    console.log("Checking LineString");
+                    console.log(feature.properties.Code1)
                 } 
-
-                // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 if (feature.geometry.type === "Point") {
                     layer.on('click', async () => {
                         // TODO - check JSON properties (get list of keys)
@@ -318,11 +399,7 @@ function getLayers(data) {
                         // getImageDescription_v2(feature.properties.id);
                         // getImageDescription_v2(feature.properties.PID);
                     });
-                } else { // fallback for boundaries: LineString or MultiLineString
-
-                }
-
-                
+                } 
             }
         }).addTo(map);
     });
