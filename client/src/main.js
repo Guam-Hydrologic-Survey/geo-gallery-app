@@ -505,7 +505,7 @@ function getLayers(data, ftype) {
                     if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
                         return {
                             color: getLineColor(feature.properties.Code1),
-                            weight: 2, 
+                            weight: 1, 
                             dashArray: getLineType(feature.properties.Code1),
                         }
                     }
