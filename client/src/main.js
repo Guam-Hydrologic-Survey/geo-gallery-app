@@ -353,7 +353,7 @@ function getLineType(code) {
     if (code != 1) {
         return null;
     } else {
-        return "5, 5";
+        return "15, 15";
     }
 }
 
