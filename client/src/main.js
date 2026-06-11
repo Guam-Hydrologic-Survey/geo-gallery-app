@@ -6,7 +6,8 @@ import Viewer from 'viewerjs';
 import 'viewerjs/dist/viewer.css';
 import 'leaflet/dist/leaflet.css';
 
-
+// components 
+import { Legend } from './components/Legend.js';
 
 /* ------------------------------------------------------------
 adjust header
@@ -30,7 +31,7 @@ let app = document.getElementById("app");
 app.innerHTML = /*html*/ `
 <div id="map"></div>
 
-<!-- modal -->
+<!-- photo gallery modal -->
 <div class="modal fade" id="results" tabindex="-1" data-bs-backdrop="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
@@ -51,6 +52,7 @@ app.innerHTML = /*html*/ `
     </div>
 </div>
 
+<!-- tutorial modal  -->
 <div class="modal fade" id="tutorial" tabindex="-1" data-bs-backdrop="true">
     <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
         <div class="modal-content">
@@ -71,9 +73,24 @@ app.innerHTML = /*html*/ `
     </div>
 </div>
 
+<!-- legend offcanvas -->
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="legend-offcanvas" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>Try scrolling the rest of the page to see this option in action.</p>
+    </div>
+</div>
+
 <!-- dock -->
 <div class="dock-wrapper">
 <div class="dock" id="dock-control">
+    <button id="toggle-legend" data-bs-toggle="offcanvas" data-bs-target="legend-offcanvas" aria-controls="offcanvasScrolling">
+        <i data-lucide="list"></i>
+        <span class="dock-icon-tooltip">Legend</span>
+    </button>
     <button id="toggle-layer">
         <i data-lucide="layers"></i>
         <span class="dock-icon-tooltip">Toggle Layer</span>
@@ -203,6 +220,22 @@ tutorialModal.show();
 setTimeout(() => {
     tutorialModal.hide();
 }, 4000);
+
+
+/* ------------------------------------------------------------
+offcanvas handling for legend
+------------------------------------------------------------ */
+
+// event listener for legend on dock 
+const legend_btn = document.getElementById("toggle-legend");
+
+legend_btn.addEventListener("click", () => {
+    console.log("Clicked on legend-offcanvas button")
+});
+
+const legend_offcanvas = document.getElementById("legend-offcanvas");
+
+
 
 
 /* ------------------------------------------------------------
@@ -343,25 +376,25 @@ leaflet pattern fill rendering
 
 // define patterns - each have a different id 
 const pattern_defs = /*html*/`
-<!-- blue stripes with id -->
+<!-- blue stripes with SID 17 (label: QTma, description: Mariana, Hagåtña argillacous member -->
 <pattern id="" x="0" y="0" width ="14", height="14" patternUnits="userSpaceOnUse"
          patternTransform="rotate(45)">
     <rect width="14" height="14" fill="#ffffff"/>
-    <line x1="0" y1="0" x2="0" y2="14" stroke="#7dd9ef" stroke-width="8"/>
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#ade9ff" stroke-width="8"/>
 </pattern>
 
-<!-- beige strips with id -->
+<!-- beige strips with SID 4 (label: Tt, description: Talisay) -->
 <pattern id=""x="0" y="0" width="7" height="7"
          patternUnits="userSpaceOnUse"
          patternTransform="rotate(45)">
     <rect width="7" height="7" fill="#ffffff"/>
-    <line x1="0" y1="0" x2="0" y2="7" stroke="#d4a8a8" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#bcaf9f" stroke-width="1.5"/>
 </pattern>
 
-<!-- magenta stripes with id -->
+<!-- magenta stripes with SID 9 (label: Tu, description: Umatac formation undifferentiated) -->
 <pattern id="" x="0" y="0" width="14" height="14"
          patternUnits="userSpaceOnUse">
-    <rect width="14" height="14" fill="#d63f82"/>
+    <rect width="14" height="14" fill="#c77bb2"/>
     <circle cx="7" cy="7" r="3" fill="#ffffff"/>
 </pattern>
 `;
@@ -380,6 +413,22 @@ function injectDefs() {
     }
 
     defs.innerHTML = pattern_defs;
+}
+
+map.on("layeradd zoomend moveend viewresetr", injectDefs);
+
+// style function 
+function addPatternStyle(feature) {
+    const id = feature.properties.SID;
+    const pattern = Object.prototype.hasOwnProperty.call(id);
+
+    return {
+        fillColor: ``,
+        fillOpacity: 1,
+        color: ``,
+        opacity: 1,
+        weight: 2
+    };
 }
 
 
