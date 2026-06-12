@@ -222,3 +222,12 @@ h1 {
 .dock .form-check-label {
     font-size: 14px;
 }
+
+.bs-btn-group {
+    margin: 20px;
+}
+
+.btn-group { 
+    z-index: 9999;
+    float: right;
+}
