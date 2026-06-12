@@ -7,7 +7,8 @@ import 'viewerjs/dist/viewer.css';
 import 'leaflet/dist/leaflet.css';
 
 // components 
-import { Legend } from './components/Legend.js';
+// import { Legend } from './components/Legend.js';
+import { NavBar } from './components/NavBar.js';
 
 /* ------------------------------------------------------------
 adjust header
@@ -29,6 +30,7 @@ initialize app
 let app = document.getElementById("app");
 
 app.innerHTML = /*html*/ `
+<div id="nav-bar"></div>
 <div id="map"></div>
 
 <!-- photo gallery modal -->
@@ -145,6 +147,13 @@ app.innerHTML = /*html*/ `
 
 
 /* ------------------------------------------------------------
+initialize navbar buttons 
+------------------------------------------------------------ */
+NavBar(document.getElementById("nav-bar"));
+// Legend(document.getElementById("legend-offcanvas"));
+
+
+/* ------------------------------------------------------------
 initialize leaflet map 
 ------------------------------------------------------------ */
 
@@ -226,14 +235,14 @@ setTimeout(() => {
 offcanvas handling for legend
 ------------------------------------------------------------ */
 
-// event listener for legend on dock 
-const legend_btn = document.getElementById("toggle-legend");
+// // event listener for legend on dock 
+// const legend_btn = document.getElementById("toggle-legend");
 
-legend_btn.addEventListener("click", () => {
-    console.log("Clicked on legend-offcanvas button")
-});
+// legend_btn.addEventListener("click", () => {
+//     console.log("Clicked on legend-offcanvas button")
+// });
 
-const legend_offcanvas = document.getElementById("legend-offcanvas");
+// const legend_offcanvas = document.getElementById("legend-offcanvas");
 
 
 
