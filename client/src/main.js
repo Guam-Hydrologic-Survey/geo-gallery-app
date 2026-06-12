@@ -9,6 +9,7 @@ import 'leaflet/dist/leaflet.css';
 // components 
 // import { Legend } from './components/Legend.js';
 import { NavBar } from './components/NavBar.js';
+import { About } from './components/About.js';
 
 /* ------------------------------------------------------------
 adjust header
@@ -31,6 +32,7 @@ let app = document.getElementById("app");
 
 app.innerHTML = /*html*/ `
 <div id="nav-bar"></div>
+<div id="about-modal"></div>
 <div id="map"></div>
 
 <!-- photo gallery modal -->
@@ -147,10 +149,11 @@ app.innerHTML = /*html*/ `
 
 
 /* ------------------------------------------------------------
-initialize navbar buttons 
+initialize other components: about, navbar, legend
 ------------------------------------------------------------ */
 NavBar(document.getElementById("nav-bar"));
 // Legend(document.getElementById("legend-offcanvas"));
+About(document.getElementById("about-modal"));
 
 
 /* ------------------------------------------------------------
