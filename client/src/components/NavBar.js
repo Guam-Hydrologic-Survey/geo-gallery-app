@@ -28,16 +28,9 @@ console.log("Added nav bar");
           <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
         </svg>
       </button>
-    
-      <!-- Toggle for Summary modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#summary" title="Summary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
-          <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
-        </svg>
-      </button>
 
       <!-- Toggle for Legend modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#legend" title="Legend">
+      <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#legend-offcanvas" title="Legend">
       <!--
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
@@ -76,7 +69,9 @@ console.log("Added nav bar");
       </div>
 
       <!-- container for the Leaflet Control Search -->
+      <!--
       <div class="input-group" id="search-box"></div>
+      -->
     </div>
   </div>
   `;
