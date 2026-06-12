@@ -1,0 +1,123 @@
+
+.glassmorphic {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px) saturate(100%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* optional, adds a subtle border */
+    border-radius: 20px !important;
+    box-shadow: none !important; /* removes Bootstrap's default shadow */
+}
+
+.dock-wrapper {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.dock {
+    background: rgba(255, 255, 255, 0.1);
+    /* background-color: rgba(17, 25, 40, 0.75); */
+    border-radius: 20px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    padding: 10px 15px;
+    gap: 16px;
+    backdrop-filter: blur(10px) saturate(100%);
+    -webkit-backdrop-filter: blur(10px) saturate(100%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+}
+
+.dock.hidden {
+    transform: translateY(120%);
+    opacity: 0;
+    filter: brightness(0.8);
+    pointer-events: none;
+}
+
+.dock button {
+    background: none;
+    border: none; 
+    background-color: #333;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.dock button:hover {
+    transform: scale(1.2);
+    /* background-color: rgba(0, 0, 0, 0.05); */
+    background-color: #131112;
+}
+
+.dock svg {
+    width: 24px;
+    height: 24px;
+    /* stroke: #333; */
+    stroke: white;
+}
+
+.dock-icon-tooltip {
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    background-color: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 10;
+}
+
+.dock button:hover .tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+.dock .dropdown-toggle::after {
+    display: none;
+}
+
+.dock .dropdown-menu {
+    bottom: 50px;
+    background-color: #222;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dock .dropdown-item {
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+.dock .dropdown-item:hover {
+    background-color: #444;
+}
+
+.dock .form-check {
+    padding-left: 2.5rem;
+    color: #fff;
+}
+
+.dock .form-check-input {
+    margin-left: -1.5rem;
+    margin-right: 0.5rem;
+}
+
+.dock .form-check-label {
+    font-size: 14px;
+}
