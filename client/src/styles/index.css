@@ -1,0 +1,34 @@
+/* ---------------------------------------
+main.css (the only HTML reference)
+
+import order    (order matters!)
+1. variabes     (everything depens on these tokens)
+2. reset        (wipe browser defaults before implementing our own system)
+3. typography   (global element syltes (e.g., h1, p, a, etc.)
+4. layout       (strutural containers and grids) 
+5. components   (self-contained UI pieces)
+6. pages        (page-specific overrides)
+7. utilities    (last, so this can override anything above)
+--------------------------------------- */
+
+/* 1) base */
+@import './base/variables.css';
+@import './base/reset.css';
+@import './base/typography.css';
+
+/* 2) layout */
+@import './layout/grid.css';
+@import './layout/nav.css';
+
+/* 3) components */
+@import './components/buttons.css';
+@import './components/cards.css';
+@import './components/modals.css';
+@import './components/offcanvases.css';
+@import './components/toasts.css';
+
+/* 4) pages */
+@import './pages/map.css';
+
+/* 5) utlities */
+@import './utilities.css';
