@@ -26,6 +26,8 @@ import order    (order matters!)
 @import './components/modals.css';
 @import './components/offcanvases.css';
 @import './components/toasts.css';
+@import './components/dock.css';
+@import './components/images.css';
 
 /* 4) pages */
 @import './pages/map.css';
