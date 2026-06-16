@@ -80,11 +80,32 @@ app.innerHTML = /*html*/ `
 <!-- legend offcanvas -->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="legend-offcanvas" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Legend</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>Try scrolling the rest of the page to see this option in action.</p>
+        <p>Geology Map of Guam</p>
+        <div class="legend-row">
+            <!-- <div class="legend-swatch"></div> -->
+            <svg viewBox="0 0 30 30" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="30" fill="hotpink" />
+            </svg>
+            <div class="legend-key">Barrigada</div>
+        </div>
+        <div class="legend-row">
+            <!-- div class="legend-swatch"></!-->
+            <svg viewBox="0 0 30 30" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="30" fill="hotpink" />
+            </svg>
+            <div class="legend-key">Umatac</div>
+        </div>
+        <div class="legend-row">
+            <!--<div class="legend-swatch"></div>-->
+            <svg viewBox="0 0 30 30" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="30" fill="hotpink" />
+            </svg>
+            <div class="legend-key">Mariana</div>
+        </div>
     </div>
 </div>
 
