@@ -3,3 +3,23 @@ utilities.css
 - one-off overrides for when a specific instance needs to deviate
 from set defaults in base/ and components/ 
 ------------------------------------------------------------ */
+
+.text-medium-weight {
+    font-weight: 500;
+}
+
+.text-bold-weight {
+    font-weight: 700;
+}
+
+.text-extra-bold-weight {
+    font-weight: 800;
+}
+
+.text-ultra-bold-weight {
+    font-weight: 900;
+}
+
+.text-italicize {
+    font-style: italic;
+}
