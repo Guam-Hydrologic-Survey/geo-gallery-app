@@ -1,3 +1,10 @@
+/* ------------------------------------------------------------
+gallery.css
+- gallery display and layout 
+- includes entrance animations 
+- individual image styling 
+------------------------------------------------------------ */
+
 #gallery {
     display: flex;
     flex-wrap: wrap;
