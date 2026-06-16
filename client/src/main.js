@@ -65,9 +65,9 @@ app.innerHTML = /*html*/ `
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            How to use<br>
-            To view available field photos for a site, please click on a map feature (e.g., polygon, point).<br>
-            Brought to you by the GHS Information Management Team at WERI-UOG.
+            <p class="text-bold-weight">How to use:</p>
+            <p>To view available field photos for a site, please click on a map feature (e.g., polygon or point).</p>
+            <p class="text-italicize">Brought to you by the GHS Information Management Team at WERI-UOG.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Back to map view">Close</button>
@@ -225,13 +225,13 @@ modal handling for short tutorial
 const tutorialElement = document.getElementById("tutorial");
 const tutorialModal = new bootstrap.Modal(tutorialElement);
 
-// show modal 
-tutorialModal.show();
+// // show modal 
+// tutorialModal.show();
 
-// auto-hide after some seconds 
-setTimeout(() => {
-    tutorialModal.hide();
-}, 4000);
+// // auto-hide after some seconds 
+// setTimeout(() => {
+//     tutorialModal.hide();
+// }, 4000);
 
 
 /* ------------------------------------------------------------
