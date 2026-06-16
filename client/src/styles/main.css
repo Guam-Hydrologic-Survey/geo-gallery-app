@@ -1,8 +1,12 @@
 /* ---------------------------------------
-main.css (the only HTML reference)
+main.css 
+- the only HTML, JS reference 
+- entry point for styles 
+- imports all other CSS files in the correct order 
 
 import order    (order matters!)
-1. variabes     (everything depens on these tokens)
+0. external     (fonts, icons, style libraries)
+1. variables    (everything depends on these tokens)
 2. reset        (wipe browser defaults before implementing our own system)
 3. typography   (global element syltes (e.g., h1, p, a, etc.)
 4. layout       (strutural containers and grids) 
