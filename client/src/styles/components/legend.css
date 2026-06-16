@@ -1,0 +1,18 @@
+/* ------------------------------------------------------------
+legend.css
+------------------------------------------------------------ */
+
+.legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-swatch {
+    height: 30px;
+    width: 30px;
+}
+
+.legend-key {
+    font-size: 16px;
+}
