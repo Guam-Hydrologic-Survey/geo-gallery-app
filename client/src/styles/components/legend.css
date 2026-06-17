@@ -4,13 +4,31 @@ legend.css
 
 .legend-row {
     display: flex;
+    /* flex-direction: row; */
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin: 0.5rem;
+}
+
+.legend-toggle {
+    display: flex;
+    justify-content: left;
     align-items: center;
     gap: 10px;
 }
 
+.legend-row:hover {
+    border: 1px solid #999999;
+    cursor: pointer;
+}
+
 .legend-swatch {
-    height: 30px;
-    width: 30px;
+    /* height: 30px;
+    width: 30px; */
 }
 
 .legend-key {
@@ -26,5 +44,5 @@ legend.css
 }
 
 .legend-description {
-    font-size: 16px;
+    font-size: 14px;
 }
