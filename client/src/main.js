@@ -83,29 +83,7 @@ app.innerHTML = /*html*/ `
         <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Legend</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
-        <p>Geology Map of Guam</p>
-        <div class="legend-row">
-            <!-- <div class="legend-swatch"></div> -->
-            <svg viewBox="0 0 30 30" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                <rect width="30" height="30" fill="hotpink" />
-            </svg>
-            <div class="legend-key">Barrigada</div>
-        </div>
-        <div class="legend-row">
-            <!-- div class="legend-swatch"></!-->
-            <svg viewBox="0 0 30 30" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                <rect width="30" height="30" fill="hotpink" />
-            </svg>
-            <div class="legend-key">Umatac</div>
-        </div>
-        <div class="legend-row">
-            <!--<div class="legend-swatch"></div>-->
-            <svg viewBox="0 0 30 30" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                <rect width="30" height="30" fill="hotpink" />
-            </svg>
-            <div class="legend-key">Mariana</div>
-        </div>
+    <div class="offcanvas-body" id="legend-contents">
     </div>
 </div>
 
@@ -175,6 +153,7 @@ initialize other components: about, navbar, legend
 NavBar(document.getElementById("nav-bar"));
 // Legend(document.getElementById("legend-offcanvas"));
 About(document.getElementById("about-modal"));
+LegendContents("/data/GeologicUnits.json");
 
 
 /* ------------------------------------------------------------
@@ -736,3 +715,42 @@ function clearGallery() {
         gallery.removeChild(gallery.firstChild);
     }
 }
+
+
+/* ------------------------------------------------------------
+functions to create gallery viewer and reset 
+------------------------------------------------------------ */
+
+
+function LegendContents(data) {
+
+    let legend = document.getElementById("legend-contents");
+
+    fetch(data) 
+    .then(response => response.json())
+    .then(contents => { 
+        console.log(contents);
+        console.log(contents.geologic_units.length)
+
+        const geologic_units = contents.geologic_units;
+
+        const HEIGHT = 40;
+        const WIDTH = 40;
+
+        for (let i = 0; i < geologic_units.length; i++) {
+            const legend_row = `
+            <div class="legend-row">
+            <!-- <div class="legend-swatch"></div> -->
+                <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
+                </svg>
+                <div class="legend-key">
+                    <div class="legend-label text-bold-weight">${geologic_units[i].label}</div>
+                    <div class="legend-description">${geologic_units[i].description}</div>
+                </div>
+            </div>
+            `;
+
+            legend.insertAdjacentHTML("beforeend", legend_row);
+        }
+    })}
