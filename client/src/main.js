@@ -339,6 +339,21 @@ getLayers("/data/GeoGalPoints2026.json", 3);
 
 
 /* ------------------------------------------------------------
+enforce layer orders 
+------------------------------------------------------------ */
+
+// create panes for each feature 
+map.createPane('polygonPane');
+map.createPane('linePane');
+map.createPane('pointPane')
+
+// assign z-index values
+map.getPane('polygonPane').style.zIndex = 300;
+map.getPane('linePane').style.zIndex = 350;
+map.getPane('pointPane').style.zIndex = 399; // keep below 400, so tooltips & popups still work 
+
+
+/* ------------------------------------------------------------
 functions for styling map features (e.g., points, polygons, lines)
 ------------------------------------------------------------ */
 
@@ -459,6 +474,7 @@ function getLayers(data, ftype) {
         // polygons 
         if (ftype === 1) {
             let polygons = L.geoJSON(data, {
+                pane: 'polygonPane',
                 // style polygons and lines 
                 style: (feature) => {
                     if (feature.geometry.type === "Polygon" | feature.geometry.type === "MultiPolygon") { 
@@ -513,6 +529,7 @@ function getLayers(data, ftype) {
         // boundaries
         } else if (ftype === 2) {
             L.geoJSON(data, {
+                pane: 'linePane',
                 // style polygons and lines 
                 style: (feature) => {
                     if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
@@ -528,6 +545,7 @@ function getLayers(data, ftype) {
         // points 
         } else if (ftype === 3) {
             let points = L.geoJSON(data, {
+                pane: 'pointPane',
                 // style points 
                 pointToLayer: (feature, latlng) => {
                     return L.circleMarker(latlng, {
@@ -535,7 +553,8 @@ function getLayers(data, ftype) {
                         fillColor: getColor(feature.properties.SCode),
                         color: "#000",
                         weight: 2,
-                        fillOpacity: 1
+                        fillOpacity: 1,
+                        pane: 'pointPane'
                     });
                 },
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
