@@ -154,6 +154,7 @@ NavBar(document.getElementById("nav-bar"));
 // Legend(document.getElementById("legend-offcanvas"));
 About(document.getElementById("about-modal"));
 LegendContents("/data/GeologicUnits.json");
+// LegendContents("/data/GeoGalGMG2026.json");
 
 
 /* ------------------------------------------------------------
@@ -730,7 +731,9 @@ function LegendContents(data) {
     .then(response => response.json())
     .then(contents => { 
         console.log(contents);
-        console.log(contents.geologic_units.length)
+        // console.log(contents.geologic_units.length)
+
+        // console.log(contents.features.length);
 
         const geologic_units = contents.geologic_units;
 
@@ -740,14 +743,18 @@ function LegendContents(data) {
         for (let i = 0; i < geologic_units.length; i++) {
             const legend_row = `
             <div class="legend-row">
-            <!-- <div class="legend-swatch"></div> -->
-                <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
-                </svg>
-                <div class="legend-key">
-                    <div class="legend-label text-bold-weight">${geologic_units[i].label}</div>
-                    <div class="legend-description">${geologic_units[i].description}</div>
+                <div class="legend-toggle">
+                    <div class="legend-swatch">
+                        <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
+                        </svg>
+                    </div>
+                    <div class="legend-key">
+                        <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
+                        <p class="legend-description">${geologic_units[i].description}</p>
+                    </div>
                 </div>
+                <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
             </div>
             `;
 
