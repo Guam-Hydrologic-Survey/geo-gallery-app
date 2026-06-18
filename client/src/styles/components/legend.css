@@ -41,8 +41,12 @@ legend.css
 .legend-label {
     font-size: 16px;
     letter-spacing: 0.08rem;
+    padding: 0px;
+    margin: 0px;
 }
 
 .legend-description {
     font-size: 14px;
+    padding: 0px;
+    margin: 0px;
 }
