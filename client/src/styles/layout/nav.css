@@ -4,6 +4,15 @@ nav.css
 - e.g., positioning, height, spacing, and link states 
 ------------------------------------------------------------ */
 
+/* head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    height: 52px;
+    z-index: 1100;
+} */
+
 .bs-btn-group {
     margin: 20px;
 }

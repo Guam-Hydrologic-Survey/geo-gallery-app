@@ -28,7 +28,29 @@ initialize app
 ------------------------------------------------------------ */
 
 
-let app = document.getElementById("app");
+// const header = document.createElement("header");
+
+// header.innerHTML = /*html*/ `
+// <div class="branding" id="">MAppFx: Geology Photo Gallery</div>
+// <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+//   <button type="button" class="btn btn-primary">1</button>
+//   <button type="button" class="btn btn-primary">2</button>
+
+//   <div class="btn-group" role="group">
+//     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+//       Dropdown
+//     </button>
+//     <ul class="dropdown-menu">
+//       <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+//       <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+//     </ul>
+//   </div>
+// </div>
+// `;
+
+const app = document.getElementById("app");
+
+// app.insertAdjacentElement("beforebegin", header);
 
 app.innerHTML = /*html*/ `
 <div id="nav-bar"></div>
