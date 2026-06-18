@@ -473,9 +473,12 @@ function injectDefs() {
     }
 
     defs.innerHTML = pattern_defs;
+
+    // confirm function run
+    console.log("Ran injectDefs");
 }
 
-map.on("layeradd zoomend moveend viewresetr", injectDefs);
+map.on("layeradd zoomend moveend viewreset", injectDefs);
 
 // style function 
 function addPatternStyle(feature) {
@@ -489,6 +492,19 @@ function addPatternStyle(feature) {
         opacity: 1,
         weight: 2
     };
+}
+
+function darkenHex(hexcode) {
+    const amount = 0.3;
+    const num = parseInt(hexcode, 16);
+    const r = Math.max(0, (num >> 16) - Math.round(255 * amount));
+    const g = Math.max(0, ((num >> 8) & 0xff) - Math.round(255 * amount));
+    const b = Math.max(0, (num & 0xff) - Math.round(255 * amount));
+
+    const darkerHexcode = "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("");
+
+    // console.log(`Original hex: ${hexcode} | Num: ${num} | Darker hex: ${darkerHexcode}`);
+    return darkerHexcode;
 }
 
 
@@ -521,6 +537,8 @@ function getLayers(data, ftype) {
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 onEachFeature: (feature, layer) => {
                     if (feature.geometry.type === "MultiPolygon" | feature.geometry.type === "Polygon") { 
+
+                        // layer click event
                         layer.on('click', async () => {
                             // TODO - check JSON properties (get list of keys)
                             findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
@@ -538,6 +556,15 @@ function getLayers(data, ftype) {
                             // getImageDescription_v2(feature.properties.id);
                             // getImageDescription_v2(feature.properties.PID);
                         });
+
+                        layer.on({
+                            mouseover(e) {
+                                e.target.setStyle({ weight: 4, color:  `${darkenHex(feature.properties.Hex)}` });
+                            },
+                            mouseout(e) {
+                                polygons.resetStyle(e.target);
+                            }
+                        })
                     } 
                 }
             }).addTo(map);
@@ -557,6 +584,8 @@ function getLayers(data, ftype) {
     //         );
 
     //         console.log("Added pattern")
+
+        injectDefs();
 
         // boundaries
         } else if (ftype === 2) {
@@ -813,3 +842,4 @@ function LegendContents(data) {
             legend.insertAdjacentHTML("beforeend", legend_row);
         }
     })}
+
