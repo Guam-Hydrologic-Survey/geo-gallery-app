@@ -424,27 +424,29 @@ leaflet pattern fill rendering
 
 // const renderer = L.svg().addTo(map);
 
+const patterned_polygons = new Set([4, 9, 17]);
+
 // define patterns - each have a different id 
 const pattern_defs = /*html*/`
 <!-- blue stripes with SID 17 (label: QTma, description: Mariana, Hagåtña argillacous member -->
-<pattern id="" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse"
+<pattern id="pat-17" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse"
          patternTransform="rotate(315)">
     <rect width="14" height="14" fill="#ade9ff"/>
-    <line x1="0" y1="0" x2="0" y2="14" stroke="#fff"/>
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
 </pattern>
 
 <!-- beige strips with SID 4 (label: Tt, description: Talisay) -->
-<pattern id=""x="0" y="0" width="7" height="7"
+<pattern id="pat-4" x="0" y="0" width="12" height="12"
          patternUnits="userSpaceOnUse"
          patternTransform="rotate(45)">
-    <rect width="7" height="7" fill="#bcaf9f"/>
-    <line x1="0" y1="0" x2="0" y2="7" stroke="#fff" stroke-width="1.5"/>
+    <rect width="12" height="12" fill="#bcaf9f"/>
+    <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="1.5"/>
 </pattern>
 
 <!-- magenta stripes with SID 9 (label: Tu, description: Umatac formation undifferentiated) -->
-<pattern id="" x="0" y="0" width="14" height="14"
+<pattern id="pat-9" x="0" y="0" width="56" height="56"
          patternUnits="userSpaceOnUse">
-    <rect width="14" height="14" fill="#c77bb2"/>
+    <rect width="56" height="56" fill="#c77bb2"/>
     <circle cx="7" cy="12" r="3" fill="#ffffff"/>
     <circle cx="23" cy="4" r="3" fill="#ffffff"/>
     <circle cx="41" cy="9" r="3" fill="#ffffff"/>
@@ -461,9 +463,12 @@ const pattern_defs = /*html*/`
 
 // inject defs into leaflet's overlay svg 
 function injectDefs() {
-    const svg = document.querySelector(".leaflet-overlay-pane svg");
+    const svg = document.querySelector(".leaflet-polygon-pane svg");
 
-    if (!svg) return;
+    if (!svg) {
+        console.log('injectDefs: SVG not found yet');
+        return;
+    }
 
     let defs = svg.querySelector("defs");
 
@@ -482,16 +487,27 @@ map.on("layeradd zoomend moveend viewreset", injectDefs);
 
 // style function 
 function addPatternStyle(feature) {
-    const id = feature.properties.SID;
-    const pattern = Object.prototype.hasOwnProperty.call(id);
+    // const id = feature.properties.SID;
+    // const pattern = Object.prototype.hasOwnProperty.call(id);
+    const patterned_polygons = new Set([4, 9, 17]);
 
-    return {
-        fillColor: ``,
-        fillOpacity: 1,
-        color: ``,
-        opacity: 1,
-        weight: 2
-    };
+    if (patterned_polygons.has(feature.properties.SID)) {
+        return {
+            weight: 1,
+            color: `#${feature.properties.Hex}`,
+            opacity: 1,
+            fillColor: `url-(#pat-${feature.properties.SID})`,
+            fillOpacity: 1
+        }
+    } else {
+        return {
+            weight: 1,
+            color: `#${feature.properties.Hex}`,
+            opacity: 1,
+            fillColor: `#${feature.properties.Hex}`,
+            fillOpacity: 1
+        }
+    }
 }
 
 function darkenHex(hexcode) {
@@ -526,13 +542,31 @@ function getLayers(data, ftype) {
                 // style polygons and lines 
                 style: (feature) => {
                     if (feature.geometry.type === "Polygon" | feature.geometry.type === "MultiPolygon") { 
-                        return {
-                            color: `#${feature.properties.Hex}`,
-                            weight: 2,
-                            fillColor: `#${feature.properties.Hex}`,
-                            fillOpacity: 1
-                        };
-                    }
+                        // return {
+                        //     color: `#${feature.properties.Hex}`,
+                        //     weight: 2,
+                        //     fillColor: `#${feature.properties.Hex}`,
+                        //     fillOpacity: 1
+                        // };
+                        if (patterned_polygons.has(Number(feature.properties.SID))) {
+                            console.log(feature.properties.SID);
+                            return {
+                                weight: 1,
+                                color: `#${feature.properties.Hex}`,
+                                opacity: 1,
+                                fillColor: `url(#pat-${Number(feature.properties.SID)})`,
+                                fillOpacity: 1
+                            }
+                        } else {
+                            return {
+                                weight: 1,
+                                color: `#${feature.properties.Hex}`,
+                                opacity: 1,
+                                fillColor: `#${feature.properties.Hex}`,
+                                fillOpacity: 1
+                            }
+                        } // end of pattern style conditional 
+                    } // end of polygon geometry conditional 
                 },
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 onEachFeature: (feature, layer) => {
@@ -559,7 +593,10 @@ function getLayers(data, ftype) {
 
                         layer.on({
                             mouseover(e) {
-                                e.target.setStyle({ weight: 4, color:  `${darkenHex(feature.properties.Hex)}` });
+                                e.target.setStyle({ 
+                                    weight: 4, 
+                                    color: `${darkenHex(feature.properties.Hex)}` 
+                                });
                             },
                             mouseout(e) {
                                 polygons.resetStyle(e.target);
@@ -567,25 +604,10 @@ function getLayers(data, ftype) {
                         })
                     } 
                 }
-            }).addTo(map);
-    //         polygons.bringToBack();
+            });
 
-    //         const svg = map.getPanes().overlayPane.querySelector("svg");
-
-    //         svg.insertAdjacentHTML("afterbegin",
-    //             `
-    //             <pattern id="diagonalStripes" patternUnits="userSpaceOnUse"
-    //   width="12" height="12" patternTransform="rotate(45)">
-    //   <rect width="12" height="12" fill="#d9edf7"/>
-    //   <line x1="0" y1="0" x2="0" y2="12"
-    //     stroke="#0077b6" stroke-width="4"/>
-    // </pattern>
-    //             `
-    //         );
-
-    //         console.log("Added pattern")
-
-        injectDefs();
+            polygons.addTo(map);
+            injectDefs();
 
         // boundaries
         } else if (ftype === 2) {
