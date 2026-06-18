@@ -427,25 +427,35 @@ leaflet pattern fill rendering
 // define patterns - each have a different id 
 const pattern_defs = /*html*/`
 <!-- blue stripes with SID 17 (label: QTma, description: Mariana, Hagåtña argillacous member -->
-<pattern id="" x="0" y="0" width ="14", height="14" patternUnits="userSpaceOnUse"
-         patternTransform="rotate(45)">
-    <rect width="14" height="14" fill="#ffffff"/>
-    <line x1="0" y1="0" x2="0" y2="14" stroke="#ade9ff" stroke-width="8"/>
+<pattern id="" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse"
+         patternTransform="rotate(315)">
+    <rect width="14" height="14" fill="#ade9ff"/>
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#fff"/>
 </pattern>
 
 <!-- beige strips with SID 4 (label: Tt, description: Talisay) -->
 <pattern id=""x="0" y="0" width="7" height="7"
          patternUnits="userSpaceOnUse"
          patternTransform="rotate(45)">
-    <rect width="7" height="7" fill="#ffffff"/>
-    <line x1="0" y1="0" x2="0" y2="7" stroke="#bcaf9f" stroke-width="1.5"/>
+    <rect width="7" height="7" fill="#bcaf9f"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#fff" stroke-width="1.5"/>
 </pattern>
 
 <!-- magenta stripes with SID 9 (label: Tu, description: Umatac formation undifferentiated) -->
 <pattern id="" x="0" y="0" width="14" height="14"
          patternUnits="userSpaceOnUse">
     <rect width="14" height="14" fill="#c77bb2"/>
-    <circle cx="7" cy="7" r="3" fill="#ffffff"/>
+    <circle cx="7" cy="12" r="3" fill="#ffffff"/>
+    <circle cx="23" cy="4" r="3" fill="#ffffff"/>
+    <circle cx="41" cy="9" r="3" fill="#ffffff"/>
+    <circle cx="52" cy="21" r="3" fill="#ffffff"/>
+    <circle cx="14" cy="28" r="3" fill="#ffffff"/>
+    <circle cx="33" cy="31" r="3" fill="#ffffff"/>
+    <circle cx="48" cy="40" r="3" fill="#ffffff"/>
+    <circle cx="5" cy="44" r="3" fill="#ffffff"/>
+    <circle cx="19" cy="51" r="3" fill="#ffffff"/>
+    <circle cx="38" cy="49" r="3" fill="#ffffff"/>
+    <circle cx="27" cy="18" r="3" fill="#ffffff"/>
 </pattern>
 `;
 
