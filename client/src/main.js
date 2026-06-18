@@ -773,10 +773,11 @@ function LegendContents(data) {
     .then(contents => { 
         console.log(contents);
         // console.log(contents.geologic_units.length)
+        const geologic_units = contents.geologic_units;
 
         // console.log(contents.features.length);
-
-        const geologic_units = contents.geologic_units;
+        // const geologic_units = contents.features;
+        // console.log(geologic_units[0].properties.Label1);
 
         const HEIGHT = 40;
         const WIDTH = 40;
