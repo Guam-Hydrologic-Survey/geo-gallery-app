@@ -240,6 +240,29 @@ L.Icon.Default.mergeOptions({
 });
 
 
+
+/* ------------------------------------------------------------
+display/hide leaflet tooltip based on zoom level
+------------------------------------------------------------ */
+
+map.on("zoomend", function(z) {
+    let zoomLevel = map.getZoom();
+    toggleTooltips(zoomLevel);
+});
+
+function toggleTooltips(z) {
+    if (z >= 15 ){
+            [].forEach.call(document.querySelectorAll('.leaflet-tooltip'), function (t) {
+                t.style.visibility = 'visible';
+            });
+        } else {
+            [].forEach.call(document.querySelectorAll('.leaflet-tooltip'), function (t) {
+                t.style.visibility = 'hidden';
+            });
+        }
+}
+
+
 /* ------------------------------------------------------------
 modal handling for short tutorial
 ------------------------------------------------------------ */
@@ -605,6 +628,8 @@ function getLayers(data, ftype) {
                                 polygons.resetStyle(e.target);
                             }
                         })
+
+                         layer.bindTooltip(feature.properties.UnitAbr);
                     } 
                 }
             });

@@ -23,3 +23,8 @@ from set defaults in base/ and components/
 .text-italicize {
     font-style: italic;
 }
+
+/* Hides tooltips on page load */
+.leaflet-tooltip {
+    visibility: hidden;
+  }
