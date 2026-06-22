@@ -595,8 +595,11 @@ function getLayers(data, ftype) {
                             mouseover(e) {
                                 e.target.setStyle({ 
                                     weight: 4, 
-                                    color: `${darkenHex(feature.properties.Hex)}` 
+                                    color: `${darkenHex(feature.properties.Hex)}`,
+                                    // fillColor: `${darkenHex(feature.properties.Hex)}`,
                                 });
+
+                                layer.bringToFront();
                             },
                             mouseout(e) {
                                 polygons.resetStyle(e.target);
