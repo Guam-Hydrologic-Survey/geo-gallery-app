@@ -548,6 +548,53 @@ function darkenHex(hexcode) {
 
 
 /* ------------------------------------------------------------
+layer groups for polygons
+------------------------------------------------------------ */
+const legendLayers = {
+    polygonLayers: [
+        { poly1_Tf: L.featureGroup() },
+        { poly2_Ta: L.featureGroup() },
+        { poly3_Tam: L.featureGroup() },
+        { poly4_Tt: L.featureGroup() },
+        { poly5_Tug: L.featureGroup() },
+        { poly6_Tus: L.featureGroup() },
+        { poly7_Tub: L.featureGroup() },
+        { poly8_Tud: L.featureGroup() },
+        { poly9_Tu: L.featureGroup() },
+        { poly10_Tm: L.featureGroup() },
+        { poly11_Tb: L.featureGroup()},
+        { poly12_Tbl: L.featureGroup() },
+        { poly13_Tj: L.featureGroup() },
+        { poly14_Tal: L.featureGroup() },
+        { poly15_QTmp: L.featureGroup() },
+        { poly16_QTmh: L.featureGroup() },
+        { poly17_QTma: L.featureGroup() },
+        { poly18_QTmf: L.featureGroup() },
+        { poly19_QTmm: L.featureGroup() },
+        { poly20_QTmd: L.featureGroup() },
+        { poly21_QTmr: L.featureGroup() },
+        { poly22_Qt: L.featureGroup() },
+        { poly23_Qal: L.featureGroup() },
+        { poly24_Qrm: L.featureGroup() },
+        { poly25_Qrb: L.featureGroup() },
+        { poly26_Qaf: L.featureGroup() }
+    ],
+    pointLayers: [
+        { point1: L.featureGroup() },
+        { point2: L.featureGroup() },
+        { point3: L.featureGroup() },
+        { point4: L.featureGroup() },
+        {  point5: L.featureGroup() }
+    ],
+    boundaryLayers: [
+        { boundary1: L.featureGroup() },
+        { boundary2: L.featureGroup() },
+        { boundary3: L.featureGroup() }
+    ]
+};
+
+
+/* ------------------------------------------------------------
 functions for leaflet map layers, image retrieval   
 ------------------------------------------------------------ */
 
@@ -598,6 +645,13 @@ function getLayers(data, ftype) {
                         // layer.bindTooltip(feature.properties.UnitAbr);
                         // console.log(feature.properties.UnitAbr);
                         // console.log("Added tooltip");
+
+                        layer.bindPopup(`
+                            <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+                            <p>${feature.properties.MapUnit}</p>
+                            <p>Formation: ${feature.properties.Formation}</p>
+                            <p>Epoch: ${feature.properties.Epoch}</p>
+                            `);
 
                         // layer click event
                         layer.on('click', async () => {
