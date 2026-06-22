@@ -25,6 +25,6 @@ from set defaults in base/ and components/
 }
 
 /* Hides tooltips on page load */
-.leaflet-tooltip {
+/* .leaflet-tooltip {
     visibility: hidden;
-  }
+  } */

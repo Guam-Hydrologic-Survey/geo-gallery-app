@@ -245,22 +245,22 @@ L.Icon.Default.mergeOptions({
 display/hide leaflet tooltip based on zoom level
 ------------------------------------------------------------ */
 
-map.on("zoomend", function(z) {
-    let zoomLevel = map.getZoom();
-    toggleTooltips(zoomLevel);
-});
+// map.on("zoomend", function(z) {
+//     let zoomLevel = map.getZoom();
+//     toggleTooltips(zoomLevel);
+// });
 
-function toggleTooltips(z) {
-    if (z >= 15 ){
-            [].forEach.call(document.querySelectorAll('.leaflet-tooltip'), function (t) {
-                t.style.visibility = 'visible';
-            });
-        } else {
-            [].forEach.call(document.querySelectorAll('.leaflet-tooltip'), function (t) {
-                t.style.visibility = 'hidden';
-            });
-        }
-}
+// function toggleTooltips(z) {
+//     if (z >= 15 ){
+//             [].forEach.call(document.querySelectorAll('.leaflet-tooltip'), function (t) {
+//                 t.style.visibility = 'visible';
+//             });
+//         } else {
+//             [].forEach.call(document.querySelectorAll('.leaflet-tooltip'), function (t) {
+//                 t.style.visibility = 'hidden';
+//             });
+//         }
+// }
 
 
 /* ------------------------------------------------------------
@@ -595,6 +595,10 @@ function getLayers(data, ftype) {
                 onEachFeature: (feature, layer) => {
                     if (feature.geometry.type === "MultiPolygon" | feature.geometry.type === "Polygon") { 
 
+                        // layer.bindTooltip(feature.properties.UnitAbr);
+                        // console.log(feature.properties.UnitAbr);
+                        // console.log("Added tooltip");
+
                         // layer click event
                         layer.on('click', async () => {
                             // TODO - check JSON properties (get list of keys)
@@ -623,13 +627,12 @@ function getLayers(data, ftype) {
                                 });
 
                                 layer.bringToFront();
+                                console.log(feature.properties.UnitAbr)
                             },
                             mouseout(e) {
                                 polygons.resetStyle(e.target);
                             }
-                        })
-
-                         layer.bindTooltip(feature.properties.UnitAbr);
+                        });
                     } 
                 }
             });
