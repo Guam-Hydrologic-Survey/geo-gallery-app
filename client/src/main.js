@@ -937,6 +937,8 @@ function LegendContents(data) {
     legend.innerHTML = legend_tabs + legend_tabs_content;
 
     const polygon_tab = document.getElementById("panel-one");
+    const point_tab = document.getElementById("panel-two");
+    const boundaries_tab = document.getElementById("panel-three");
 
     fetch(data) 
     .then(response => response.json())
@@ -1056,6 +1058,38 @@ function LegendContents(data) {
             }
 
             polygon_tab.insertAdjacentHTML("beforeend", legend_row);
+        }
+    });
+
+    fetch("/data/PointUnits.json")
+    .then(response => response.json())
+    .then(contents => {
+        console.log(contents);
+        const point_units = contents.point_units;
+
+        const HEIGHT = 40;
+        const WIDTH = 40;
+
+        let legend_row;
+
+        for (let i = 0; i < point_units.length; i++) {
+            legend_row = `
+            <div class="legend-row">
+                <div class="legend-toggle">
+                    <div class="legend-swatch">
+                        <svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="340" cy="340" r="180" fill="#${point_units[i].hexcode}" stroke="black" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                        </svg>
+                    </div>
+                    <div class="legend-key">
+                        <p class="legend-label text-bold-weight">${point_units[i].label}</p>
+                        <p class="legend-description">${point_units[i].description}</p>
+                    </div>
+                </div>
+                <input class="form-check-input" type="checkbox" id="toggle-${point_units.label}"/>
+            </div>`;
+
+            point_tab.insertAdjacentHTML("beforeend", legend_row);
         }
     })
 }
