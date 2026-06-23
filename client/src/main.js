@@ -914,124 +914,147 @@ function LegendContents(data) {
 
     let legend = document.getElementById("legend-contents");
 
-    fetch(data) 
-    .then(response => response.json())
-    .then(contents => { 
-        console.log(contents);
-        // console.log(contents.geologic_units.length)
-        const geologic_units = contents.geologic_units;
+    const legend_tabs = `
+    <ul class="nav nav-tabs" id="legend_tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#panel-one">Geologic Map</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#panel-two">Points</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#panel-three">Boundaries</a>
+        </li>
+    </ul>`;
 
-        // console.log(contents.features.length);
-        // const geologic_units = contents.features;
-        // console.log(geologic_units[0].properties.Label1);
+    const legend_tabs_content = `
+    <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="panel-one">Content for Geologic Map</div>
+        <div class="tab-pane fade" id="panel-two">Content for Points</div>
+        <div class="tab-pane fade" id="panel-three">Content for Boundaries</div>
+    </div>`;
 
-        const HEIGHT = 40;
-        const WIDTH = 40;
+    legend.innerHTML = legend_tabs + legend_tabs_content;
 
-        let legend_row;
+    // fetch(data) 
+    // .then(response => response.json())
+    // .then(contents => { 
+    //     console.log(contents);
+    //     // console.log(contents.geologic_units.length)
+    //     const geologic_units = contents.geologic_units;
 
-        for (let i = 0; i < geologic_units.length; i++) {
-            if (patterned_polygons.has(geologic_units.number)) {
-                switch (geologic_units.number) {
-                    case 4:
-                        legend = `
-                        <div class="legend-row">
-                            <div class="legend-toggle">
-                                <div class="legend-swatch">
-                                    <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                        <defs>
-                                            <pattern id="swatch-pat-4" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                                                <rect width="12" height="12" fill="#${geologic_units[i].hexcode}"/>
-                                                <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="1.5"/>
-                                            </pattern>
-                                        </defs>
-                                        <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#swatch-pat-4)" />
-                                    </svg>
-                                </div>
-                                <div class="legend-key">
-                                    <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
-                                    <p class="legend-description">${geologic_units[i].description}</p>
-                                </div>
-                            </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
-                        </div>
-                        `;
-                        break;
-                    case 9:
-                        legend = `
-                        <div class="legend-row">
-                            <div class="legend-toggle">
-                                <div class="legend-swatch">
-                                    <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                        <pattern id="" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
-                                            <rect width="56" height="56" fill="#c77bb2"/>
-                                            <circle cx="7" cy="12" r="3" fill="#ffffff"/>
-                                            <circle cx="23" cy="4" r="3" fill="#ffffff"/>
-                                            <circle cx="41" cy="9" r="3" fill="#ffffff"/>
-                                            <circle cx="52" cy="21" r="3" fill="#ffffff"/>
-                                            <circle cx="14" cy="28" r="3" fill="#ffffff"/>
-                                            <circle cx="33" cy="31" r="3" fill="#ffffff"/>
-                                            <circle cx="48" cy="40" r="3" fill="#ffffff"/>
-                                            <circle cx="5" cy="44" r="3" fill="#ffffff"/>
-                                            <circle cx="19" cy="51" r="3" fill="#ffffff"/>
-                                            <circle cx="38" cy="49" r="3" fill="#ffffff"/>
-                                            <circle cx="27" cy="18" r="3" fill="#ffffff"/>
-                                        </pattern>
-                                        <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
-                                    </svg>
-                                </div>
-                                <div class="legend-key">
-                                    <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
-                                    <p class="legend-description">${geologic_units[i].description}</p>
-                                </div>
-                            </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
-                        </div>
-                        `;
-                        break;
-                    case 17:
-                        legend = `
-                        <div class="legend-row">
-                            <div class="legend-toggle">
-                                <div class="legend-swatch">
-                                    <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                        <pattern id="" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
-                                            <rect width="14" height="14" fill="#ade9ff"/>
-                                            <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
-                                        </pattern>
-                                        <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
-                                    </svg>
-                                </div>
-                                <div class="legend-key">
-                                    <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
-                                    <p class="legend-description">${geologic_units[i].description}</p>
-                                </div>
-                            </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
-                        </div>
-                        `;
-                        break;
-                }
-            } else {
-                legend_row = `
-                <div class="legend-row">
-                    <div class="legend-toggle">
-                        <div class="legend-swatch">
-                            <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
-                            </svg>
-                        </div>
-                        <div class="legend-key">
-                            <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
-                            <p class="legend-description">${geologic_units[i].description}</p>
-                        </div>
-                    </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
-                </div>
-                `;
-            }
+    //     // console.log(contents.features.length);
+    //     // const geologic_units = contents.features;
+    //     // console.log(geologic_units[0].properties.Label1);
 
-            legend.insertAdjacentHTML("beforeend", legend_row);
-        }
-    })}
+    //     const HEIGHT = 40;
+    //     const WIDTH = 40;
+
+    //     let legend_row;
+
+    //     for (let i = 0; i < geologic_units.length; i++) {
+    //         if (patterned_polygons.has(geologic_units.number)) {
+    //             switch (geologic_units.number) {
+    //                 case 4:
+    //                     legend_row = `
+    //                     <div class="legend-row">
+    //                         <div class="legend-toggle">
+    //                             <div class="legend-swatch">
+    //                                 <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+    //                                     <defs>
+    //                                         <pattern id="swatch-pat-4" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    //                                             <rect width="12" height="12" fill="#${geologic_units[i].hexcode}"/>
+    //                                             <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="1.5"/>
+    //                                         </pattern>
+    //                                     </defs>
+    //                                     <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#swatch-pat-4)" />
+    //                                 </svg>
+    //                             </div>
+    //                             <div class="legend-key">
+    //                                 <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
+    //                                 <p class="legend-description">${geologic_units[i].description}</p>
+    //                             </div>
+    //                         </div>
+    //                         <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+    //                     </div>
+    //                     `;
+    //                     break;
+    //                 case 9:
+    //                     legend_row = `
+    //                     <div class="legend-row">
+    //                         <div class="legend-toggle">
+    //                             <div class="legend-swatch">
+    //                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+    //                                     <pattern id="" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
+    //                                         <rect width="56" height="56" fill="#c77bb2"/>
+    //                                         <circle cx="7" cy="12" r="3" fill="#ffffff"/>
+    //                                         <circle cx="23" cy="4" r="3" fill="#ffffff"/>
+    //                                         <circle cx="41" cy="9" r="3" fill="#ffffff"/>
+    //                                         <circle cx="52" cy="21" r="3" fill="#ffffff"/>
+    //                                         <circle cx="14" cy="28" r="3" fill="#ffffff"/>
+    //                                         <circle cx="33" cy="31" r="3" fill="#ffffff"/>
+    //                                         <circle cx="48" cy="40" r="3" fill="#ffffff"/>
+    //                                         <circle cx="5" cy="44" r="3" fill="#ffffff"/>
+    //                                         <circle cx="19" cy="51" r="3" fill="#ffffff"/>
+    //                                         <circle cx="38" cy="49" r="3" fill="#ffffff"/>
+    //                                         <circle cx="27" cy="18" r="3" fill="#ffffff"/>
+    //                                     </pattern>
+    //                                     <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
+    //                                 </svg>
+    //                             </div>
+    //                             <div class="legend-key">
+    //                                 <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
+    //                                 <p class="legend-description">${geologic_units[i].description}</p>
+    //                             </div>
+    //                         </div>
+    //                         <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+    //                     </div>
+    //                     `;
+    //                     break;
+    //                 case 17:
+    //                     legend_row = `
+    //                     <div class="legend-row">
+    //                         <div class="legend-toggle">
+    //                             <div class="legend-swatch">
+    //                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+    //                                     <pattern id="" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+    //                                         <rect width="14" height="14" fill="#ade9ff"/>
+    //                                         <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
+    //                                     </pattern>
+    //                                     <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
+    //                                 </svg>
+    //                             </div>
+    //                             <div class="legend-key">
+    //                                 <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
+    //                                 <p class="legend-description">${geologic_units[i].description}</p>
+    //                             </div>
+    //                         </div>
+    //                         <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+    //                     </div>
+    //                     `;
+    //                     break;
+    //             }
+    //         } else {
+    //             legend_row = `
+    //             <div class="legend-row">
+    //                 <div class="legend-toggle">
+    //                     <div class="legend-swatch">
+    //                         <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+    //                             <rect width="${WIDTH}" height="${HEIGHT}" fill="#${geologic_units[i].hexcode}" />
+    //                         </svg>
+    //                     </div>
+    //                     <div class="legend-key">
+    //                         <p class="legend-label text-bold-weight">${geologic_units[i].label}</p>
+    //                         <p class="legend-description">${geologic_units[i].description}</p>
+    //                     </div>
+    //                 </div>
+    //                 <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+    //             </div>
+    //             `;
+    //         }
+
+    //         legend.insertAdjacentHTML("beforeend", legend_row);
+    //     }
+    // })
+}
 
