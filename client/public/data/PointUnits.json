@@ -1,0 +1,34 @@
+{
+    "point_units": [
+        {
+            "number": 0,
+            "label": "Within 100 ft. vacinity",
+            "description": "(certain)",
+            "hexcode": "000"
+        },
+        {
+            "number": 1,
+            "label": "Within general area",
+            "description": "(uncertain)",
+            "hexcode": "fff"
+        },
+        {
+            "number": 2,
+            "label": "Sinkhole",
+            "description": "",
+            "hexcode": "AA4A44"
+        },
+        {
+            "number": 3,
+            "label": "Aerial",
+            "description": "",
+            "hexcode": "FFDE21"
+        },
+        {
+            "number": 4,
+            "label": "Cave",
+            "description": "",
+            "hexcode": "50C878"
+        }
+    ]
+}
