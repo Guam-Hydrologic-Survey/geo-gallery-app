@@ -553,48 +553,6 @@ function darkenHex(hexcode) {
 /* ------------------------------------------------------------
 layer groups for polygons
 ------------------------------------------------------------ */
-const legendLayers = {
-    polygonLayers: [
-        { poly1_Tf: L.featureGroup() },
-        { poly2_Ta: L.featureGroup() },
-        { poly3_Tam: L.featureGroup() },
-        { poly4_Tt: L.featureGroup() },
-        { poly5_Tug: L.featureGroup() },
-        { poly6_Tus: L.featureGroup() },
-        { poly7_Tub: L.featureGroup() },
-        { poly8_Tud: L.featureGroup() },
-        { poly9_Tu: L.featureGroup() },
-        { poly10_Tm: L.featureGroup() },
-        { poly11_Tb: L.featureGroup()},
-        { poly12_Tbl: L.featureGroup() },
-        { poly13_Tj: L.featureGroup() },
-        { poly14_Tal: L.featureGroup() },
-        { poly15_QTmp: L.featureGroup() },
-        { poly16_QTmh: L.featureGroup() },
-        { poly17_QTma: L.featureGroup() },
-        { poly18_QTmf: L.featureGroup() },
-        { poly19_QTmm: L.featureGroup() },
-        { poly20_QTmd: L.featureGroup() },
-        { poly21_QTmr: L.featureGroup() },
-        { poly22_Qt: L.featureGroup() },
-        { poly23_Qal: L.featureGroup() },
-        { poly24_Qrm: L.featureGroup() },
-        { poly25_Qrb: L.featureGroup() },
-        { poly26_Qaf: L.featureGroup() }
-    ],
-    pointLayers: [
-        { point1: L.featureGroup() },
-        { point2: L.featureGroup() },
-        { point3: L.featureGroup() },
-        { point4: L.featureGroup() },
-        {  point5: L.featureGroup() }
-    ],
-    boundaryLayers: [
-        { boundary1: L.featureGroup() },
-        { boundary2: L.featureGroup() },
-        { boundary3: L.featureGroup() }
-    ]
-};
 
 const legendLayers = {
     polygonLayers: {
@@ -657,14 +615,7 @@ function getLayers(data, ftype) {
                 pane: 'polygonPane',
                 // style polygons and lines 
                 style: (feature) => {
-                    if (feature.geometry.type === "Polygon" | feature.geometry.type === "MultiPolygon") { 
-                        // return {
-                        //     color: `#${feature.properties.Hex}`,
-                        //     weight: 2,
-                        //     fillColor: `#${feature.properties.Hex}`,
-                        //     fillOpacity: 1
-                        // };
-                        if (patterned_polygons.has(Number(feature.properties.SID))) {
+                    if (patterned_polygons.has(Number(feature.properties.SID))) {
                             console.log(feature.properties.SID);
                             return {
                                 weight: 1,
@@ -682,58 +633,50 @@ function getLayers(data, ftype) {
                                 fillOpacity: 1
                             }
                         } // end of pattern style conditional 
-                    } // end of polygon geometry conditional 
                 },
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 onEachFeature: (feature, layer) => {
-                    if (feature.geometry.type === "MultiPolygon" | feature.geometry.type === "Polygon") { 
+                    layer.bindPopup(`
+                        <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+                        <p>${feature.properties.MapUnit}</p>
+                        <p>Formation: ${feature.properties.Formation}</p>
+                        <p>Epoch: ${feature.properties.Epoch}</p>
+                        `);
 
-                        // layer.bindTooltip(feature.properties.UnitAbr);
-                        // console.log(feature.properties.UnitAbr);
-                        // console.log("Added tooltip");
+                    // layer click event
+                    layer.on('click', async () => {
+                        // TODO - check JSON properties (get list of keys)
+                        findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
+                            document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
+                            document.getElementById("text-description").innerText = images.description || '';
 
-                        layer.bindPopup(`
-                            <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
-                            <p>${feature.properties.MapUnit}</p>
-                            <p>Formation: ${feature.properties.Formation}</p>
-                            <p>Epoch: ${feature.properties.Epoch}</p>
-                            `);
-
-                        // layer click event
-                        layer.on('click', async () => {
-                            // TODO - check JSON properties (get list of keys)
-                            findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
-                                document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
-                                document.getElementById("text-description").innerText = images.description || '';
-
-                                if (images.paths != null) {
-                                    displayImages_v3(images.paths);
-                                } else {
-                                    console.log(`Sorry, could not find images :-(`);
-                                }
-
-                                modalDialog.show();
-                            });
-                            // getImageDescription_v2(feature.properties.id);
-                            // getImageDescription_v2(feature.properties.PID);
-                        });
-
-                        layer.on({
-                            mouseover(e) {
-                                e.target.setStyle({ 
-                                    weight: 4, 
-                                    color: `${darkenHex(feature.properties.Hex)}`,
-                                    // fillColor: `${darkenHex(feature.properties.Hex)}`,
-                                });
-
-                                layer.bringToFront();
-                                console.log(feature.properties.UnitAbr)
-                            },
-                            mouseout(e) {
-                                polygons.resetStyle(e.target);
+                            if (images.paths != null) {
+                                displayImages_v3(images.paths);
+                            } else {
+                                console.log(`Sorry, could not find images :-(`);
                             }
+
+                            modalDialog.show();
                         });
-                    } 
+                        // getImageDescription_v2(feature.properties.id);
+                        // getImageDescription_v2(feature.properties.PID);
+                    });
+
+                    layer.on({
+                        mouseover(e) {
+                            e.target.setStyle({ 
+                                weight: 4, 
+                                color: `${darkenHex(feature.properties.Hex)}`,
+                                // fillColor: `${darkenHex(feature.properties.Hex)}`,
+                            });
+
+                            layer.bringToFront();
+                            console.log(feature.properties.UnitAbr)
+                        },
+                        mouseout(e) {
+                            polygons.resetStyle(e.target);
+                        }
+                    });
                 }
             });
 
@@ -746,13 +689,11 @@ function getLayers(data, ftype) {
                 pane: 'linePane',
                 // style polygons and lines 
                 style: (feature) => {
-                    if (feature.geometry.type === "LineString" | feature.geometry.type === "MultiLineString") {
-                        return {
+                    return {
                             color: getLineColor(feature.properties.Code1),
                             weight: 1, 
                             dashArray: getLineType(feature.properties.Code1),
                         }
-                    }
                 }
             }).addTo(map);
         
@@ -773,25 +714,23 @@ function getLayers(data, ftype) {
                 },
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 onEachFeature: (feature, layer) => {
-                    if (feature.geometry.type === "Point") {
-                        layer.on('click', async () => {
-                            // TODO - check JSON properties (get list of keys)
-                            findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
-                                document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
-                                document.getElementById("text-description").innerText = images.description || '';
+                    layer.on('click', async () => {
+                        // TODO - check JSON properties (get list of keys)
+                        findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
+                            document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
+                            document.getElementById("text-description").innerText = images.description || '';
 
-                                if (images.paths != null) {
-                                    displayImages_v3(images.paths);
-                                } else {
-                                    console.log(`Sorry, could not find images :-(`);
-                                }
+                            if (images.paths != null) {
+                                displayImages_v3(images.paths);
+                            } else {
+                                console.log(`Sorry, could not find images :-(`);
+                            }
 
-                                modalDialog.show();
-                            });
-                            // getImageDescription_v2(feature.properties.id);
-                            // getImageDescription_v2(feature.properties.PID);
+                            modalDialog.show();
                         });
-                    } 
+                        // getImageDescription_v2(feature.properties.id);
+                        // getImageDescription_v2(feature.properties.PID);
+                    });
                 }
             }).addTo(map);
             points.bringToFront();
