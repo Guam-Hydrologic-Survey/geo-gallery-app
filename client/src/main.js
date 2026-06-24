@@ -6,6 +6,9 @@ import Viewer from 'viewerjs';
 import 'viewerjs/dist/viewer.css';
 import 'leaflet/dist/leaflet.css';
 
+import "leaflet.locatecontrol"; // Import plugin
+import "leaflet.locatecontrol/dist/L.Control.Locate.min.css"; // Import styles
+
 // components 
 // import { Legend } from './components/Legend.js';
 import { NavBar } from './components/NavBar.js';
@@ -534,7 +537,7 @@ function addPatternStyle(feature) {
 }
 
 function darkenHex(hexcode) {
-    const amount = 0.3;
+    const amount = 0.4;
     const num = parseInt(hexcode, 16);
     const r = Math.max(0, (num >> 16) - Math.round(255 * amount));
     const g = Math.max(0, ((num >> 8) & 0xff) - Math.round(255 * amount));
@@ -591,6 +594,49 @@ const legendLayers = {
         { boundary2: L.featureGroup() },
         { boundary3: L.featureGroup() }
     ]
+};
+
+const legendLayers = {
+    polygonLayers: {
+        poly1_Tf:   L.featureGroup(),
+        poly2_Ta:   L.featureGroup(),
+        poly3_Tam:  L.featureGroup(),
+        poly4_Tt:   L.featureGroup(),
+        poly5_Tug:  L.featureGroup(),
+        poly6_Tus:  L.featureGroup(),
+        poly7_Tub:  L.featureGroup(),
+        poly8_Tud:  L.featureGroup(),
+        poly9_Tu:   L.featureGroup(),
+        poly10_Tm:  L.featureGroup(),
+        poly11_Tb:  L.featureGroup(),
+        poly12_Tbl: L.featureGroup(),
+        poly13_Tj:  L.featureGroup(),
+        poly14_Tal: L.featureGroup(),
+        poly15_QTmp: L.featureGroup(),
+        poly16_QTmh: L.featureGroup(),
+        poly17_QTma: L.featureGroup(),
+        poly18_QTmf: L.featureGroup(),
+        poly19_QTmm: L.featureGroup(),
+        poly20_QTmd: L.featureGroup(),
+        poly21_QTmr: L.featureGroup(),
+        poly22_Qt:  L.featureGroup(),
+        poly23_Qal: L.featureGroup(),
+        poly24_Qrm: L.featureGroup(),
+        poly25_Qrb: L.featureGroup(),
+        poly26_Qaf: L.featureGroup()
+    },
+    pointLayers: {
+        point1: L.featureGroup(),
+        point2: L.featureGroup(),
+        point3: L.featureGroup(),
+        point4: L.featureGroup(),
+        point5: L.featureGroup()
+    },
+    boundaryLayers: {
+        boundary1: L.featureGroup(),
+        boundary2: L.featureGroup(),
+        boundary3: L.featureGroup()
+    }
 };
 
 
