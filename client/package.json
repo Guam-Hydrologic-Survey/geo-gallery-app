@@ -20,6 +20,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.7",
     "leaflet": "^1.9.4",
+    "leaflet.locatecontrol": "^0.90.0",
     "preline": "^2.7.0",
     "viewerjs": "^1.11.7"
   }
