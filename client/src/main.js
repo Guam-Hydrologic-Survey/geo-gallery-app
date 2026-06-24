@@ -1105,22 +1105,41 @@ function LegendContents(data) {
         let legend_row;
 
         for (let i = 0; i < boundary_units.length; i++) {
-            legend_row = `
-            <div class="legend-row">
-                <div class="legend-toggle">
-                    <div class="legend-swatch">
-                        <svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                            <line x1="2" y1="20" x2="38" y2="20" stroke="#${boundary_units[i].hexcode}" stroke-width="4" stroke-linecap="round"/>
-                        </svg>
+            if (boundary_units[i].number != 1) { // solid lines  
+                legend_row = `
+                <div class="legend-row">
+                    <div class="legend-toggle">
+                        <div class="legend-swatch">
+                            <svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="2" y1="20" x2="38" y2="20" stroke="#${boundary_units[i].hexcode}" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="legend-key">
+                            <p class="legend-label text-bold-weight">${boundary_units[i].label}</p>
+                            <p class="legend-description">${boundary_units[i].description}</p>
+                        </div>
                     </div>
-                    <div class="legend-key">
-                        <p class="legend-label text-bold-weight">${boundary_units[i].label}</p>
-                        <p class="legend-description">${boundary_units[i].description}</p>
-                    </div>
+                    <input class="form-check-input" type="checkbox" id="toggle-${boundary_units[i].label}"/>
                 </div>
-                <input class="form-check-input" type="checkbox" id="toggle-${boundary_units[i].label}"/>
-            </div>
-            `;
+                `;
+            } else { // dashed lines
+                legend_row = `
+                <div class="legend-row">
+                    <div class="legend-toggle">
+                        <div class="legend-swatch">
+                            <svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="2" y1="20" x2="38" y2="20" stroke="#${boundary_units[i].hexcode}" stroke-width="2" stroke-dasharray="8 4" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="legend-key">
+                            <p class="legend-label text-bold-weight">${boundary_units[i].label}</p>
+                            <p class="legend-description">${boundary_units[i].description}</p>
+                        </div>
+                    </div>
+                    <input class="form-check-input" type="checkbox" id="toggle-${boundary_units[i].label}"/>
+                </div>
+                `;
+            }
 
             boundaries_tab.insertAdjacentHTML("beforeend", legend_row);
         }
