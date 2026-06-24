@@ -945,7 +945,7 @@ function LegendContents(data) {
     .then(contents => { 
         console.log(contents);
         // console.log(contents.geologic_units.length)
-        const geologic_units = contents.geologic_units;
+        const geologic_units = contents.units;
 
         // console.log(contents.features.length);
         // const geologic_units = contents.features;
@@ -1052,20 +1052,20 @@ function LegendContents(data) {
                             <p class="legend-description">${geologic_units[i].description}</p>
                         </div>
                     </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+                    <input class="form-check-input" type="checkbox" id="toggle-${geologic_units[i].label}"/>
                 </div>
                 `;
             }
 
             polygon_tab.insertAdjacentHTML("beforeend", legend_row);
         }
-    });
+    }); // end fetch for geo units
 
     fetch("/data/PointUnits.json")
     .then(response => response.json())
     .then(contents => {
         console.log(contents);
-        const point_units = contents.point_units;
+        const point_units = contents.units;
 
         const HEIGHT = 40;
         const WIDTH = 40;
@@ -1086,11 +1086,44 @@ function LegendContents(data) {
                         <p class="legend-description">${point_units[i].description}</p>
                     </div>
                 </div>
-                <input class="form-check-input" type="checkbox" id="toggle-${point_units.label}"/>
+                <input class="form-check-input" type="checkbox" id="toggle-${point_units[i].label}"/>
             </div>`;
 
             point_tab.insertAdjacentHTML("beforeend", legend_row);
         }
-    })
+    }); // end fetch for point units 
+
+    fetch("/data/BoundaryUnits.json")
+    .then(response => response.json())
+    .then(contents => {
+        console.log(contents);
+        const boundary_units = contents.units;
+
+        const HEIGHT = 40;
+        const WIDTH = 40;
+
+        let legend_row;
+
+        for (let i = 0; i < boundary_units.length; i++) {
+            legend_row = `
+            <div class="legend-row">
+                <div class="legend-toggle">
+                    <div class="legend-swatch">
+                        <svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="2" y1="20" x2="38" y2="20" stroke="#${boundary_units[i].hexcode}" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="legend-key">
+                        <p class="legend-label text-bold-weight">${boundary_units[i].label}</p>
+                        <p class="legend-description">${boundary_units[i].description}</p>
+                    </div>
+                </div>
+                <input class="form-check-input" type="checkbox" id="toggle-${boundary_units[i].label}"/>
+            </div>
+            `;
+
+            boundaries_tab.insertAdjacentHTML("beforeend", legend_row);
+        }
+    }); // end fetch for boundary units 
 }
 
