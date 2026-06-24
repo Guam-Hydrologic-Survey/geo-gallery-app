@@ -1,5 +1,5 @@
 {
-    "geologic_units": [
+    "units": [
         {
             "number": 1,
             "label": "Tf",
