@@ -6,8 +6,8 @@ import Viewer from 'viewerjs';
 import 'viewerjs/dist/viewer.css';
 import 'leaflet/dist/leaflet.css';
 
-import "leaflet.locatecontrol"; // Import plugin
-import "leaflet.locatecontrol/dist/L.Control.Locate.min.css"; // Import styles
+// import "leaflet.locatecontrol"; // Import plugin
+// import "leaflet.locatecontrol/dist/L.Control.Locate.min.css"; // Import styles
 
 // components 
 // import { Legend } from './components/Legend.js';
