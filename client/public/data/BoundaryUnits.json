@@ -2,21 +2,21 @@
     "units": [
         {
             "number": 0,
-            "label": "Within 100 ft. vacinity",
-            "description": "(certain)",
+            "label": "Contact",
+            "description": "",
             "hexcode": "000"
         },
         {
             "number": 1,
-            "label": "Within general area",
-            "description": "(uncertain)",
+            "label": "Approximately located",
+            "description": "Gradational or inferred",
             "hexcode": "000"
         },
         {
             "number": 2,
-            "label": "Sinkhole",
+            "label": "Coastline",
             "description": "",
-            "hexcode": "62d4f4"
+            "hexcode": "345995"
         }
     ]
 }

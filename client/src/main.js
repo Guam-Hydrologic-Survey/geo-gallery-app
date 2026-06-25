@@ -438,7 +438,8 @@ function getLineColor(code) {
     if (code === 0 | code === 1) {
         return "#000"
     } else {
-        return "#62d4f4";
+        // return "#62d4f4";
+        return "#345995";
     }
 }
 
