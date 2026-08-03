@@ -361,9 +361,9 @@ document.getElementById('recenter').addEventListener('click', () => {
     map.setView(center, defaultZoom);
 });
 
-document.getElementById('locate').addEventListener('click', () => {
-    alert('Clicked on locate');
-});
+// document.getElementById('locate').addEventListener('click', () => {
+//     alert('Clicked on locate');
+// });
 
 document.addEventListener('keydown', (pressed) => {
     if (pressed.key === "Escape") {
@@ -375,6 +375,35 @@ document.addEventListener('keydown', (pressed) => {
         }
     }
 }, true);
+
+
+/* ------------------------------------------------------------
+event listener for location button (on dock)
+------------------------------------------------------------ */
+
+let locateMarker = null;
+let locateCircle = null;
+
+const locateBtn = document.getElementById('locate');
+
+locateBtn.addEventListener('click', () => {
+    console.log('Clicked on LOCATE button');
+    map.locate({
+        setView: true, maxZoom: 16
+    });
+});
+
+map.on('locationfound', function(e) {
+    if (locateMarker) { map.removeLayer(locateMarker); }
+    if (locateCircle) { map.removeLayer(locateCircle); }
+
+    locateMarker = L.marker(e.latlng, e.accuracy / 2).addTo(map);
+});
+
+map.on('locationerror', function(e) {
+    alert("User denied location")
+})
+
 
 // demo purposes 
 // getLayers("/data/points.json")
