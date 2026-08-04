@@ -412,7 +412,8 @@ map.on('locationerror', function(e) {
 // official layers
 getLayers("/data/GeoGalGMG2026.json", 1);
 getLayers("/data/GeoGalGMGBndry2026.json", 2);
-getLayers("/data/GeoGalPoints2026.json", 3);
+// getLayers("/data/GeoGalPoints2026.json", 3);
+getLayers("/data/GeoGalPoints_08042026.json", 3);
 
 
 /* ------------------------------------------------------------
