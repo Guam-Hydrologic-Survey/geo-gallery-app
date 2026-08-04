@@ -4,6 +4,11 @@ reset.css
 consistent baseline across all browsers 
 ------------------------------------------------------------ */
 
-body {
+/* body {
     overflow: hidden;
+} */
+
+html, body, #app {
+    margin: 0;
+    height: 100%;
 }
