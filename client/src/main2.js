@@ -14,7 +14,8 @@ import { MapContainer } from './components/MapContainer.js';
 // components 
 // import { Legend } from './components/Legend.js';
 import { NavBar } from './components/NavBar2.js';
-import { About } from './components/About.js';
+import { About } from './components/About2.js';
+import { Legend } from './components/Legend2.js';
 
 
 /* ------------------------------------------------------------
@@ -25,6 +26,8 @@ initialize and add components to #app
 const app = document.getElementById("app");
 
 app.append(NavBar(), MapContainer());
+
+document.body.append(About(), Legend());
 
 
 /* ------------------------------------------------------------
