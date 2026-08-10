@@ -46,9 +46,18 @@ export function NavBar() {
     lengendBtn.setAttribute("data-bs-target", "#legend-offcanvas");
     lengendBtn.setAttribute("aria-controls", "legend");
 
+    // for testing purpose only - remove later 
+    const galleryBtn = document.createElement("button");
+    galleryBtn.type = "button";
+    galleryBtn.className = "btn btn-outline-light btn-sm";
+    galleryBtn.textContent = "Gallery";
+    galleryBtn.setAttribute("data-bs-toggle", "modal");
+    galleryBtn.setAttribute("data-bs-target", "#results");
+    galleryBtn.setAttribute("aria-controls", "gallery");
+
     const dropdown = createDropdownLinks();
 
-    controls.append(aboutBtn, lengendBtn, dropdown);
+    controls.append(aboutBtn, lengendBtn, galleryBtn, dropdown);
     navbar.append(brand, controls);
     return navbar;
 }
