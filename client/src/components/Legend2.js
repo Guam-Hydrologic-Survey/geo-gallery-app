@@ -28,7 +28,7 @@ export function Legend() {
     contents.className = "offcanvas-body";
     contents.id = "legend-contents";
 
-    LegendContents(contents);
+    // LegendContents(contents);
 
     legend.append(header, contents);
 
@@ -60,18 +60,41 @@ function LegendContents(legend) {
         </li>
     </ul>`;
 
-    const legend_tabs_content = /*html*/ `
-    <div class="tab-content mt-3">
-        <div class="tab-pane fade show active" id="panel-one">Content for Geologic Map</div>
-        <div class="tab-pane fade" id="panel-two">Content for Points</div>
-        <div class="tab-pane fade" id="panel-three">Content for Boundaries</div>
-    </div>`;
+    // const legend_tabs_content = /*html*/ `
+    // <div class="tab-content mt-3">
+    //     <div class="tab-pane fade show active" id="panel-one">Content for Geologic Map</div>
+    //     <div class="tab-pane fade" id="panel-two">Content for Points</div>
+    //     <div class="tab-pane fade" id="panel-three">Content for Boundaries</div>
+    // </div>`;
 
+    const legend_tabs_content = document.createElement("div");
+    legend_tabs_content.className = "tab-content mt-3";
+
+    const polygon_tab = document.createElement("div");
+    polygon_tab.className = "tab-pane fade show active";
+    polygon_tab.id = "panel-one";
+    polygon_tab.insertAdjacentText("afterbegin", "Content for Geologic Map");
+
+    const point_tab = document.createElement("div");
+    point_tab.className = "tab-pane fade";
+    point_tab.id = "panel-two";
+    point_tab.insertAdjacentText("Content for Points");
+
+    const boundaries_tab = document.createElement("div");
+    boundaries_tab.className = "tab-pane fade";
+    boundaries_tab.id = "panel-three";
+    boundaries_tab.insertAdjacentText("Content for Boundaries");
+
+    legend_tabs_content.append(polygon_tab, point_tab, boundaries_tab);
+
+
+    // add tabs and tab content to overall legend contents 
     legend.innerHTML = legend_tabs + legend_tabs_content;
 
-    const polygon_tab = document.getElementById("panel-one");
-    const point_tab = document.getElementById("panel-two");
-    const boundaries_tab = document.getElementById("panel-three");
+    // TODO - the issue is here where null error is thrown 
+    // const polygon_tab = document.getElementById("panel-one");
+    // const point_tab = document.getElementById("panel-two");
+    // const boundaries_tab = document.getElementById("panel-three");
 
     fetch(geo)
     .then(response => response.json())
