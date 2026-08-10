@@ -43,7 +43,7 @@ export function NavBar() {
     lengendBtn.className = "btn btn-outline-light btn-sm";
     lengendBtn.textContent = "Legend";
     lengendBtn.setAttribute("data-bs-toggle", "offcanvas");
-    lengendBtn.setAttribute("data-bs-target", "#legend");
+    lengendBtn.setAttribute("data-bs-target", "#legend-offcanvas");
     lengendBtn.setAttribute("aria-controls", "legend");
 
     const dropdown = createDropdownLinks();
