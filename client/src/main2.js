@@ -16,6 +16,7 @@ import { MapContainer } from './components/MapContainer.js';
 import { NavBar } from './components/NavBar2.js';
 import { About } from './components/About2.js';
 import { Legend } from './components/Legend2.js';
+import { Gallery } from './components/Gallery2.js';
 
 
 /* ------------------------------------------------------------
@@ -27,7 +28,7 @@ const app = document.getElementById("app");
 
 app.append(NavBar(), MapContainer());
 
-document.body.append(About(), Legend());
+document.body.append(About(), Legend(), Gallery());
 
 
 /* ------------------------------------------------------------
