@@ -88,10 +88,6 @@ export function About() {
 
     tr_btn_grp.append(tr_btn, toggle_dropdown, dropdown_menu);
 
-    // test - preview of results 
-    // console.log(dropdown_menu);
-    // console.log(tr_btn_grp);
-
     // modal header 
     const header = document.createElement("div");
     header.className = "modal-header";
@@ -137,14 +133,12 @@ export function About() {
     const content = document.createElement("div");
     content.className = "modal-content";
     content.append(header, body, footer); // add modal elements to content
-    // console.log(content);
 
     const content_wrapper = document.createElement("div");
     content_wrapper.className = "modal-dialog modal-dialog-centered modal-xl";
     content_wrapper.append(content);
 
     modal.append(content_wrapper);
-    // console.log(modal);
-    
+
     return modal;
 }
