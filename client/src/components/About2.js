@@ -15,6 +15,86 @@ export function About() {
     modal.setAttribute("aria-hidden", "true");
     modal.setAttribute("data-bs-backdrop", "true");
 
+    // technical report
+    const tr = {
+      url: "",
+      title: "",
+      num: 0,
+      author: "",
+      year: 0,
+    }
+
+    // list associated technical reports
+    const assoc_trs = [
+      {
+        url: "https://ghs-cdn.uog.edu/wp-content/databases/Library/PDFs/TRs/WERI%20TR%20180%20-%20Valerio%20et%20al%202023.pdf",
+        title: "MAppFx: Production Well Nitrates Northern Guam Lens Aquifer",
+        num: 180,
+        author: "Valerio et al.",
+        year: 2023,
+      }
+    ];
+
+    const description = "";
+
+    const tr_btn_grp = document.createElement("div");
+    tr_btn_grp.className = "btn-group";
+
+    // btn for technical report 
+    const tr_btn = document.createElement("a");
+    tr_btn.className = "btn btn-primary";
+    tr_btn.title = "Coming soon!"; // update to tr.title when available 
+    tr_btn.href = tr.url;
+    tr_btn.target 
+
+    tr_btn.setAttribute("title", "Coming soon!"); // update to tr.title when available 
+    tr_btn.setAttribute("href", tr.url);
+    tr_btn.setAttribute("target", "_blank");
+    tr_btn.setAttribute("rel", "noreferrer noopener");
+    tr_btn.setAttribute("role", "button");
+    tr_btn.textContent = "WERI Technical Report"; // update with num when available 
+    
+    // dropdown btn for assoc. technical reports 
+    const toggle_dropdown = document.createElement("button");
+    toggle_dropdown.className = "btn btn-primary dropdown-toggle dropdown-toggle-split";
+    toggle_dropdown.setAttribute("role", "button");
+    toggle_dropdown.setAttribute("data-bs-toggle", "dropdown");
+    toggle_dropdown.setAttribute("aria-expanded", "false");
+    toggle_dropdown.setAttribute("title", "View associated technical reports");
+
+    toggle_dropdown.innerHTML = /*html*/ `
+    <span class="visually-hidden">Toggle Dropdown</span>
+    `;
+
+    const dropdown_menu = document.createElement("ul");
+    dropdown_menu.className = "dropdown-menu";
+
+    // create first list item in dropdown menu
+    dropdown_menu.innerHTML = /*html*/ `
+    <li class="dropdown-item">Associated Technical Reports</li>
+    <li><hr class="dropdown-divider"></li>
+    `;
+
+    // iterate through assoc_trs list to populate dropdown menu 
+    assoc_trs.forEach(tr => {
+      const li = document.createElement("li"); // wrapper for a tag
+      const a = document.createElement("a"); 
+
+      // a tag contents 
+      a.className = "dropdown-item";
+      a.setAttribute("href", tr.url);
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noreferrer noopener");
+      a.setAttribute("title", tr.title);
+      a.textContent = `WERI TR ${tr.num} (${tr.author}, ${tr.year})`;
+
+      li.append(a);
+      dropdown_menu.append(li);
+    });
+
+    // test - preview of results 
+    console.log(dropdown_menu);
+
     modal.innerHTML = /*html*/ `
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -39,7 +119,7 @@ export function About() {
                 <li class="dropdown-item">Associated Technical Reports</li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="https://ghs-cdn.uog.edu/wp-content/databases/Library/PDFs/TRs/WERI%20TR%20180%20-%20Valerio%20et%20al%202023.pdf">WERI TR 180 (Valerio et al., 2023)</a></li>
-                <li><a class="dropdown-item" href="#" target="_blank" rel="noreferrer noopener" title="Salinity in the Northern Guam Lens Aquifer">WERI TR</a></li>
+                <li><a class="dropdown-item" href="#" target="_blank" rel="noreferrer noopener" title="">WERI TR</a></li>
                 <li><a class="dropdown-item" href="#" target="_blank" rel="noreferrer noopener" title="">WERI TR</a></li>
                 <li><a class="dropdown-item" href="#" target="_blank" rel="noreferrer noopener" title="">WERI TR</a></li>
               </ul>
