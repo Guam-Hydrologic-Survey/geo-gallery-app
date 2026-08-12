@@ -27,7 +27,7 @@ export function Tutorial() {
     body.className = "modal-body";
     body.innerHTML = /*html*/ `
     <p>Welcome to the Geology Photo Gallery. Brought to you by the Guam Hydrologic Survey Information Management Team at WERI.</p>
-    <p>To use this map, click on a <span style="color: #0d6efd; font-weight: 500;" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Polygons" data-bs-content="Colored shapes covering areas on the map">polygon</span> or <span style="color: #0d6efd; font-weight: 500;" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Points" data-bs-content="Markers with different icons overlaying the map">point</span> to view available photos from that site.</p>
+    <p>To use this map, click on a <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Polygons" data-bs-content="Colored shapes covering areas on the map">polygon</span> or <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Points" data-bs-content="Markers with different icons overlaying the map">point</span> to view available photos from that site.</p>
     `;
 
     // steps
