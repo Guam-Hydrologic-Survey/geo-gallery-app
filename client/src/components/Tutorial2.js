@@ -54,16 +54,19 @@ export function Tutorial() {
     <button type="button" class="btn btn-primary">Next</button>
     `;
 
+    // wrapper for header, body, and footer 
     const content = document.createElement("div");
     content.className = "modal-content";
     content.append(header, body, footer);
 
+    // overall wrapper for content - needed for bootstrap functionality 
     const content_wrapper = document.createElement("div");
     content_wrapper.className = "modal-dialog modal-dialog-centered modal-xl";
     content_wrapper.append(content);
 
     modal.append(content_wrapper);
 
+    // create instance of bootstrap popovers
     modal.querySelectorAll(`[data-bs-toggle="popover"]`).forEach(el => {
         new bootstrap.Popover(el);
     })
