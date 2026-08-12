@@ -18,7 +18,7 @@ export function Tutorial() {
     const header = document.createElement("div");
     header.className = "modal-header";
     header.innerHTML = /*html*/ `
-    <h1 class="modal-title fs-4" id="tutorial-modal-title">About</h1>
+    <h1 class="modal-title fs-4" id="tutorial-modal-title">Tutorial</h1>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     `;
 
@@ -26,7 +26,8 @@ export function Tutorial() {
     const body = document.createElement("div");
     body.className = "modal-body";
     body.innerHTML = /*html*/ `
-    <p>
+    <p>Welcome to the Geology Photo Gallery. Brought to you by the Guam Hydrologic Survey Information Management Team at WERI.</p>
+    <p>To use this map, click on a <span style="color: #0d6efd; font-weight: 500;" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Polygons" data-bs-content="Colored shapes covering areas on the map">polygon</span> or <span style="color: #0d6efd; font-weight: 500;" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Points" data-bs-content="Markers with different icons overlaying the map">point</span> to view available photos from that site.</p>
     `;
 
     // steps
@@ -48,6 +49,10 @@ export function Tutorial() {
     // modal footer 
     const footer = document.createElement("div");
     footer.className = "modal-footer";
+    footer.innerHTML = /*html*/ `
+    <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Next</button>
+    `;
 
     const content = document.createElement("div");
     content.className = "modal-content";
@@ -58,6 +63,10 @@ export function Tutorial() {
     content_wrapper.append(content);
 
     modal.append(content_wrapper);
+
+    modal.querySelectorAll(`[data-bs-toggle="popover"]`).forEach(el => {
+        new bootstrap.Popover(el);
+    })
 
     return modal;
 }
