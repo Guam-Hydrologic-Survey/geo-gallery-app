@@ -48,6 +48,7 @@ import order    (order matters!)
 
 /* 4) pages */
 @import './pages/map.css';
+@import './pages/tutorial.css';
 
 /* 5) utlities */
 @import './utilities.css';
