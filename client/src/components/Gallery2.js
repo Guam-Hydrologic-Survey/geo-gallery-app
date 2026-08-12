@@ -40,6 +40,9 @@ export function Gallery() {
     const gallery_container = document.createElement("div");
     gallery_container.id = "gallery";
 
+    // add text description, num photos, and gallery container to modal body 
+    modal_body.append(text_description, num_photos, gallery_container);
+
     const modal_footer = document.createElement("div");
     modal_footer.innerHTML = /*html*/ `
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Back to map view">Close</button>
