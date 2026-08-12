@@ -130,72 +130,72 @@ event listeners for dock buttons
 ------------------------------------------------------------ */
 
 
-document.getElementById('toggle-layer').addEventListener('click', () => { 
-    if (currentLayer === 'ewtm') {
-        map.removeLayer(ewtm);
-        ewi.addTo(map);
-        currentLayer = 'ewi';
-    } else {
-        map.removeLayer(ewi);
-        ewtm.addTo(map);
-        currentLayer = 'ewtm';
-    }
-});
-
-document.getElementById('zoom-in').addEventListener('click', () => {
-    map.zoomIn();
-});
-
-document.getElementById('zoom-out').addEventListener('click', () => {
-    map.zoomOut();
-});
-
-document.getElementById('recenter').addEventListener('click', () => {
-    map.setView(center, defaultZoom);
-});
-
-// document.getElementById('locate').addEventListener('click', () => {
-//     alert('Clicked on locate');
+// document.getElementById('toggle-layer').addEventListener('click', () => { 
+//     if (currentLayer === 'ewtm') {
+//         map.removeLayer(ewtm);
+//         ewi.addTo(map);
+//         currentLayer = 'ewi';
+//     } else {
+//         map.removeLayer(ewi);
+//         ewtm.addTo(map);
+//         currentLayer = 'ewtm';
+//     }
 // });
 
-document.addEventListener('keydown', (pressed) => {
-    if (pressed.key === "Escape") {
-        if (viewer && viewer.isShown) {
-            pressed.preventDefault();
-            pressed.stopPropagation(); // prevent boostrap from noticing this event 
-            pressed.stopImmediatePropagation(); 
-            viewer.hide(); // close the viewer only 
-        }
-    }
-}, true);
+// document.getElementById('zoom-in').addEventListener('click', () => {
+//     map.zoomIn();
+// });
+
+// document.getElementById('zoom-out').addEventListener('click', () => {
+//     map.zoomOut();
+// });
+
+// document.getElementById('recenter').addEventListener('click', () => {
+//     map.setView(center, defaultZoom);
+// });
+
+// // document.getElementById('locate').addEventListener('click', () => {
+// //     alert('Clicked on locate');
+// // });
+
+// document.addEventListener('keydown', (pressed) => {
+//     if (pressed.key === "Escape") {
+//         if (viewer && viewer.isShown) {
+//             pressed.preventDefault();
+//             pressed.stopPropagation(); // prevent boostrap from noticing this event 
+//             pressed.stopImmediatePropagation(); 
+//             viewer.hide(); // close the viewer only 
+//         }
+//     }
+// }, true);
 
 
 /* ------------------------------------------------------------
 event listener for location button (on dock)
 ------------------------------------------------------------ */
 
-let locateMarker = null;
-let locateCircle = null;
+// let locateMarker = null;
+// let locateCircle = null;
 
-const locateBtn = document.getElementById('locate');
+// const locateBtn = document.getElementById('locate');
 
-locateBtn.addEventListener('click', () => {
-    console.log('Clicked on LOCATE button');
-    map.locate({
-        setView: true, maxZoom: 16
-    });
-});
+// locateBtn.addEventListener('click', () => {
+//     console.log('Clicked on LOCATE button');
+//     map.locate({
+//         setView: true, maxZoom: 16
+//     });
+// });
 
-map.on('locationfound', function(e) {
-    if (locateMarker) { map.removeLayer(locateMarker); }
-    if (locateCircle) { map.removeLayer(locateCircle); }
+// map.on('locationfound', function(e) {
+//     if (locateMarker) { map.removeLayer(locateMarker); }
+//     if (locateCircle) { map.removeLayer(locateCircle); }
 
-    locateMarker = L.marker(e.latlng, e.accuracy / 2).addTo(map);
-});
+//     locateMarker = L.marker(e.latlng, e.accuracy / 2).addTo(map);
+// });
 
-map.on('locationerror', function(e) {
-    alert("User denied location")
-});
+// map.on('locationerror', function(e) {
+//     alert("User denied location")
+// });
 
 
 /* ------------------------------------------------------------
