@@ -35,6 +35,11 @@ export function Gallery() {
     const text_description = document.createElement("p");
     text_description.id = "text-description";
 
+    // for polygon json properties 
+    // TODO - clean up 
+    const information = document.createElement("div");
+    information.id = "text-info";
+
     const num_photos = document.createElement("p");
     num_photos.id = "num-photos";
 
@@ -43,7 +48,7 @@ export function Gallery() {
 
     // add text description, num photos, and gallery container to modal body 
     // body.append(text_description, num_photos, gallery_container);
-    body.append(text_description, num_photos, createAccordion(), gallery_container);
+    body.append(text_description, information, num_photos, createAccordion(), gallery_container);
 
     const footer = document.createElement("div");
     footer.className = "modal-footer";
