@@ -42,7 +42,8 @@ export function Gallery() {
     gallery_container.id = "gallery";
 
     // add text description, num photos, and gallery container to modal body 
-    body.append(text_description, num_photos, gallery_container);
+    // body.append(text_description, num_photos, gallery_container);
+    body.append(text_description, num_photos, createAccordion(), gallery_container);
 
     const footer = document.createElement("div");
     footer.className = "modal-footer";
@@ -55,4 +56,38 @@ export function Gallery() {
     modal.append(content_wrapper);
 
     return modal;
+}
+
+function createAccordion() {
+
+    const accordion = document.createElement("div");
+    accordion.className = "accordion";
+    accordion.id = "accordion-example"
+
+    const accordion_header = document.createElement("h2");
+    accordion_header.className = "accordion-header";
+    accordion_header.innerHTML = /*html*/ `
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Accordion Item #1</button>
+    `;
+
+    const accordion_content = document.createElement("div");
+    accordion_content.id = "collapse1";
+    accordion_content.className = "accordion-collapse collapse show";
+    accordion_content.setAttribute("data-bs-parent", "accordion-example");
+
+    const accordion_body = document.createElement("div");
+    accordion_body.className = "accordion-body";
+    accordion_body.innerHTML = /*html*/ `
+    <strong>This is the first item's accordion body.</strong> It is shown by default until the collapse plugin adds the appropriate classes that we use to style each element.
+    `;
+
+    accordion_content.append(accordion_body);
+
+    const accordion_item = document.createElement("div");
+    accordion_item.className = "accordion-item";
+    accordion_item.append(accordion_header, accordion_content);
+
+    accordion.append(accordion_item);
+
+    return accordion;
 }
