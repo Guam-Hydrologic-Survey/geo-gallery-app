@@ -467,15 +467,25 @@ function getLayers(data, ftype) {
                     },
                     // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                     onEachFeature: (feature, layer) => {
-                        layer.bindPopup(`
-                            <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
-                            <p>${feature.properties.MapUnit}</p>
-                            <p>Formation: ${feature.properties.Formation}</p>
-                            <p>Epoch: ${feature.properties.Epoch}</p>
-                            `);
+                        // layer.bindPopup(`
+                        //     <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+                        //     <p>${feature.properties.MapUnit}</p>
+                        //     <p>Formation: ${feature.properties.Formation}</p>
+                        //     <p>Epoch: ${feature.properties.Epoch}</p>
+                        //     `);
 
                         // layer click event
                         layer.on('click', async () => {
+                            // TODO - clean this up to JS-focused creation instead of raw HTML and strings
+                            const formation = feature.properties.Formation.trim() === "" ? "" : `<p>Formation: ${feature.properties.Formation}</p>`;
+
+                            document.getElementById("text-info").innerHTML = /*html*/ `
+                            <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+                            <p>${feature.properties.MapUnit}</p>
+                            ${formation}
+                            <p>Epoch: ${feature.properties.Epoch}</p>
+                            `;
+
                             // TODO - check JSON properties (get list of keys)
                             findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
                                 document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
