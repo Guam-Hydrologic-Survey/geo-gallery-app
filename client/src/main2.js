@@ -656,7 +656,7 @@ function getLayers(data, ftype) {
                                     icon: L.divIcon({
                                         className: "custom-icon",
                                         html: cave,
-                                        iconSize: [30, 30]
+                                        iconSize: [40, 40]
                                     })
                                 });
                         }
