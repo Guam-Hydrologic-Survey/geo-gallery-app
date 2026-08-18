@@ -465,6 +465,10 @@ function getLayers(data, ftype) {
                 },
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 onEachFeature: (feature, layer) => {
+                    // add to polygon layer group
+                    const polyType = feature.properties.SID;
+                    polygonLayers[polyType] = layer;
+
                     // layer click event
                     layer.on('click', async () => {
                         // TODO - clean this up to JS-focused creation instead of raw HTML and strings
@@ -512,10 +516,9 @@ function getLayers(data, ftype) {
                 }
             });
 
-            // polygonLayers[id] = polyLayer;
             polyLayer.addTo(map);
             injectDefs();
-
+            
         // boundaries
         } else if (ftype === 2) {
             const bLayer = L.geoJSON(data, { 
