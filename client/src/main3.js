@@ -530,25 +530,42 @@ function getLayers(data, ftype) {
 
         // boundaries
         } else if (ftype === 2) {
-            // original 
-            data.features.forEach(feature => { 
-                const id = feature.properties.Code1;
-                const bLayer = L.geoJSON(data, {
-                    pane: 'linePane',
-                    // style polygons and lines 
-                    style: (feature) => {
-                        return {
-                                color: getLineColor(feature.properties.Code1),
-                                weight: 1, 
-                                dashArray: getLineType(feature.properties.Code1),
-                            }
+            const bLayer = L.geoJSON(data, { 
+                pane: 'linePane',
+                style: (feature) => {
+                    return  {
+                        color: getLineColor(feature.properties.Code1),
+                        weight: 1,
+                        dashArray: getLineType(feature.properties.Code1)
                     }
-                });
+                },
+                onEachFeature: (feature, layer) => {
+                    const bType = feature.properties.Code1;
+                    boundaryLayers[bType] = layer;
+                }
+            });
+            bLayer.addTo(map);
+            console.log("Boundaries");
+            console.log(boundaryLayers);
+            // original 
+            // data.features.forEach(feature => { 
+            //     const id = feature.properties.Code1;
+            //     const bLayer = L.geoJSON(data, {
+            //         pane: 'linePane',
+            //         // style polygons and lines 
+            //         style: (feature) => {
+            //             return {
+            //                     color: getLineColor(feature.properties.Code1),
+            //                     weight: 1, 
+            //                     dashArray: getLineType(feature.properties.Code1),
+            //                 }
+            //         }
+            //     });
 
-                boundaryLayers[id] = bLayer;
-                bLayer.addTo(map);
+            //     boundaryLayers[id] = bLayer;
+            //     bLayer.addTo(map);
 
-            }); // end of forEach loop
+            // }); // end of forEach loop
         
         // points 
         } else if (ftype === 3) {
