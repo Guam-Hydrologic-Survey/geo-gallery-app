@@ -440,93 +440,177 @@ function getLayers(data, ftype) {
 
         // polygons 
         if (ftype === 1) {
-            data.features.forEach(feature => {
-                const id = feature.properties.SID;
-                const name = feature.properties.UnitAbr;
-
-                const polyLayer = L.geoJSON(feature, {
-                    pane: 'polygonPane',
-                    // style polygons and lines 
-                    style: (feature) => {
-                        if (patterned_polygons.has(Number(feature.properties.SID))) {
-                                console.log(feature.properties.SID);
-                                return {
-                                    weight: 1,
-                                    color: `#${feature.properties.Hex}`,
-                                    opacity: 1,
-                                    fillColor: `url(#pat-${Number(feature.properties.SID)})`,
-                                    fillOpacity: 1
-                                }
-                            } else {
-                                return {
-                                    weight: 1,
-                                    color: `#${feature.properties.Hex}`,
-                                    opacity: 1,
-                                    fillColor: `#${feature.properties.Hex}`,
-                                    fillOpacity: 1
-                                }
-                            } // end of pattern style conditional 
-                    },
-                    // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
-                    onEachFeature: (feature, layer) => {
-                        // layer.bindPopup(`
-                        //     <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
-                        //     <p>${feature.properties.MapUnit}</p>
-                        //     <p>Formation: ${feature.properties.Formation}</p>
-                        //     <p>Epoch: ${feature.properties.Epoch}</p>
-                        //     `);
-
-                        // layer click event
-                        layer.on('click', async () => {
-                            // TODO - clean this up to JS-focused creation instead of raw HTML and strings
-                            const formation = feature.properties.Formation.trim() === "" ? "" : `<p>Formation: ${feature.properties.Formation}</p>`;
-
-                            document.getElementById("text-info").innerHTML = /*html*/ `
-                            <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
-                            <p>${feature.properties.MapUnit}</p>
-                            ${formation}
-                            <p>Epoch: ${feature.properties.Epoch}</p>
-                            `;
-
-                            // TODO - check JSON properties (get list of keys)
-                            findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
-                                document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
-                                document.getElementById("text-description").innerText = images.description || '';
-
-                                if (images.paths != null) {
-                                    displayImages_v3(images.paths);
-                                } else {
-                                    console.log(`Sorry, could not find images :-(`);
-                                }
-
-                                modalDialog.show();
-                            });
-                            // getImageDescription_v2(feature.properties.id);
-                            // getImageDescription_v2(feature.properties.PID);
-                        });
-
-                        layer.on({
-                            mouseover(e) {
-                                e.target.setStyle({ 
-                                    weight: 4, 
-                                    color: `${darkenHex(feature.properties.Hex)}`,
-                                    // fillColor: `${darkenHex(feature.properties.Hex)}`,
-                                });
-
-                                layer.bringToFront();
-                                console.log(feature.properties.UnitAbr)
-                            },
-                            mouseout(e) {
-                                polyLayer.resetStyle(e.target);
+            const polyLayer = L.geoJSON(data, {
+                pane: 'polygonPane',
+                // style polygons and lines 
+                style: (feature) => {
+                    if (patterned_polygons.has(Number(feature.properties.SID))) {
+                            console.log(feature.properties.SID);
+                            return {
+                                weight: 1,
+                                color: `#${feature.properties.Hex}`,
+                                opacity: 1,
+                                fillColor: `url(#pat-${Number(feature.properties.SID)})`,
+                                fillOpacity: 1
                             }
-                        });
-                    }
-                });
+                        } else {
+                            return {
+                                weight: 1,
+                                color: `#${feature.properties.Hex}`,
+                                opacity: 1,
+                                fillColor: `#${feature.properties.Hex}`,
+                                fillOpacity: 1
+                            }
+                        } // end of pattern style conditional 
+                },
+                // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
+                onEachFeature: (feature, layer) => {
+                    // layer.bindPopup(`
+                    //     <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+                    //     <p>${feature.properties.MapUnit}</p>
+                    //     <p>Formation: ${feature.properties.Formation}</p>
+                    //     <p>Epoch: ${feature.properties.Epoch}</p>
+                    //     `);
 
-                polygonLayers[id] = polyLayer;
-                polyLayer.addTo(map);
-                injectDefs();
-            }); // end of forEach loop 
+                    // layer click event
+                    layer.on('click', async () => {
+                        // TODO - clean this up to JS-focused creation instead of raw HTML and strings
+                        const formation = feature.properties.Formation.trim() === "" ? "" : `<p>Formation: ${feature.properties.Formation}</p>`;
+
+                        document.getElementById("text-info").innerHTML = /*html*/ `
+                        <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+                        <p>${feature.properties.MapUnit}</p>
+                        ${formation}
+                        <p>Epoch: ${feature.properties.Epoch}</p>
+                        `;
+
+                        // TODO - check JSON properties (get list of keys)
+                        findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
+                            document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
+                            document.getElementById("text-description").innerText = images.description || '';
+
+                            if (images.paths != null) {
+                                displayImages_v3(images.paths);
+                            } else {
+                                console.log(`Sorry, could not find images :-(`);
+                            }
+
+                            modalDialog.show();
+                        });
+                        // getImageDescription_v2(feature.properties.id);
+                        // getImageDescription_v2(feature.properties.PID);
+                    });
+
+                    layer.on({
+                        mouseover(e) {
+                            e.target.setStyle({ 
+                                weight: 4, 
+                                color: `${darkenHex(feature.properties.Hex)}`,
+                                // fillColor: `${darkenHex(feature.properties.Hex)}`,
+                            });
+
+                            layer.bringToFront();
+                            console.log(feature.properties.UnitAbr)
+                        },
+                        mouseout(e) {
+                            polyLayer.resetStyle(e.target);
+                        }
+                    });
+                }
+            });
+
+            // polygonLayers[id] = polyLayer;
+            polyLayer.addTo(map);
+            injectDefs();
+
+            // original 
+            // data.features.forEach(feature => {
+            //     const id = feature.properties.SID;
+            //     const name = feature.properties.UnitAbr;
+
+            //     const polyLayer = L.geoJSON(feature, {
+            //         pane: 'polygonPane',
+            //         // style polygons and lines 
+            //         style: (feature) => {
+            //             if (patterned_polygons.has(Number(feature.properties.SID))) {
+            //                     console.log(feature.properties.SID);
+            //                     return {
+            //                         weight: 1,
+            //                         color: `#${feature.properties.Hex}`,
+            //                         opacity: 1,
+            //                         fillColor: `url(#pat-${Number(feature.properties.SID)})`,
+            //                         fillOpacity: 1
+            //                     }
+            //                 } else {
+            //                     return {
+            //                         weight: 1,
+            //                         color: `#${feature.properties.Hex}`,
+            //                         opacity: 1,
+            //                         fillColor: `#${feature.properties.Hex}`,
+            //                         fillOpacity: 1
+            //                     }
+            //                 } // end of pattern style conditional 
+            //         },
+            //         // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
+            //         onEachFeature: (feature, layer) => {
+            //             // layer.bindPopup(`
+            //             //     <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+            //             //     <p>${feature.properties.MapUnit}</p>
+            //             //     <p>Formation: ${feature.properties.Formation}</p>
+            //             //     <p>Epoch: ${feature.properties.Epoch}</p>
+            //             //     `);
+
+            //             // layer click event
+            //             layer.on('click', async () => {
+            //                 // TODO - clean this up to JS-focused creation instead of raw HTML and strings
+            //                 const formation = feature.properties.Formation.trim() === "" ? "" : `<p>Formation: ${feature.properties.Formation}</p>`;
+
+            //                 document.getElementById("text-info").innerHTML = /*html*/ `
+            //                 <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
+            //                 <p>${feature.properties.MapUnit}</p>
+            //                 ${formation}
+            //                 <p>Epoch: ${feature.properties.Epoch}</p>
+            //                 `;
+
+            //                 // TODO - check JSON properties (get list of keys)
+            //                 findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
+            //                     document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
+            //                     document.getElementById("text-description").innerText = images.description || '';
+
+            //                     if (images.paths != null) {
+            //                         displayImages_v3(images.paths);
+            //                     } else {
+            //                         console.log(`Sorry, could not find images :-(`);
+            //                     }
+
+            //                     modalDialog.show();
+            //                 });
+            //                 // getImageDescription_v2(feature.properties.id);
+            //                 // getImageDescription_v2(feature.properties.PID);
+            //             });
+
+            //             layer.on({
+            //                 mouseover(e) {
+            //                     e.target.setStyle({ 
+            //                         weight: 4, 
+            //                         color: `${darkenHex(feature.properties.Hex)}`,
+            //                         // fillColor: `${darkenHex(feature.properties.Hex)}`,
+            //                     });
+
+            //                     layer.bringToFront();
+            //                     console.log(feature.properties.UnitAbr)
+            //                 },
+            //                 mouseout(e) {
+            //                     polyLayer.resetStyle(e.target);
+            //                 }
+            //             });
+            //         }
+            //     });
+
+            //     polygonLayers[id] = polyLayer;
+            //     polyLayer.addTo(map);
+            //     injectDefs();
+            // }); // end of forEach loop 
 
         // boundaries
         } else if (ftype === 2) {
@@ -654,8 +738,8 @@ function getLayers(data, ftype) {
             ptLayer.addTo(map);
             ptLayer.bringToFront();
         } // end of conditional for point 
-    });
-}
+    }); // end of fetch call
+} // end of getLayers function 
 
 // for polygons (to implement for points as well)
 async function findImagesSet_v2(apiUrl, searchId) {
