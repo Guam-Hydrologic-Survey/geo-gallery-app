@@ -205,7 +205,7 @@ add map layers
 // official layers
 getLayers("/data/GeoGalGMG2026.json", 1);
 getLayers("/data/GeoGalGMGBndry2026.json", 2);
-getLayers("/data/GeoGalPoints_08042026.json", 3);
+getLayers("/data/GeoGalPoints_08182026.json", 3);
 
 
 /* ------------------------------------------------------------
@@ -430,7 +430,9 @@ const polygonLayers = {};
 const boundaryLayers = {};
 const pointLayers = {};
 
-// params: data (url to geojson), ftype (feature type: 1 = polygon, 2 = boundary, 3 = point)
+// params: 
+// data (url to geojson) 
+// ftype (feature type: 1 = polygon, 2 = boundary, 3 = point)
 function getLayers(data, ftype) {
     fetch(data) 
     .then(response => response.json())
@@ -528,6 +530,7 @@ function getLayers(data, ftype) {
 
         // boundaries
         } else if (ftype === 2) {
+            // original 
             data.features.forEach(feature => { 
                 const id = feature.properties.Code1;
                 const bLayer = L.geoJSON(data, {
@@ -566,6 +569,7 @@ function getLayers(data, ftype) {
             // });
 
             const sinkhole = /*html*/ `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="1191 229 2021 2021"><g fill="none" stroke="#000" stroke-width="37"><path d="M1210.5 1238.5h330M2200.5 248.5v330M1496.5 537.5l231 231M2899.5 535.5l-231 231M2690.5 1713.5l231 231M2200.5 1901.5v330M2860.5 1238.5h330M1721.5 1685.5l-231 231M1210.5 1238.5c0-546.8 443.2-990 990-990s990 443.2 990 990-443.2 990-990 990-990-443.2-990-990Z"/></g></svg>
             `;
 
             const aerial = /*html*/ `
@@ -577,117 +581,223 @@ function getLayers(data, ftype) {
 
             const customIcons = [0, 1, 3]
 
-            data.features.forEach(feature => { 
-                const id = feature.properties.SCode;
-                const ptLayer = L.geoJSON(data, {
-                    pane: 'pointPane',
-                    // style points 
-                    pointToLayer: (feature, latlng) => {
-                        switch (id) {
-                            case 0:
-                                return L.circleMarker(latlng, {
-                                    radius: 8, 
-                                    fillColor: getColor(feature.properties.SCode),
-                                    color: "#000",
-                                    weight: 2,
-                                    fillOpacity: 1,
-                                    pane: 'pointPane'
-                                });
-                            case 1:
-                                return L.circleMarker(latlng, {
-                                    radius: 8, 
-                                    fillColor: getColor(feature.properties.SCode),
-                                    color: "#000",
-                                    weight: 2,
-                                    fillOpacity: 1,
-                                    pane: 'pointPane'
-                                });
-                            case 2:
-                                // console.log("Sinkhole")
-                                return L.circleMarker(latlng, {
-                                    radius: 8, 
-                                    fillColor: getColor(feature.properties.SCode),
-                                    color: "#000",
-                                    weight: 2,
-                                    fillOpacity: 1,
-                                    pane: 'pointPane'
-                                });
-                                // return L.marker(latlng, { 
-                                //     icon: sinkhole, pane: 'pointPane' });
-                                // return L.marker(latlng, {
-                                //     icon: L.divIcon({
-                                //         className: "custom-icon",
-                                //         html: sinkhole,
-                                //         iconSize: [10, 10]
-                                //     })
-                                // });
-                            case 3:
-                                // console.log("Aerial")
-                                return L.circleMarker(latlng, {
-                                    radius: 8, 
-                                    fillColor: getColor(feature.properties.SCode),
-                                    color: "#000",
-                                    weight: 2,
-                                    fillOpacity: 1,
-                                    pane: 'pointPane'
-                                });
-                                // return L.marker(latlng, { 
-                                //     icon: sinkhole, pane: 'pointPane' });
-                                // return L.marker(latlng, {
-                                //     icon: L.divIcon({
-                                //         className: "custom-icon",
-                                //         html: aerial,
-                                //         iconSize: [10, 10]
-                                //     })
-                                // });
-                            case 4:
-                                // console.log("Cave")
-                                // return L.circleMarker(latlng, {
-                                //     radius: 8, 
-                                //     fillColor: getColor(feature.properties.SCode),
-                                //     color: "#000",
-                                //     weight: 2,
-                                //     fillOpacity: 1,
-                                //     pane: 'pointPane'
-                                // });
-                                // return L.marker(latlng, { 
-                                //     icon: cave, pane: 'pointPane' });
-                                return L.marker(latlng, {
-                                    icon: L.divIcon({
-                                        className: "custom-icon",
-                                        html: cave,
-                                        iconSize: [40, 40]
-                                    })
-                                });
-                        }
-                    },
-                    // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
-                    onEachFeature: (feature, layer) => {
-                        layer.on('click', async () => {
-                            // TODO - check JSON properties (get list of keys)
-                            findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
-                                document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
-                                document.getElementById("text-description").innerText = images.description || '';
-
-                                if (images.paths != null) {
-                                    displayImages_v3(images.paths);
-                                } else {
-                                    console.log(`Sorry, could not find images :-(`);
-                                }
-
-                                modalDialog.show();
+            const ptLayer = L.geoJSON(data, {
+                pane: 'pointPane',
+                pointToLayer: (feature, latlng) => {
+                    switch (feature.properties.SCode) {
+                        case 0:
+                            return L.circleMarker(latlng, {
+                                radius: 8, 
+                                fillColor: getColor(feature.properties.SCode),
+                                color: "#000",
+                                weight: 2,
+                                fillOpacity: 1,
+                                pane: 'pointPane'
                             });
-                            // getImageDescription_v2(feature.properties.id);
-                            // getImageDescription_v2(feature.properties.PID);
+                        case 1:
+                            return L.circleMarker(latlng, {
+                                radius: 8, 
+                                fillColor: getColor(feature.properties.SCode),
+                                color: "#000",
+                                weight: 2,
+                                fillOpacity: 1,
+                                pane: 'pointPane'
+                            });
+                        case 2:
+                            // console.log("Sinkhole")
+                            // return L.circleMarker(latlng, {
+                            //     radius: 8, 
+                            //     fillColor: getColor(feature.properties.SCode),
+                            //     color: "#000",
+                            //     weight: 2,
+                            //     fillOpacity: 1,
+                            //     pane: 'pointPane'
+                            // });
+                            // return L.marker(latlng, { 
+                            //     icon: sinkhole, pane: 'pointPane' });
+                            return L.marker(latlng, {
+                                icon: L.divIcon({
+                                    className: "custom-icon",
+                                    html: sinkhole,
+                                    iconSize: [40, 40]
+                                })
+                            });
+                        case 3:
+                            // console.log("Aerial")
+                            return L.circleMarker(latlng, {
+                                radius: 8, 
+                                fillColor: getColor(feature.properties.SCode),
+                                color: "#000",
+                                weight: 2,
+                                fillOpacity: 1,
+                                pane: 'pointPane'
+                            });
+                            // return L.marker(latlng, { 
+                            //     icon: sinkhole, pane: 'pointPane' });
+                            // return L.marker(latlng, {
+                            //     icon: L.divIcon({
+                            //         className: "custom-icon",
+                            //         html: aerial,
+                            //         iconSize: [10, 10]
+                            //     })
+                            // });
+                        case 4:
+                            // console.log("Cave")
+                            // return L.circleMarker(latlng, {
+                            //     radius: 8, 
+                            //     fillColor: getColor(feature.properties.SCode),
+                            //     color: "#000",
+                            //     weight: 2,
+                            //     fillOpacity: 1,
+                            //     pane: 'pointPane'
+                            // });
+                            // return L.marker(latlng, { 
+                            //     icon: cave, pane: 'pointPane' });
+                            return L.marker(latlng, {
+                                icon: L.divIcon({
+                                    className: "custom-icon",
+                                    html: cave,
+                                    iconSize: [40, 40]
+                                })
+                            });
+                    } // end of switch statement 
+                }, // end of pointToLayer property
+                onEachFeature: (feature, layer) => {
+                    layer.on('click', async () => {
+                        // TODO - check JSON properties (get list of keys)
+                        findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
+                            document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
+                            document.getElementById("text-description").innerText = images.description || '';
+
+                            if (images.paths != null) {
+                                displayImages_v3(images.paths);
+                            } else {
+                                console.log(`Sorry, could not find images :-(`);
+                            }
+
+                            modalDialog.show();
                         });
-                    }
-                });
+                        // getImageDescription_v2(feature.properties.id);
+                        // getImageDescription_v2(feature.properties.PID);
+                    });
+                }
+            });
 
-                pointLayers[id] = ptLayer;
-                ptLayer.addTo(map);
-                ptLayer.bringToFront();
+            ptLayer.addTo(map);
+            ptLayer.bringToFront();
+            
+            // // original 
+            // data.features.forEach(feature => { 
+            //     const id = feature.properties.SCode;
+            //     const ptLayer = L.geoJSON(data, {
+            //         pane: 'pointPane',
+            //         // style points 
+            //         pointToLayer: (feature, latlng) => {
+            //             switch (id) {
+            //                 case 0:
+            //                     return L.circleMarker(latlng, {
+            //                         radius: 8, 
+            //                         fillColor: getColor(feature.properties.SCode),
+            //                         color: "#000",
+            //                         weight: 2,
+            //                         fillOpacity: 1,
+            //                         pane: 'pointPane'
+            //                     });
+            //                 case 1:
+            //                     return L.circleMarker(latlng, {
+            //                         radius: 8, 
+            //                         fillColor: getColor(feature.properties.SCode),
+            //                         color: "#000",
+            //                         weight: 2,
+            //                         fillOpacity: 1,
+            //                         pane: 'pointPane'
+            //                     });
+            //                 case 2:
+            //                     // console.log("Sinkhole")
+            //                     return L.circleMarker(latlng, {
+            //                         radius: 8, 
+            //                         fillColor: getColor(feature.properties.SCode),
+            //                         color: "#000",
+            //                         weight: 2,
+            //                         fillOpacity: 1,
+            //                         pane: 'pointPane'
+            //                     });
+            //                     // return L.marker(latlng, { 
+            //                     //     icon: sinkhole, pane: 'pointPane' });
+            //                     // return L.marker(latlng, {
+            //                     //     icon: L.divIcon({
+            //                     //         className: "custom-icon",
+            //                     //         html: sinkhole,
+            //                     //         iconSize: [10, 10]
+            //                     //     })
+            //                     // });
+            //                 case 3:
+            //                     // console.log("Aerial")
+            //                     return L.circleMarker(latlng, {
+            //                         radius: 8, 
+            //                         fillColor: getColor(feature.properties.SCode),
+            //                         color: "#000",
+            //                         weight: 2,
+            //                         fillOpacity: 1,
+            //                         pane: 'pointPane'
+            //                     });
+            //                     // return L.marker(latlng, { 
+            //                     //     icon: sinkhole, pane: 'pointPane' });
+            //                     // return L.marker(latlng, {
+            //                     //     icon: L.divIcon({
+            //                     //         className: "custom-icon",
+            //                     //         html: aerial,
+            //                     //         iconSize: [10, 10]
+            //                     //     })
+            //                     // });
+            //                 case 4:
+            //                     // console.log("Cave")
+            //                     // return L.circleMarker(latlng, {
+            //                     //     radius: 8, 
+            //                     //     fillColor: getColor(feature.properties.SCode),
+            //                     //     color: "#000",
+            //                     //     weight: 2,
+            //                     //     fillOpacity: 1,
+            //                     //     pane: 'pointPane'
+            //                     // });
+            //                     // return L.marker(latlng, { 
+            //                     //     icon: cave, pane: 'pointPane' });
+            //                     return L.marker(latlng, {
+            //                         icon: L.divIcon({
+            //                             className: "custom-icon",
+            //                             html: cave,
+            //                             iconSize: [40, 40]
+            //                         })
+            //                     });
+            //             }
+            //         },
+            //         // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
+            //         onEachFeature: (feature, layer) => {
+            //             layer.on('click', async () => {
+            //                 // TODO - check JSON properties (get list of keys)
+            //                 findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
+            //                     document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
+            //                     document.getElementById("text-description").innerText = images.description || '';
 
-            }); // end of forEach loop
+            //                     if (images.paths != null) {
+            //                         displayImages_v3(images.paths);
+            //                     } else {
+            //                         console.log(`Sorry, could not find images :-(`);
+            //                     }
+
+            //                     modalDialog.show();
+            //                 });
+            //                 // getImageDescription_v2(feature.properties.id);
+            //                 // getImageDescription_v2(feature.properties.PID);
+            //             });
+            //         }
+            //     });
+
+            //     pointLayers[id] = ptLayer;
+            //     ptLayer.addTo(map);
+            //     ptLayer.bringToFront();
+
+            // }); // end of forEach loop
         } // end of conditional for point 
     });
 }
