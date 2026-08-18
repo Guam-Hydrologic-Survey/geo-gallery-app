@@ -465,13 +465,6 @@ function getLayers(data, ftype) {
                 },
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 onEachFeature: (feature, layer) => {
-                    // layer.bindPopup(`
-                    //     <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
-                    //     <p>${feature.properties.MapUnit}</p>
-                    //     <p>Formation: ${feature.properties.Formation}</p>
-                    //     <p>Epoch: ${feature.properties.Epoch}</p>
-                    //     `);
-
                     // layer click event
                     layer.on('click', async () => {
                         // TODO - clean this up to JS-focused creation instead of raw HTML and strings
