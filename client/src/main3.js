@@ -545,27 +545,6 @@ function getLayers(data, ftype) {
                 }
             });
             bLayer.addTo(map);
-            console.log("Boundaries");
-            console.log(boundaryLayers);
-            // original 
-            // data.features.forEach(feature => { 
-            //     const id = feature.properties.Code1;
-            //     const bLayer = L.geoJSON(data, {
-            //         pane: 'linePane',
-            //         // style polygons and lines 
-            //         style: (feature) => {
-            //             return {
-            //                     color: getLineColor(feature.properties.Code1),
-            //                     weight: 1, 
-            //                     dashArray: getLineType(feature.properties.Code1),
-            //                 }
-            //         }
-            //     });
-
-            //     boundaryLayers[id] = bLayer;
-            //     bLayer.addTo(map);
-
-            // }); // end of forEach loop
         
         // points 
         } else if (ftype === 3) {
