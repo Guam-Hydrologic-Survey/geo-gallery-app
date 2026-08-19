@@ -28,8 +28,6 @@ export function Legend() {
     contents.className = "offcanvas-body";
     contents.id = "legend-contents";
 
-    // LegendContents(contents);
-
     legend.append(header, LegendContents(contents));
 
     return legend; 
@@ -37,28 +35,11 @@ export function Legend() {
 
 function LegendContents(legend) {
 
-    // let legend = document.getElementById("legend-contents");
-
-    // const data = "/data/GeologicUnits.json";
-
     const geo = "/data/GeologicUnits.json";
     const pts = "/data/PointUnits.json";
     const bndry = "/data/BoundaryUnits.json";
 
     const patterned_polygons = new Set([4, 9, 17]);
-
-    // const legend_tabs = /*html*/ `
-    // <ul class="nav nav-tabs" id="legend_tabs">
-    //     <li class="nav-item">
-    //         <a class="nav-link active" data-bs-toggle="tab" href="#panel-one">Geologic Map</a>
-    //     </li>
-    //     <li class="nav-item">
-    //         <a class="nav-link" data-bs-toggle="tab" href="#panel-two">Points</a>
-    //     </li>
-    //     <li class="nav-item">
-    //         <a class="nav-link" data-bs-toggle="tab" href="#panel-three">Boundaries</a>
-    //     </li>
-    // </ul>`;
 
     const legend_tabs = document.createElement("ul");
     legend_tabs.className = "nav nav-tabs";
@@ -76,55 +57,32 @@ function LegendContents(legend) {
     </li>
     `;
 
-    // const legend_tabs_content = /*html*/ `
-    // <div class="tab-content mt-3">
-    //     <div class="tab-pane fade show active" id="panel-one">Content for Geologic Map</div>
-    //     <div class="tab-pane fade" id="panel-two">Content for Points</div>
-    //     <div class="tab-pane fade" id="panel-three">Content for Boundaries</div>
-    // </div>`;
-
     const legend_tabs_content = document.createElement("div");
     legend_tabs_content.className = "tab-content mt-3";
 
     const polygon_tab = document.createElement("div");
     polygon_tab.className = "tab-pane fade show active";
     polygon_tab.id = "panel-one";
-    // polygon_tab.insertAdjacentText("afterbegin", "Content for Geologic Map");
 
     const point_tab = document.createElement("div");
     point_tab.className = "tab-pane fade";
     point_tab.id = "panel-two";
-    // point_tab.insertAdjacentText("Content for Points");
 
     const boundaries_tab = document.createElement("div");
     boundaries_tab.className = "tab-pane fade";
     boundaries_tab.id = "panel-three";
-    // boundaries_tab.insertAdjacentText("Content for Boundaries");
 
-    // legend_tabs_content.append(polygon_tab, point_tab, boundaries_tab);
-
-    // // add tabs and tab content to overall legend contents 
-    // legend.innerHTML = legend_tabs + legend_tabs_content;
-
-    // TODO - the issue is here where null error is thrown 
-    // const polygon_tab = document.getElementById("panel-one");
-    // const point_tab = document.getElementById("panel-two");
-    // const boundaries_tab = document.getElementById("panel-three");
-
+    // retrieve json containing key and descriptions for polygons 
     fetch(geo)
     .then(response => response.json())
     .then(contents => { 
-        console.log(contents);
-        // console.log(contents.geologic_units.length)
-        const geologic_units = contents.units;
 
-        // console.log(contents.features.length);
-        // const geologic_units = contents.features;
-        // console.log(geologic_units[0].properties.Label1);
+        const geologic_units = contents.units;
 
         const HEIGHT = 40;
         const WIDTH = 40;
 
+        // initialize variable containing legend row contents 
         let legend_row;
 
         for (let i = 0; i < geologic_units.length; i++) {
@@ -227,22 +185,23 @@ function LegendContents(legend) {
                     <input class="form-check-input" type="checkbox" id="toggle-${geologic_units[i].label}"/>
                 </div>
                 `;
-            }
+            } // end of conditional statement 
 
             polygon_tab.insertAdjacentHTML("beforeend", legend_row);
-        }
-        console.log(polygon_tab);
+        } // end of for loop 
     }); // end fetch for geo units
 
+    // retrieve json containing key and descriptions for points
     fetch(pts)
     .then(response => response.json())
     .then(contents => {
-        console.log(contents);
+
         const point_units = contents.units;
 
         const HEIGHT = 40;
         const WIDTH = 40;
 
+        // initialize variable containing legend row contents 
         let legend_row;
 
         for (let i = 0; i < point_units.length; i++) {
@@ -263,7 +222,7 @@ function LegendContents(legend) {
             </div>`;
 
             point_tab.insertAdjacentHTML("beforeend", legend_row);
-        }
+        } // end of for loop 
 
         const sinkhole = /* html */ `
         <div class="legend-row">
@@ -310,22 +269,24 @@ function LegendContents(legend) {
         </div>
         `;
 
+        // append custom icons to point tab 
         point_tab.insertAdjacentHTML("beforeend", sinkhole);
         point_tab.insertAdjacentHTML("beforeend", cave);
         point_tab.insertAdjacentHTML("beforeend", aerial);
 
-        console.log(point_tab);
     }); // end fetch for point units 
 
+    // retrieve json containing key and descriptions for boundaries 
     fetch(bndry)
     .then(response => response.json())
     .then(contents => {
-        console.log(contents);
+
         const boundary_units = contents.units;
 
         const HEIGHT = 40;
         const WIDTH = 40;
 
+        // initialize variable containing legend row contents 
         let legend_row;
 
         for (let i = 0; i < boundary_units.length; i++) {
@@ -370,11 +331,8 @@ function LegendContents(legend) {
     }); // end fetch for boundary units 
 
     legend_tabs_content.append(polygon_tab, point_tab, boundaries_tab);
-    console.log("Legend tabs content");
-    console.log(legend_tabs_content);
 
     // add tabs and tab content to overall legend contents 
-    // legend.innerHTML = legend_tabs + legend_tabs_content;
     legend.append(legend_tabs, legend_tabs_content);
 
     return legend;
