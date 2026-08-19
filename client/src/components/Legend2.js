@@ -109,7 +109,7 @@ function LegendContents(legend) {
                                     <p class="legend-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+                            <!-- <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>  -->
                         </div>
                         `;
                         break;
@@ -141,7 +141,7 @@ function LegendContents(legend) {
                                     <p class="legend-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+                            <!-- <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/> -->
                         </div>
                         `;
                         break;
@@ -163,7 +163,7 @@ function LegendContents(legend) {
                                     <p class="legend-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/>
+                            <!-- <input class="form-check-input" type="checkbox" id="toggle-${geologic_units.label}"/> -->
                         </div>
                         `;
                         break;
@@ -182,7 +182,7 @@ function LegendContents(legend) {
                             <p class="legend-description">${geologic_units[i].description}</p>
                         </div>
                     </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-${geologic_units[i].label}"/>
+                    <!-- <input class="form-check-input" type="checkbox" id="toggle-${geologic_units[i].label}"/> -->
                 </div>
                 `;
             } // end of conditional statement 
@@ -218,7 +218,7 @@ function LegendContents(legend) {
                         <p class="legend-description">${point_units[i].description}</p>
                     </div>
                 </div>
-                <input class="form-check-input" type="checkbox" id="toggle-${point_units[i].label}"/>
+                <!-- <input class="form-check-input" type="checkbox" id="toggle-${point_units[i].label}"/> -->
             </div>`;
 
             point_tab.insertAdjacentHTML("beforeend", legend_row);
@@ -234,7 +234,7 @@ function LegendContents(legend) {
                     <p class="legend-label text-bold-weight">Sinkhole</p>
                     <p class="legend-description"></p>
                 </div>
-                <input class="form-check-input" type="checkbox" id=""/>
+                <!-- <input class="form-check-input" type="checkbox" id=""/> -->
             </div>
         </div>
         `;
@@ -249,7 +249,7 @@ function LegendContents(legend) {
                     <p class="legend-label text-bold-weight">Cave</p>
                     <p class="legend-description"></p>
                 </div>
-                <input class="form-check-input" type="checkbox" id=""/>
+                <!-- <input class="form-check-input" type="checkbox" id=""/> -->
             </div>
         </div>
         `;
@@ -264,7 +264,7 @@ function LegendContents(legend) {
                     <p class="legend-label text-bold-weight">Aerial</p>
                     <p class="legend-description"></p>
                 </div>
-                <input class="form-check-input" type="checkbox" id=""/>
+                <!-- <input class="form-check-input" type="checkbox" id=""/> -->
             </div>
         </div>
         `;
