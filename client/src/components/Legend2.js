@@ -204,7 +204,7 @@ function LegendContents(legend) {
         // initialize variable containing legend row contents 
         let legend_row;
 
-        for (let i = 0; i < point_units.length; i++) {
+        for (let i = 0; i < point_units.length - 3; i++) {
             legend_row = /*html*/ `
             <div class="legend-row">
                 <div class="legend-toggle">
