@@ -58,8 +58,10 @@ dock.css
     transition: transform 0.2s;
     position: relative; */
     /* background: rgba(255, 255, 255, 0.08); */
-    background-color: #333;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    /* background-color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.15); */
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.35);
     cursor: pointer;
     padding: 10px;
     border-radius: 50%;
@@ -76,7 +78,7 @@ dock.css
     /* background-color: #131112; */
     transform: scale(1.15);
     background: rgba(255, 255, 255, 0.22);
-    border-color: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.75);
 }
 
 .dock button:active {
