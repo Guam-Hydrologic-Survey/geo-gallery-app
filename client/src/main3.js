@@ -179,12 +179,26 @@ event listener for location button (on dock)
 let locateMarker = null;
 let locateCircle = null;
 
+const locateIcon = L.divIcon({
+  className: 'locate-marker-icon',
+  html: `
+    <div class="locate-marker-wrap">
+      <div class="locate-marker-pulse"></div>
+      <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="8" fill="#4285F4" stroke="#fff" stroke-width="3"/>
+      </svg>
+    </div>
+  `,
+  iconSize: [32, 32],
+  iconAnchor: [16, 16],
+});
+
 const locateBtn = document.getElementById('locate-btn');
 
 locateBtn.addEventListener('click', () => {
     console.log('Clicked on LOCATE button');
     map.locate({
-        setView: true, maxZoom: 16
+        setView: true, maxZoom: 15
     });
 });
 
@@ -192,7 +206,8 @@ map.on('locationfound', function(e) {
     if (locateMarker) { map.removeLayer(locateMarker); }
     if (locateCircle) { map.removeLayer(locateCircle); }
 
-    locateMarker = L.marker(e.latlng, e.accuracy / 2).addTo(map);
+    locateMarker = L.marker(e.latlng, { icon: locateIcon }).addTo(map);
+    locateCircle = L.circle(e.latlng, e.ccuracy / 2).addTo(map);
 });
 
 map.on('locationerror', function(e) {
