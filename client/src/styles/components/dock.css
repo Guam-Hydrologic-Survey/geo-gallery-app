@@ -21,16 +21,22 @@ dock.css
 }
 
 .dock {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.12);
     /* background-color: rgba(17, 25, 40, 0.75); */
     border-radius: 20px;
-    border: 1px solid rgba(209, 213, 219, 0.3);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* border: 1px solid rgba(209, 213, 219, 0.3); */
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
     display: flex;
     padding: 10px 15px;
     gap: 16px;
-    backdrop-filter: blur(10px) saturate(100%);
-    -webkit-backdrop-filter: blur(10px) saturate(100%);
+    /* backdrop-filter: blur(10px) saturate(100%);
+    -webkit-backdrop-filter: blur(10px) saturate(100%); */
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     transition: transform 0.3s ease, opacity 0.3s ease;
 
 }
@@ -43,27 +49,48 @@ dock.css
 }
 
 .dock button {
-    background: none;
+    /* background: none;
     border: none; 
     background-color: #333;
     cursor: pointer;
     padding: 10px;
     border-radius: 50%;
     transition: transform 0.2s;
+    position: relative; */
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dock button:hover {
-    transform: scale(1.2);
+    /* transform: scale(1.2); */
     /* background-color: rgba(0, 0, 0, 0.05); */
-    background-color: #131112;
+    /* background-color: #131112; */
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.dock button:active {
+    transform: scale(1.05);
 }
 
 .dock svg {
-    width: 24px;
-    height: 24px;
+    /* width: 24px; */
+    /* height: 24px; */
     /* stroke: #333; */
-    stroke: white;
+    /* stroke: white; */
+    width: 22px;
+    height: 22px;
+    stroke: #fff;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 .dock-icon-tooltip {
@@ -72,10 +99,14 @@ dock.css
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
-    background-color: #333;
+    /* background-color: #333; */
+    background-color: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: #fff;
     padding: 4px 8px;
-    border-radius: 4px;
+    /* border-radius: 4px; */
+    border-radius: 6px;
     font-size: 12px;
     opacity: 0;
     pointer-events: none;
@@ -83,12 +114,12 @@ dock.css
     z-index: 10;
 }
 
-.dock button:hover .tooltip {
+.dock button:hover .dock-icon-tooltip {
     opacity: 1;
     transform: translateX(-50%) translateY(-4px);
 }
 
-.dock .dropdown-toggle::after {
+/* .dock .dropdown-toggle::after {
     display: none;
 }
 
@@ -124,4 +155,4 @@ dock.css
 
 .dock .form-check-label {
     font-size: 14px;
-}
+} */
