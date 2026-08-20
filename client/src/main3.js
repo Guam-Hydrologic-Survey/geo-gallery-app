@@ -601,7 +601,7 @@ function getLayers(data, ftype) {
                                 icon: L.divIcon({
                                     className: "custom-icon",
                                     html: aerial,
-                                    iconSize: [40, 40]
+                                    iconSize: [50, 50]
                                 })
                             });
                         case 4:
