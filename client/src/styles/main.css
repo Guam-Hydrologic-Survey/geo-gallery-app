@@ -45,6 +45,7 @@ import order    (order matters!)
 @import './components/dock.css';
 @import './components/images.css';
 @import './components/legend.css';
+@import './components/layerToggle.css';
 
 /* 4) pages */
 @import './pages/map.css';

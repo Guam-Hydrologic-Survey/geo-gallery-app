@@ -1,0 +1,53 @@
+/* ------------------------------------------------------------
+layerToggle.css
+- layout styling for the layer toggle offcanvas components 
+------------------------------------------------------------ */
+
+.layer-row {
+    display: flex;
+    /* flex-direction: row; */
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin: 0.5rem;
+}
+
+.layer-toggle {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+}
+
+.layer-row:hover {
+    border: 1px solid #999999;
+    cursor: pointer;
+}
+
+.layer-swatch {
+    /* height: 30px;
+    width: 30px; */
+}
+
+.layer-key {
+    display: flex;
+    /* align-items: center; */
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.layer-label {
+    font-size: 16px;
+    letter-spacing: 0.08rem;
+    padding: 0px;
+    margin: 0px;
+}
+
+.layer-description {
+    font-size: 14px;
+    padding: 0px;
+    margin: 0px;
+}
