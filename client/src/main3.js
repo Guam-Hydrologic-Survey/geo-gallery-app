@@ -167,10 +167,6 @@ document.getElementById('recenter-btn').addEventListener('click', () => {
     map.setView(center, defaultZoom);
 });
 
-// document.getElementById('locate').addEventListener('click', () => {
-//     alert('Clicked on locate');
-// });
-
 
 /* ------------------------------------------------------------
 event listener for location button (on dock)
@@ -184,7 +180,8 @@ const locateIcon = L.divIcon({
   html: `
     <div class="locate-marker-wrap">
       <div class="locate-marker-pulse"></div>
-      <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <svg width="32" height="32" viewBox="0 0 3<svg xmlns="http://www.w3.org/2000/svg" viewBox="1076 -6 2107 2526"><path fill="#367bcb" stroke="#2a62a2" stroke-linecap="round" stroke-width="13.8" d="m2471.9 75-59.2 56-99.6 46.7-37.4 40.5 15.6 34.2-25 28-21.7 31.2-40.5 74.7-49.9 59.1-9.3 40.5-130.8 65.3-146.4 59.2-218 71.6-77.9 112-52.9 46.7-71.6 96.5-34.3 34.2-18.7 37.4-77.8 34.2-96.6 18.7-24.9 12.4v46.7l46.7 3.2 18.7 105.8 118.3-25h40.5l56-43.5 53-68.5 25-37.3 15.5-6.3 28-40.4 28-34.3 37.5-37.3 40.4-56 34.3-21.8 68.5-68.5 87.2-28 71.7-3.1-90.4 80.9-87.2 65.4-53 43.5-21.7 15.6-25 87.2-34.2 6.2-24.9 81 37.4 9.3-9.4 49.8 40.5 31-15.6 40.5L1659 1401l-28 112-18.7 133.9-12.4 90.2-3.1 49.8 18.6 56-3 62.3-9.4 87.2-9.4 52.9-28 28-9.3 81-9.4 31-93.4 31.2-31.2 56-12.4 34.2-9.4 77.9 68.6 6.2 28 6.2 68.5-37.3 71.6-56 56.1-43.6 99.7-21.8 34.2-28 9.4-46.7v-18.7l-12.5-12.5 12.5-87.1 6.2-87.2 9.3-87.1v-84l-15.5-28-34.3-12.5v-59.2l15.6-68.5 28-65.3 31.1-53 31.2-59 31.1-40.5 15.6-12.5h53l62.2 21.8 40.5 34.2 31.2 46.7 28 62.3-21.8 121.4-18.7 87.1-3.1 59.2-9.3 31 28 18.8-3.1 49.8 56 12.4h34.3l31.1-18.7 74.8-12.4 43.6-21.8h96.5l25-21.8 34.2-21.8 6.2-34.2-43.6-21.8-34.2-21.8-46.7-15.6-74.8 21.8-6.2-93.3-3.1-65.4-6.3-68.5v-28l15.6-31.1-90.3-109-74.8-77.8-28-56 65.4-3.1 93.4 90.3 9.4-59.2 25-96.5 21.7-62.2 9.3-59.2 15.6-65.3 12.5-34.3 49.8-49.8 109 12.5 90.3 15.5 190-146.3 84 12.5-9.2 46.7 9.3 18.7 102.8-74.7 31.1-49.8 18.7-34.3 18.7-43.6 3.1-12.4-140.2-6.2 9.4 37.3H2911l-28-52.9-233.6 124.5-62.3 18.7-162-84 56.1-46.7 18.7-40.5 49.8 53 12.5-84.1 137-18.7-9.3-65.4-6.2-90.2 68.5-46.7-56-102.7-121.5-127.7Z"/><path fill="#367bcb" stroke="#2a62a2" stroke-linecap="round" stroke-width="13.8" d="M2923.1 852.8 2920 1703l53-872"/></svg>
+2 32" xmlns="http://www.w3.org/2000/svg">
         <circle cx="16" cy="16" r="8" fill="#4285F4" stroke="#fff" stroke-width="3"/>
       </svg>
     </div>
@@ -207,7 +204,7 @@ map.on('locationfound', function(e) {
     if (locateCircle) { map.removeLayer(locateCircle); }
 
     locateMarker = L.marker(e.latlng, { icon: locateIcon }).addTo(map);
-    locateCircle = L.circle(e.latlng, e.ccuracy / 2).addTo(map);
+    locateCircle = L.circleMarker(e.latlng, e.ccuracy / 2).addTo(map);
 });
 
 map.on('locationerror', function(e) {
