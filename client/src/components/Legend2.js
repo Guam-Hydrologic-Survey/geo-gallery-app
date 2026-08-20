@@ -232,7 +232,7 @@ function LegendContents(legend) {
                 </div>
                 <div class="legend-key">
                     <p class="legend-label text-bold-weight">Sinkhole</p>
-                    <p class="legend-description"></p>
+                    <p class="legend-description">${point_units[2].description}</p>
                 </div>
                 <!-- <input class="form-check-input" type="checkbox" id=""/> -->
             </div>
@@ -247,7 +247,7 @@ function LegendContents(legend) {
                 </div>
                 <div class="legend-key">
                     <p class="legend-label text-bold-weight">Cave</p>
-                    <p class="legend-description"></p>
+                    <p class="legend-description">${point_units[4].description}</p>
                 </div>
                 <!-- <input class="form-check-input" type="checkbox" id=""/> -->
             </div>
@@ -262,7 +262,7 @@ function LegendContents(legend) {
                 </div>
                 <div class="legend-key">
                     <p class="legend-label text-bold-weight">Aerial</p>
-                    <p class="legend-description"></p>
+                    <p class="legend-description">${point_units[3].description}</p>
                 </div>
                 <!-- <input class="form-check-input" type="checkbox" id=""/> -->
             </div>
