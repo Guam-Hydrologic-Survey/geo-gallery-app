@@ -304,7 +304,6 @@ function LegendContents(legend) {
                             <p class="legend-description">${boundary_units[i].description}</p>
                         </div>
                     </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-${boundary_units[i].label}"/>
                 </div>
                 `;
             } else { // dashed lines
@@ -321,7 +320,6 @@ function LegendContents(legend) {
                             <p class="legend-description">${boundary_units[i].description}</p>
                         </div>
                     </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-${boundary_units[i].label}"/>
                 </div>
                 `;
             }
