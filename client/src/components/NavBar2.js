@@ -10,7 +10,7 @@ export function NavBar() {
 
     const navbar = document.createElement("nav");
     navbar.id = "navbar";
-    navbar.className = "navbar navbar-dark bg-dark px-3";
+    navbar.className = "navbar navbar-dark bg-dark px-3 fixed-top custom-navbar";
 
     // create header container projec title and logo   
     const brand = document.createElement("a");

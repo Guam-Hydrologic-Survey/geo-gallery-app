@@ -21,3 +21,13 @@ nav.css
     z-index: 9999;
     float: right;
 } */
+
+.custom-navbar {
+    background-color: rgba(17, 25, 40, 0.75) !important;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
