@@ -143,17 +143,17 @@ event listeners for dock buttons
 
 lucide.createIcons();
 
-document.getElementById('toggle-layer-btn').addEventListener('click', () => { 
-    if (currentLayer === 'ewtm') {
-        map.removeLayer(ewtm);
-        ewi.addTo(map);
-        currentLayer = 'ewi';
-    } else {
-        map.removeLayer(ewi);
-        ewtm.addTo(map);
-        currentLayer = 'ewtm';
-    }
-});
+// document.getElementById('toggle-layer-btn').addEventListener('click', () => { 
+//     if (currentLayer === 'ewtm') {
+//         map.removeLayer(ewtm);
+//         ewi.addTo(map);
+//         currentLayer = 'ewi';
+//     } else {
+//         map.removeLayer(ewi);
+//         ewtm.addTo(map);
+//         currentLayer = 'ewtm';
+//     }
+// });
 
 document.getElementById('zoom-in-btn').addEventListener('click', () => {
     map.zoomIn();
