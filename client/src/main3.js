@@ -19,6 +19,7 @@ import { Legend } from './components/Legend2.js';
 import { Tutorial } from './components/Tutorial2.js';
 import { Gallery } from './components/Gallery2.js';
 import { Dock } from './components/Dock2.js';
+import { LayerToggle } from './components/LayerToggle.js';
 
 
 /* ------------------------------------------------------------
@@ -30,7 +31,7 @@ const app = document.getElementById("app");
 
 app.append(NavBar(), MapContainer(), Dock());
 
-document.body.append(About(), Tutorial(), Legend(), Gallery());
+document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle());
 
 
 /* ------------------------------------------------------------
