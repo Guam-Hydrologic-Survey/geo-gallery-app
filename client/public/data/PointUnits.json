@@ -21,13 +21,13 @@
         {
             "number": 3,
             "label": "Aerial",
-            "description": "",
+            "description": "Photos taken from an aerial point of view",
             "hexcode": "FFDE21"
         },
         {
             "number": 4,
             "label": "Cave",
-            "description": "",
+            "description": "Photos taken inside and outside of caves",
             "hexcode": "50C878"
         }
     ]
