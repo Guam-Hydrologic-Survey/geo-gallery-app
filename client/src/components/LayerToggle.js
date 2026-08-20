@@ -47,13 +47,13 @@ function LayerToggleContents(layer_toggle) {
 
     layer_tabs.innerHTML = /*html*/ `
     <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" href="#panel-one">Geologic Map</a>
+        <a class="nav-link active" data-bs-toggle="tab" href="#layers-panel-one">Geologic Map</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#panel-two">Points</a>
+        <a class="nav-link" data-bs-toggle="tab" href="#layers-panel-two">Points</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#panel-three">Boundaries</a>
+        <a class="nav-link" data-bs-toggle="tab" href="#layers-panel-three">Boundaries</a>
     </li>
     `;
 
@@ -204,7 +204,7 @@ function LayerToggleContents(layer_toggle) {
         // initialize variable containing layer_toggle row contents 
         let layer_row;
 
-        for (let i = 0; i < point_units.length; i++) {
+        for (let i = 0; i < point_units.length - 3; i++) {
             layer_row = /*html*/ `
             <div class="layer-row">
                 <div class="layer-toggle">
