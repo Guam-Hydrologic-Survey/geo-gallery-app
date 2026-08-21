@@ -102,7 +102,7 @@ modal handling for photo gallery
 // modal body 
 const gallery = document.getElementById('gallery'); 
 
-// modal element instance 
+// modal element instance of photo gallery 
 const modalElement = document.getElementById('results');
 const modalDialog = new bootstrap.Modal(modalElement);
 
@@ -135,6 +135,19 @@ document.addEventListener('keydown', (pressed) => {
     }
 }, true);
 
+// if (viewer && viewer.isShown) {
+//     modalDialog.hide()
+//     console.log
+// } 
+
+// // if viewer is open, hide modal for gallery
+// viewer.addEventListener('shown', () => {
+//     modalDialog.style.display = 'none';
+// });
+
+// viewer.addEventListener('hidden', () => {
+//     modalDialog.style.display = '';
+// });
 
 /* ------------------------------------------------------------
 event listeners for dock buttons 
