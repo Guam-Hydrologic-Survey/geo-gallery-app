@@ -47,7 +47,7 @@ nav.css
     position: absolute;
     top: 125%;
     left: 50%;
-    transform: translateX(-50%) translateY(-4px);
+    transform: translateX(-50%) translateY(2px);
     white-space: nowrap;
     /* background-color: #333; */
     background-color: rgba(20, 20, 20, 0.7);
@@ -85,5 +85,5 @@ nav.css
 
 #navbar button:hover .navbar-icon-tooltip {
     opacity: 1;
-    transform: translateX(-50%) translateY(-4px);
+    transform: translateX(-50%) translateY(2px);
 }
