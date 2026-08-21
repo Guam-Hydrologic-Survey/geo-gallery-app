@@ -20,6 +20,7 @@ import { Tutorial } from './components/Tutorial2.js';
 import { Gallery } from './components/Gallery2.js';
 import { Dock } from './components/Dock2.js';
 import { LayerToggle } from './components/LayerToggle.js';
+import { Toast } from './components/Toast.js';
 
 
 /* ------------------------------------------------------------
@@ -31,7 +32,7 @@ const app = document.getElementById("app");
 
 app.append(NavBar(), MapContainer(), Dock());
 
-document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle());
+document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(), Toast());
 
 
 /* ------------------------------------------------------------
@@ -121,6 +122,14 @@ if (!dock || !modalElement) {
     });
 }
 
+modalElement.addEventListener('shown.bs.modal', () => {
+    console.log("Modal gallery is open")
+});
+
+modalElement.addEventListener('hidden.bs.modal', () => {
+    console.log("Modal gallery is hidden");
+});
+
 // for photo lightbox
 let viewer;
 
@@ -135,10 +144,10 @@ document.addEventListener('keydown', (pressed) => {
     }
 }, true);
 
-// if (viewer && viewer.isShown) {
-//     modalDialog.hide()
-//     console.log
-// } 
+// const photoset = document.getElementsByClassName("gallery-img");
+// photoset.addEventListener('click', (event) => {
+//     console.log("Clicked on photo, viewer is open")
+// });
 
 // // if viewer is open, hide modal for gallery
 // viewer.addEventListener('shown', () => {
@@ -662,6 +671,10 @@ function getLayers(data, ftype) {
                                 console.log(`Sorry, could not find images :-(`);
                             }
 
+                            // document.getElementsByClassName("toast-body").innerText = "Fetching images...";
+                            // const notif = bootstrap.Toast.getOrCreateInstance(document.getElementById("notif"));
+                            // notif.show();
+
                             modalDialog.show();
                         });
                         // getImageDescription_v2(feature.properties.id);
@@ -801,6 +814,9 @@ function initializeViewer() {
     if (viewer) {
         viewer.destroy();
     }
+
+    // set viewer state to true
+    // viewerState = true;
 
     // initialize viewer.js on next set of images
     viewer = new Viewer(gallery, {
