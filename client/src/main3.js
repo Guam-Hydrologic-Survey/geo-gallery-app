@@ -609,14 +609,6 @@ function getLayers(data, ftype) {
                                 fillOpacity: 1
                             });
                         case 2:
-                            // return L.circleMarker(latlng, {
-                            //     radius: 8, 
-                            //     fillColor: getColor(feature.properties.SCode),
-                            //     color: "#000",
-                            //     weight: 2,
-                            //     fillOpacity: 1,
-                            //     pane: 'pointPane'
-                            // });
                             return L.marker(latlng, {
                                 icon: L.divIcon({
                                     className: "custom-icon",
@@ -625,14 +617,6 @@ function getLayers(data, ftype) {
                                 })
                             });
                         case 3:
-                            // return L.circleMarker(latlng, {
-                            //     radius: 8, 
-                            //     fillColor: getColor(feature.properties.SCode),
-                            //     color: "#000",
-                            //     weight: 2,
-                            //     fillOpacity: 1,
-                            //     pane: 'pointPane'
-                            // });
                             return L.marker(latlng, {
                                 icon: L.divIcon({
                                     className: "custom-icon",
@@ -641,14 +625,6 @@ function getLayers(data, ftype) {
                                 })
                             });
                         case 4:
-                            // return L.circleMarker(latlng, {
-                            //     radius: 8, 
-                            //     fillColor: getColor(feature.properties.SCode),
-                            //     color: "#000",
-                            //     weight: 2,
-                            //     fillOpacity: 1,
-                            //     pane: 'pointPane'
-                            // });
                             return L.marker(latlng, {
                                 icon: L.divIcon({
                                     className: "custom-icon",
