@@ -41,6 +41,7 @@ export function NavBar() {
     // aboutBtn.textContent = "About";
     aboutBtn.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    <span class="navbar-icon-tooltip">About</span>
     `;
     // aboutBtn.innerHTML = /*html*/ `
     // <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
@@ -58,6 +59,7 @@ export function NavBar() {
     // tutorialBtn.textContent = "Tutorial";
     tutorialBtn.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-question-mark-icon lucide-circle-question-mark"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+    <span class="navbar-icon-tooltip">Tutorial</span>
     `;
     // tutorialBtn.innerHTML = /*html*/ `
     // <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
@@ -75,6 +77,7 @@ export function NavBar() {
     lengendBtn.setAttribute("title", "Legend");
     lengendBtn.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-icon lucide-list"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></svg>
+    <span class="navbar-icon-tooltip">Legend</span>
     `;
 
     // for testing purpose only - remove later 
@@ -88,6 +91,7 @@ export function NavBar() {
     galleryBtn.setAttribute("title", "Gallery");
     galleryBtn.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images-icon lucide-images"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg>
+    <span class="navbar-icon-tooltip">Gallery</span>
     `;
 
     const dropdown = createDropdownLinks();
@@ -111,6 +115,7 @@ function createDropdownLinks() {
     // toggle.textContent = "Links";
     toggle.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link-icon lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    <span class="navbar-icon-tooltip">Links</span>
     `;
 
     const menu = document.createElement("ul");
