@@ -74,7 +74,7 @@ export function NavBar() {
     lengendBtn.setAttribute("data-bs-toggle", "offcanvas");
     lengendBtn.setAttribute("data-bs-target", "#legend-offcanvas");
     lengendBtn.setAttribute("aria-controls", "legend");
-    lengendBtn.setAttribute("title", "Legend");
+    // lengendBtn.setAttribute("title", "Legend");
     lengendBtn.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-icon lucide-list"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></svg>
     <span class="navbar-icon-tooltip">Legend</span>
@@ -88,7 +88,7 @@ export function NavBar() {
     galleryBtn.setAttribute("data-bs-toggle", "modal");
     galleryBtn.setAttribute("data-bs-target", "#results");
     galleryBtn.setAttribute("aria-controls", "gallery");
-    galleryBtn.setAttribute("title", "Gallery");
+    // galleryBtn.setAttribute("title", "Gallery");
     galleryBtn.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images-icon lucide-images"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg>
     <span class="navbar-icon-tooltip">Gallery</span>
@@ -111,7 +111,7 @@ function createDropdownLinks() {
     // toggle.className = "dropdown-toggle";
     toggle.setAttribute("data-bs-toggle", "dropdown");
     toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("title", "Links");
+    // toggle.setAttribute("title", "Links");
     // toggle.textContent = "Links";
     toggle.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link-icon lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
