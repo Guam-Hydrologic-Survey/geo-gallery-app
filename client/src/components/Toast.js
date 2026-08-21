@@ -11,6 +11,7 @@ export function Toast() {
 
     const toast = document.createElement("div");
     toast.className = "toast";
+    toast.id = "notif";
     toast.setAttribute("role", "alert");
     toast.setAttribute("aria-live", "assertive");
     toast.setAttribute("aria-atomic", "true");
