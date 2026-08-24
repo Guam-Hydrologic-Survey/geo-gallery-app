@@ -505,6 +505,16 @@ function getLayers(data, ftype) {
                     const polyType = feature.properties.SID;
                     polygonLayers[polyType] = layer;
 
+                    layer.bindTooltip(
+                        `${feature.properties.MapUnit} (${feature.properties.UnitAbr})`,
+                        {
+                            sticky: true, 
+                            direction: 'top',
+                            opacity: 0.9,
+                            className: 'polygon-tooltip',
+                        }
+                    );
+
                     // layer click event
                     layer.on('click', async () => {
                         // TODO - clean this up to JS-focused creation instead of raw HTML and strings
