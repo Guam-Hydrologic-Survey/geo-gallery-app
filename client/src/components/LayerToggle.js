@@ -26,11 +26,70 @@ export function LayerToggle() {
     // layer_toggle contents 
     const contents = document.createElement("div");
     contents.className = "offcanvas-body";
-    contents.id = "layer-toggle-contents";
+    contents.id = "layer-toggle-body";
 
-    layer_toggle.append(header, LayerToggleContents(contents));
+    const map_features = document.createElement("div");
+    map_features.id = "layer-toggle-contents";
+
+    contents.append(ToggleBaseMaps(), ResetLayerButtons(), LayerToggleContents(map_features));
+    layer_toggle.append(header, contents);
+
+    // layer_toggle.append(header, LayerToggleContents(contents));
 
     return layer_toggle; 
+}
+
+function ToggleBaseMaps() {
+    const toggle_basemap = document.createElement("div");
+    toggle_basemap.id = "toggle_basemap_radio";
+
+    toggle_basemap.innerHTML = /*html*/ `
+    <ul class="list-group">
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
+            <label class="form-check-label" for="firstRadio">Open Street Map</label>
+        </li>
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
+            <label class="form-check-label" for="secondRadio">World Imagery Map (ESRI)</label>
+        </li>
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
+            <label class="form-check-label" for="thirdRadio">Gray Canvas Map (ESRI)</label>
+        </li>
+    </ul>
+    `;
+
+    return toggle_basemap;
+}
+
+function ResetLayerButtons() {
+    const reset_btns_container = document.createElement("div");
+    reset_btns_container.id = "reset-btn-group";
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    // temporary
+    reset_btns_container.innerHTML = /*html*/ `
+    <ul class="list-group">
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+            <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+        </li>
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+            <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+        </li>
+        <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+            <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+        </li>
+    </ul>
+    `;
+
+
+    return reset_btns_container;
 }
 
 function LayerToggleContents(layer_toggle) {
