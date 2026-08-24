@@ -25,3 +25,23 @@ leaflet map styles and overrides
 #map {
     height: 100%;
 }
+
+.polygon-tooltip {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid #666;
+    border-radius: 50px;
+    padding: 6px 10px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Roboto Slab';
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.polygon-tooltip::before {
+    border-top-color: #666;
+}
+
+.leaflet-interactive:focus {
+    outline: none;
+}
