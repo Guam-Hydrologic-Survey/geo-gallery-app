@@ -11,4 +11,5 @@ consistent baseline across all browsers
 html, body, #app {
     margin: 0;
     height: 100%;
+    overflow: hidden;
 }

@@ -23,5 +23,5 @@ leaflet map styles and overrides
 } */
 
 #map {
-    height: calc(100% - 56px);
+    height: 100%;
 }

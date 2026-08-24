@@ -38,7 +38,10 @@ dock.css
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     transition: transform 0.3s ease, opacity 0.3s ease;
-
+    position: fixed;
+    bottom: 20px;
+    left: 20%;
+    transform: translateX(-50%);
 }
 
 .dock.hidden {
