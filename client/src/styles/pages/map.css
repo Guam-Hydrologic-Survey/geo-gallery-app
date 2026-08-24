@@ -1,31 +1,17 @@
 /* ------------------------------------------------------------
+map.css:
 leaflet map styles and overrides
 ------------------------------------------------------------ */
 
-
-/* adjust width and height */
-
-/* #map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-} */
-
-
-/* top: var(--header-height); */
-
-/* #map {
-    flex: 1;
-    width: 100%;
-} */
-
+/* 
+IMPORTANT: 
+must set map container dimensions (height and width) for visibility 
+*/
 #map {
     height: 100%;
 }
 
+/* custom styles for leaflet tooltip */
 .polygon-tooltip {
     background-color: #2b2b2b;
     color: #fff;
@@ -44,4 +30,41 @@ leaflet map styles and overrides
 
 .leaflet-interactive:focus {
     outline: none;
+}
+
+/* custom styles for map marker icons */
+.locate-marker-icon {
+  background: transparent;
+  border: none;
+}
+
+.locate-marker-wrap {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.locate-marker-wrap svg {
+  position: relative;
+  z-index: 2;
+}
+
+.locate-marker-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border-radius: 50%;
+  background: #4285F4;
+  opacity: 0.6;
+  z-index: 1;
+  animation: locate-blink 1.8s ease-out infinite;
+}
+
+@keyframes locate-blink {
+  0%   { transform: scale(0.4); opacity: 0.6; }
+  70%  { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
 }
