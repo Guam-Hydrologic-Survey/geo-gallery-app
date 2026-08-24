@@ -31,7 +31,14 @@ export function LayerToggle() {
     const map_features = document.createElement("div");
     map_features.id = "layer-toggle-contents";
 
-    contents.append(ToggleBaseMaps(), ResetLayerButtons(), LayerToggleContents(map_features));
+    // add all elements to content 
+    contents.append(
+        ToggleBaseMaps(), 
+        ResetLayerButtons(), 
+        ResetLayersBlockButtons(), 
+        LayerToggleContents(map_features));
+
+    // add everything to layer_toggle container 
     layer_toggle.append(header, contents);
 
     // layer_toggle.append(header, LayerToggleContents(contents));
@@ -75,19 +82,36 @@ function ResetLayerButtons() {
     <ul class="list-group">
         <li class="list-group-item">
             <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
-            <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+            <label class="form-check-label" for="firstCheckbox">Reset polygons</label>
         </li>
         <li class="list-group-item">
             <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-            <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+            <label class="form-check-label" for="secondCheckbox">Reset points</label>
         </li>
         <li class="list-group-item">
             <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-            <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+            <label class="form-check-label" for="thirdCheckbox">Reset boundaries</label>
         </li>
     </ul>
     `;
 
+    return reset_btns_container;
+}
+
+function ResetLayersBlockButtons() {
+    const reset_btns_container = document.createElement("div");
+    reset_btns_container.className = "d-grid gap-2";
+
+    reset_btns_container.innerHTML = /*html*/ `
+    <button class="btn btn-success" type="button" title="Reset all layers on map">
+        <i class="bi bi-arrow-clockwise"></i>
+        Reset all layers
+    </button>
+    <button class="btn btn-danger" type="button" title="Remove all layers from map">
+        <i class="bi bi-x-lg"></i>
+        Remove all layers
+    </button>
+    `;
 
     return reset_btns_container;
 }
