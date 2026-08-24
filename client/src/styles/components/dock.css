@@ -21,20 +21,15 @@ dock.css
 }
 
 .dock {
-    /* background: rgba(255, 255, 255, 0.12); */
-    background-color: rgba(17, 25, 40, 0.75);
-    border-radius: 20px;
-    /* border: 1px solid rgba(209, 213, 219, 0.3); */
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
     display: flex;
     padding: 10px 15px;
     gap: 16px;
-    /* backdrop-filter: blur(10px) saturate(100%);
-    -webkit-backdrop-filter: blur(10px) saturate(100%); */
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     transition: transform 0.3s ease, opacity 0.3s ease;
