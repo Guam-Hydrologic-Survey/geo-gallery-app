@@ -1,5 +1,5 @@
 // libraries, extensions, plugins
-import L from 'leaflet';
+import L, { polygon } from 'leaflet';
 import Viewer from 'viewerjs';
 
 // styles
@@ -11,7 +11,7 @@ import 'leaflet/dist/leaflet.css';
 
 import { MapContainer } from './components/MapContainer.js';
 
-// components 
+// components
 // import { Legend } from './components/Legend.js';
 import { NavBar } from './components/NavBar2.js';
 import { About } from './components/About2.js';
@@ -36,7 +36,7 @@ document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(), To
 
 
 /* ------------------------------------------------------------
-initialize leaflet map 
+initialize leaflet map
 ------------------------------------------------------------ */
 
 const center = [13.4443, 144.7937];
@@ -55,25 +55,25 @@ const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         className: 'fade-layer',
     });
 
-// esri imagery map 
+// esri imagery map
 const ewi = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri',
         className: 'fade-layer',
-    }); 
+    });
 
-// esri world topo map 
+// esri world topo map
 const ewtm = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri',
         className: 'fade-layer',
     });
 
-// esri world gray canvas map 
+// esri world gray canvas map
 const ewgc = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri',
         className: 'fade-layer',
     });
 
-// use osm as default map tiles 
+// use osm as default map tiles
 // osm.addTo(map);
 ewtm.addTo(map);
 
@@ -81,7 +81,7 @@ let currentLayer = 'ewtm';
 
 
 /* ------------------------------------------------------------
-leaflet marker icon adjustment 
+leaflet marker icon adjustment
 ------------------------------------------------------------ */
 
 
@@ -96,14 +96,14 @@ L.Icon.Default.mergeOptions({
 
 
 /* ------------------------------------------------------------
-modal handling for photo gallery 
+modal handling for photo gallery
 ------------------------------------------------------------ */
 
 
-// modal body 
-const gallery = document.getElementById('gallery'); 
+// modal body
+const gallery = document.getElementById('gallery');
 
-// modal element instance of photo gallery 
+// modal element instance of photo gallery
 const modalElement = document.getElementById('results');
 const modalDialog = new bootstrap.Modal(modalElement);
 
@@ -137,9 +137,9 @@ document.addEventListener('keydown', (pressed) => {
     if (pressed.key === "Escape") {
         if (viewer && viewer.isShown) {
             pressed.preventDefault();
-            pressed.stopPropagation(); // prevent boostrap from noticing this event 
-            pressed.stopImmediatePropagation(); 
-            viewer.hide(); // close the viewer only 
+            pressed.stopPropagation(); // prevent boostrap from noticing this event
+            pressed.stopImmediatePropagation();
+            viewer.hide(); // close the viewer only
         }
     }
 }, true);
@@ -159,13 +159,13 @@ document.addEventListener('keydown', (pressed) => {
 // });
 
 /* ------------------------------------------------------------
-event listeners for dock buttons 
+event listeners for dock buttons
 ------------------------------------------------------------ */
 
 
 lucide.createIcons();
 
-// document.getElementById('toggle-layer-btn').addEventListener('click', () => { 
+// document.getElementById('toggle-layer-btn').addEventListener('click', () => {
 //     if (currentLayer === 'ewtm') {
 //         map.removeLayer(ewtm);
 //         ewi.addTo(map);
@@ -235,7 +235,7 @@ map.on('locationerror', function(e) {
 
 
 /* ------------------------------------------------------------
-add map layers 
+add map layers
 ------------------------------------------------------------ */
 
 // official layers
@@ -245,10 +245,10 @@ getLayers("/data/GeoGalPoints_08182026.json", 3);
 
 
 /* ------------------------------------------------------------
-enforce layer orders 
+enforce layer orders
 ------------------------------------------------------------ */
 
-// create panes for each feature 
+// create panes for each feature
 map.createPane('polygonPane');
 map.createPane('linePane');
 map.createPane('pointPane')
@@ -256,7 +256,7 @@ map.createPane('pointPane')
 // assign z-index values
 map.getPane('polygonPane').style.zIndex = 300;
 map.getPane('linePane').style.zIndex = 350;
-map.getPane('pointPane').style.zIndex = 399; // keep below 400, so tooltips & popups still work 
+map.getPane('pointPane').style.zIndex = 399; // keep below 400, so tooltips & popups still work
 
 
 /* ------------------------------------------------------------
@@ -291,7 +291,7 @@ function getLineType(code) {
     }
 }
 
-// style the line color 
+// style the line color
 function getLineColor(code) {
     if (code === 0 | code === 1) {
         return "#000"
@@ -303,7 +303,7 @@ function getLineColor(code) {
 
 
 /* ------------------------------------------------------------
-leaflet pattern fill rendering 
+leaflet pattern fill rendering
 ------------------------------------------------------------ */
 
 
@@ -311,7 +311,7 @@ leaflet pattern fill rendering
 
 const patterned_polygons = new Set([4, 9, 17]);
 
-// define patterns - each have a different id 
+// define patterns - each have a different id
 const pattern_defs = /*html*/`
 <!-- blue stripes with SID 17 (label: QTma, description: Mariana, Hagåtña argillacous member -->
 <pattern id="pat-17" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse"
@@ -346,7 +346,7 @@ const pattern_defs = /*html*/`
 </pattern>
 `;
 
-// inject defs into leaflet's overlay svg 
+// inject defs into leaflet's overlay svg
 function injectDefs() {
     const svg = document.querySelector(".leaflet-polygon-pane svg");
 
@@ -370,7 +370,7 @@ function injectDefs() {
 
 map.on("layeradd zoomend moveend viewreset", injectDefs);
 
-// style function 
+// style function
 function addPatternStyle(feature) {
     // const id = feature.properties.SID;
     // const pattern = Object.prototype.hasOwnProperty.call(id);
@@ -413,8 +413,10 @@ function darkenHex(hexcode) {
 layer groups for polygons
 ------------------------------------------------------------ */
 
-const legendLayers = {
+const featureLayers = {
+    allLayers: L.featureGroup(),
     polygonLayers: {
+        poly0_all: L.featureGroup(),
         poly1_Tf:   L.featureGroup(),
         poly2_Ta:   L.featureGroup(),
         poly3_Tam:  L.featureGroup(),
@@ -443,6 +445,7 @@ const legendLayers = {
         poly26_Qaf: L.featureGroup()
     },
     pointLayers: {
+        point0_all: L.featureGroup(),
         point1: L.featureGroup(),
         point2: L.featureGroup(),
         point3: L.featureGroup(),
@@ -450,6 +453,7 @@ const legendLayers = {
         point5: L.featureGroup()
     },
     boundaryLayers: {
+        boundary0_all: L.featureGroup(),
         boundary1: L.featureGroup(),
         boundary2: L.featureGroup(),
         boundary3: L.featureGroup()
@@ -458,7 +462,7 @@ const legendLayers = {
 
 
 /* ------------------------------------------------------------
-functions for leaflet map layers, image retrieval   
+functions for leaflet map layers, image retrieval
 ------------------------------------------------------------ */
 
 
@@ -466,19 +470,19 @@ const polygonLayers = {};
 const boundaryLayers = {};
 const pointLayers = {};
 
-// params: 
-// data (url to geojson) 
+// params:
+// data (url to geojson)
 // ftype (feature type: 1 = polygon, 2 = boundary, 3 = point)
 function getLayers(data, ftype) {
-    fetch(data) 
+    fetch(data)
     .then(response => response.json())
     .then(data => {
 
-        // polygons 
+        // polygons
         if (ftype === 1) {
             const polyLayer = L.geoJSON(data, {
                 pane: 'polygonPane',
-                // style polygons and lines 
+                // style polygons
                 style: (feature) => {
                     if (patterned_polygons.has(Number(feature.properties.SID))) {
                             console.log(feature.properties.SID);
@@ -497,18 +501,105 @@ function getLayers(data, ftype) {
                                 fillColor: `#${feature.properties.Hex}`,
                                 fillOpacity: 1
                             }
-                        } // end of pattern style conditional 
-                },
+                        } // end of pattern style conditional
+                }, //end of style property
+
                 // set onclick events for each feature based on geometry type (e.g., point, polygon) and display available images in modal
                 onEachFeature: (feature, layer) => {
                     // add to polygon layer group
-                    const polyType = feature.properties.SID;
-                    polygonLayers[polyType] = layer;
+                    // const polyType = feature.properties.SID;
+                    // polygonLayers[polyType] = layer;
 
+                    layer.addTo(featureLayers.allLayers); // to all feature layers 
+                    layer.addTo(featureLayers.polygonLayers.poly0_all); // to all polygon layers
+
+                    // GID example: G26 or G01
+                    switch (feature.properties.SID) {
+                        case 1:
+                            layer.addTo(featureLayers.polygonLayers.poly1_Tf);
+                            break;
+                        case 2:
+                            layer.addTo(featureLayers.polygonLayers.poly2_Ta);
+                            break;
+                        case 3:
+                            layer.addTo(featureLayers.polygonLayers.poly3_Tam);
+                            break;
+                        case 4:
+                            layer.addTo(featureLayers.polygonLayers.poly4_Tt);
+                            break;
+                        case 5:
+                            layer.addTo(featureLayers.polygonLayers.poly5_Tug);
+                            break;
+                        case 6:
+                            layer.addTo(featureLayers.polygonLayers.poly6_Tus);
+                            break;
+                        case 7:
+                            layer.addTo(featureLayers.polygonLayers.poly7_Tub);
+                            break;
+                        case 8:
+                            layer.addTo(featureLayers.polygonLayers.poly8_Tud);
+                            break;
+                        case 9:
+                            layer.addTo(featureLayers.polygonLayers.poly9_Tu);
+                            break;
+                        case 10:
+                            layer.addTo(featureLayers.polygonLayers.poly10_Tm);
+                            break;
+                        case 11:
+                            layer.addTo(featureLayers.polygonLayers.poly11_Tb);
+                            break;
+                        case 12:
+                            layer.addTo(featureLayers.polygonLayers.poly12_Tbl);
+                            break;
+                        case 13:
+                            layer.addTo(featureLayers.polygonLayers.poly13_Tj);
+                            break;
+                        case 14:
+                            layer.addTo(featureLayers.polygonLayers.poly14_Tal);
+                            break;
+                        case 15:
+                            layer.addTo(featureLayers.polygonLayers.poly15_QTmp);
+                            break;
+                        case 16:
+                            layer.addTo(featureLayers.polygonLayers.poly16_QTmh);
+                            break;
+                        case 17:
+                            layer.addTo(featureLayers.polygonLayers.poly17_QTma);
+                            break;
+                        case 18:
+                            layer.addTo(featureLayers.polygonLayers.poly18_QTmf);
+                            break;
+                        case 19:
+                            layer.addTo(featureLayers.polygonLayers.poly19_QTmm);
+                            break;
+                        case 20:
+                            layer.addTo(featureLayers.polygonLayers.poly20_QTmd);
+                            break;
+                        case 21:
+                            layer.addTo(featureLayers.polygonLayers.poly21_QTmr);
+                            break;
+                        case 22:
+                            layer.addTo(featureLayers.polygonLayers.poly22_Qt);
+                            break;
+                        case 23:
+                            layer.addTo(featureLayers.polygonLayers.poly23_Qal);
+                            break;
+                        case 24:
+                            layer.addTo(featureLayers.polygonLayers.poly24_Qrm);
+                            break;
+                        case 25:
+                            layer.addTo(featureLayers.polygonLayers.poly25_Qrb);
+                            break;
+                        default:
+                            layer.addTo(featureLayers.polygonLayers.poly26_Qaf);
+                            break;
+                        }; // end of switch statement
+
+                    // add tooltip with polygon label on mouse hover
                     layer.bindTooltip(
                         `${feature.properties.MapUnit} (${feature.properties.UnitAbr})`,
                         {
-                            sticky: true, 
+                            sticky: true,
                             direction: 'top',
                             opacity: 0.9,
                             className: 'polygon-tooltip',
@@ -546,8 +637,8 @@ function getLayers(data, ftype) {
 
                     layer.on({
                         mouseover(e) {
-                            e.target.setStyle({ 
-                                weight: 4, 
+                            e.target.setStyle({
+                                weight: 4,
                                 color: `${darkenHex(feature.properties.Hex)}`,
                                 // fillColor: `${darkenHex(feature.properties.Hex)}`,
                             });
@@ -559,15 +650,20 @@ function getLayers(data, ftype) {
                             polyLayer.resetStyle(e.target);
                         }
                     });
-                }
-            });
+                } // end of onEachFeature property
+            }); // end of L.geoJSON
 
-            polyLayer.addTo(map);
+            // console.log(featureLayers.polygonLayers)
+            // console.log(polygonLayers[1]);
+
+            // polyLayer.addTo(map);
+            // Object.values(featureLayers.polygonLayers).forEach(group => group.addTo(map));
+            featureLayers.polygonLayers.poly0_all.addTo(map);
             injectDefs();
-            
+
         // boundaries
         } else if (ftype === 2) {
-            const bLayer = L.geoJSON(data, { 
+            const bLayer = L.geoJSON(data, {
                 pane: 'linePane',
                 style: (feature) => {
                     return  {
@@ -579,11 +675,29 @@ function getLayers(data, ftype) {
                 onEachFeature: (feature, layer) => {
                     const bType = feature.properties.Code1;
                     boundaryLayers[bType] = layer;
+
+                    layer.addTo(featureLayers.allLayers); // add to all feature layers 
+                    layer.addTo(featureLayers.boundaryLayers.boundary0_all); // add to all boundaries 
+
+                    switch (feature.properties.Code1) {
+                        case 0:
+                            layer.addTo(featureLayers.boundaryLayers.boundary1);
+                            break;
+                        case 1: 
+                            layer.addTo(featureLayers.boundaryLayers.boundary2);
+                            break;
+                        default:
+                            layer.addTo(featureLayers.boundaryLayers.boundary3);
+                            break;
+                    }
                 }
             });
-            bLayer.addTo(map);
-        
-        // points 
+
+            // bLayer.addTo(map);
+            // Object.values(featureLayers.boundaryLayers).forEach(group => group.addTo(map));
+            featureLayers.boundaryLayers.boundary0_all.addTo(map)
+
+        // points
         } else if (ftype === 3) {
 
             const sinkhole = /*html*/ `
@@ -604,7 +718,7 @@ function getLayers(data, ftype) {
                     switch (feature.properties.SCode) {
                         case 0:
                             return L.circleMarker(latlng, {
-                                radius: 8, 
+                                radius: 8,
                                 fillColor: getColor(feature.properties.SCode),
                                 color: "#000",
                                 weight: 2,
@@ -612,7 +726,7 @@ function getLayers(data, ftype) {
                             });
                         case 1:
                             return L.circleMarker(latlng, {
-                                radius: 8, 
+                                radius: 8,
                                 fillColor: getColor(feature.properties.SCode),
                                 color: "#000",
                                 weight: 2,
@@ -642,8 +756,9 @@ function getLayers(data, ftype) {
                                     iconSize: [40, 40]
                                 })
                             });
-                    } // end of switch statement 
+                    } // end of switch statement
                 }, // end of pointToLayer property
+
                 onEachFeature: (feature, layer) => {
                     layer.on('click', async () => {
                         // TODO - check JSON properties (get list of keys)
@@ -665,15 +780,41 @@ function getLayers(data, ftype) {
                         });
                         // getImageDescription_v2(feature.properties.id);
                         // getImageDescription_v2(feature.properties.PID);
-                    });
-                }
+                    });// end of layer on click listener 
+
+                    layer.addTo(featureLayers.allLayers); // add to all feature layers 
+                    layer.addTo(featureLayers.pointLayers.point0_all); // add to all point layers 
+
+                    switch (feature.properties.SCode) {
+                        case 0:
+                            layer.addTo(featureLayers.pointLayers.point1);
+                            break;
+                        case 1:
+                            layer.addTo(featureLayers.pointLayers.point2);
+                            break;
+                        case 2:
+                            layer.addTo(featureLayers.pointLayers.point3);
+                            break;
+                        case 3:
+                            layer.addTo(featureLayers.pointLayers.point4);
+                            break;
+                        default:
+                            layer.addTo(featureLayers.pointLayers.point5);
+                            break;
+                    }
+
+                } // end of onEachFeature property
             });
 
-            ptLayer.addTo(map);
-            ptLayer.bringToFront();
-        } // end of conditional for point 
+            // ptLayer.addTo(map);
+            // ptLayer.bringToFront();
+
+            // Object.values(featureLayers.pointLayers).forEach(group => group.addTo(map));
+            featureLayers.pointLayers.point0_all.addTo(map)
+            featureLayers.pointLayers.point0_all.bringToFront()
+        } // end of conditional for point
     }); // end of fetch call
-} // end of getLayers function 
+} // end of getLayers function
 
 // for polygons (to implement for points as well)
 async function findImagesSet_v2(apiUrl, searchId) {
@@ -718,7 +859,7 @@ async function findImagesSet_v2(apiUrl, searchId) {
 async function getImageDescription_v2(loc) {
     try {
         const response = await fetch('/descriptions');
-        
+
         if (!response.ok) {
             throw new Error(`Descriptions API error: ${response.statusText}`);
         }
@@ -791,7 +932,7 @@ function displayImages_v3_sub(images) {
 
 
 /* ------------------------------------------------------------
-functions to create gallery viewer and reset 
+functions to create gallery viewer and reset
 ------------------------------------------------------------ */
 
 
