@@ -77,7 +77,7 @@ const ewgc = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/C
 // osm.addTo(map);
 ewtm.addTo(map);
 
-let currentLayer = 'ewtm';
+let currentBaseMap = 'ewtm';
 
 
 /* ------------------------------------------------------------
@@ -969,3 +969,112 @@ function clearGallery() {
         gallery.removeChild(gallery.firstChild);
     }
 }
+
+
+/* ------------------------------------------------------------
+listeners for layer toggle component 
+------------------------------------------------------------ */
+
+// radio btns - basemaps 
+document.getElementById("radio-osm").addEventListener("change", (event) => {
+    // console.log(`${event.target.id}, ${event.target.value}`)
+    // map.removeLayer(currentBaseMap);
+    // currentBaseMap = ewtm;
+    // currentBaseMap.addTo(map);
+    console.log("Changed basemap to WORLD TOPO")
+});
+
+document.getElementById("radio-esri-world-img").addEventListener("change", (event) => {
+    // console.log(`${event.target.id}, ${event.target.value}`)
+    // map.removeLayer(currentBaseMap);
+    // currentBaseMap = ewi;
+    // currentBaseMap.addTo(map);
+    console.log("Changed basemap to WORLD IMG")
+});
+
+document.getElementById("radio-esri-gray-canvas").addEventListener("change", (event) => {
+    // console.log(`${event.target.id}, ${event.target.value}`)
+    // map.removeLayer(currentBaseMap);
+    // currentBaseMap = ewgc;
+    // currentBaseMap.addTo(map);
+    console.log("Changed basemap to WORLD GRAY CANVAS")
+});
+
+// checkboxes - feature group reset 
+document.getElementById("reset-polygons").addEventListener("change", (event) => {
+    // console.log("Reset polygons");
+    if (event.target.checked) {
+        console.log("Checked reset polygons");
+        featureLayers.polygonLayers.poly0_all.addTo(map);
+    } else {
+        console.log("Unchecked reset polygons")
+        map.removeLayer(featureLayers.polygonLayers.poly0_all)
+    }
+});
+
+document.getElementById("reset-points").addEventListener("change", (event) => {
+    // console.log("Reset points");
+    if (event.target.checked) {
+        console.log("Checked reset points");
+        featureLayers.pointLayers.point0_all.addTo(map);
+        featureLayers.pointLayers.point0_all.bringToFront();
+    } else {
+        console.log("Unchecked reset points")
+        map.removeLayer(featureLayers.pointLayers.point0_all);
+    }
+});
+
+document.getElementById("reset-boundaries").addEventListener("change", (event) => {
+    console.log("Reset boundaries");
+    if (event.target.checked) {
+        console.log("Checked reset boundaries");
+        featureLayers.boundaryLayers.boundary0_all.addTo(map);
+        featureLayers.boundaryLayers.boundary0_all.bringToFront();
+    } else {
+        console.log("Unchecked reset boundaries")
+        map.removeLayer(featureLayers.boundaryLayers.boundary0_all);
+    }
+});
+
+// btns - reset all features, remove layers 
+document.getElementById("reset-all-layers").addEventListener("click", () => {
+    console.log("Reset all layers on map");
+    featureLayers.polygonLayers.poly0_all.addTo(map);
+    featureLayers.boundaryLayers.boundary0_all.addTo(map);
+    featureLayers.pointLayers.point0_all.addTo(map);
+    featureLayers.pointLayers.point0_all.bringToFront();
+});
+
+document.getElementById("remove-all-layers").addEventListener("click", () => {
+    console.log("Remove all layers from map");
+    map.removeLayer(featureLayers.polygonLayers.poly0_all);
+    map.removeLayer(featureLayers.boundaryLayers.boundary0_all);
+    map.removeLayer(featureLayers.pointLayers.point0_all);
+});
+
+// general
+const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
+layer_toggle_rows.forEach(checkbox => {
+    checkbox.addEventListener("change", (e) => {
+        console.log(`${e.target.value} --> ${e.target.checked}`);
+    });
+});
+
+// checkboxes - polygons 
+
+
+// checkboxes - points 
+// #toggle-layer-num
+document.getElementById("toggle-layer-0").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        console.log(`${event.target.value} - Checked`)
+        featureLayers.pointLayers.point1.addTo(map);
+        featureLayers.pointLayers.point1.bringToFront();
+    } else {
+        console.log(`${event.target.value} - Unchecked`)
+        map.removeLayer(featureLayers.pointLayers.point1);
+    }
+});
+
+
+// checkboxes - boundaries 
