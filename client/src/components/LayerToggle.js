@@ -50,18 +50,24 @@ function ToggleBaseMaps() {
     const toggle_basemap = document.createElement("div");
     toggle_basemap.id = "toggle_basemap_radio";
 
+    const radio_ids = {
+        osm: "radio-osm",
+        esri_world_img: "radio-esri-world-img",
+        esri_gray_canvas: "radio-esri-gray-canvas"
+    };
+
     toggle_basemap.innerHTML = /*html*/ `
     <ul class="list-group">
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
-            <label class="form-check-label" for="firstRadio">Open Street Map</label>
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${radio_ids.osm}" checked>
+            <label class="form-check-label" for="${radio_ids.osm}">Open Street Map</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
-            <label class="form-check-label" for="secondRadio">World Imagery Map (ESRI)</label>
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${radio_ids.esri_world_img}">
+            <label class="form-check-label" for="${radio_ids.esri_world_img}">World Imagery Map (ESRI)</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${radio_ids.esri_gray_canvas}">
             <label class="form-check-label" for="thirdRadio">Gray Canvas Map (ESRI)</label>
         </li>
     </ul>
@@ -81,7 +87,7 @@ function ResetLayerButtons() {
     reset_btns_container.innerHTML = /*html*/ `
     <ul class="list-group">
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+            <input class="form-check-input me-1" type="checkbox" value="" id="reset-polygons">
             <label class="form-check-label" for="firstCheckbox">Reset polygons</label>
         </li>
         <li class="list-group-item">
