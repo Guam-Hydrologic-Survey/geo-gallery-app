@@ -88,15 +88,15 @@ function ResetLayerButtons() {
     <ul class="list-group">
         <li class="list-group-item">
             <input class="form-check-input me-1" type="checkbox" value="" id="reset-polygons">
-            <label class="form-check-label" for="firstCheckbox">Reset polygons</label>
+            <label class="form-check-label" for="reset-polygons">Reset polygons</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-            <label class="form-check-label" for="secondCheckbox">Reset points</label>
+            <input class="form-check-input me-1" type="checkbox" value="" id="reset-points">
+            <label class="form-check-label" for="reset-points">Reset points</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-            <label class="form-check-label" for="thirdCheckbox">Reset boundaries</label>
+            <input class="form-check-input me-1" type="checkbox" value="" id="reset-boundaries">
+            <label class="form-check-label" for="reset-boundaries">Reset boundaries</label>
         </li>
     </ul>
     `;
@@ -109,11 +109,11 @@ function ResetLayersBlockButtons() {
     reset_btns_container.className = "d-grid gap-2";
 
     reset_btns_container.innerHTML = /*html*/ `
-    <button class="btn btn-success" type="button" title="Reset all layers on map">
+    <button class="btn btn-success" type="button" title="Reset all layers on map" id="reset-all-layers">
         <i class="bi bi-arrow-clockwise"></i>
         Reset all layers
     </button>
-    <button class="btn btn-danger" type="button" title="Remove all layers from map">
+    <button class="btn btn-danger" type="button" title="Remove all layers from map" id="remove-all-layers">
         <i class="bi bi-x-lg"></i>
         Remove all layers
     </button>
@@ -307,7 +307,7 @@ function LayerToggleContents(layer_toggle) {
                         <!-- <p class="layer-description">${point_units[i].description}</p> -->
                     </div>
                 </div>
-                <input class="form-check-input" type="checkbox" id="toggle-layer-${point_units[i].label}"/>
+                <input class="form-check-input" type="checkbox" id="toggle-layer-${point_units[i].number}"/>
             </div>`;
 
             point_tab.insertAdjacentHTML("beforeend", layer_row);
