@@ -1073,32 +1073,36 @@ layer_toggle_rows.forEach(checkbox => {
 
 // checkboxes - boundaries 
 // #toggle-boundary-num
-document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
-    if (event.target.checked) {
-        if (!map.hasLayer(featureLayers.boundaryLayers.boundary1)) {
-            featureLayers.boundaryLayers.boundary1.addTo(map);
-        }
-    } else {
-        map.removeLayer(featureLayers.boundaryLayers.boundary1);
-    }
-});
 
-document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
-    if (event.target.checked) {
-        if (!map.hasLayer(featureLayers.boundaryLayers.boundary2)) {
-            featureLayers.boundaryLayers.boundary2.addTo(map);
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
+        if (event.target.checked) {
+            if (!map.hasLayer(featureLayers.boundaryLayers.boundary1)) {
+                featureLayers.boundaryLayers.boundary1.addTo(map);
+            }
+        } else {
+            map.removeLayer(featureLayers.boundaryLayers.boundary1);
         }
-    } else {
-        map.removeLayer(featureLayers.boundaryLayers.boundary2);
-    }
-});
+    });
 
-document.getElementById("toggle-boundary-2").addEventListener("change", (event) => {
-    if (event.target.checked) {
-        if (!map.hasLayer(featureLayers.boundaryLayers.boundary3)) {
-            featureLayers.boundaryLayers.boundary3.addTo(map);
+    document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
+        if (event.target.checked) {
+            if (!map.hasLayer(featureLayers.boundaryLayers.boundary2)) {
+                featureLayers.boundaryLayers.boundary2.addTo(map);
+            }
+        } else {
+            map.removeLayer(featureLayers.boundaryLayers.boundary2);
         }
-    } else {
-        map.removeLayer(featureLayers.boundaryLayers.boundary3);
-    }
-});
+    });
+
+    document.getElementById("toggle-boundary-2").addEventListener("change", (event) => {
+        if (event.target.checked) {
+            if (!map.hasLayer(featureLayers.boundaryLayers.boundary3)) {
+                featureLayers.boundaryLayers.boundary3.addTo(map);
+            }
+        } else {
+            map.removeLayer(featureLayers.boundaryLayers.boundary3);
+        }
+    });
+
+})
