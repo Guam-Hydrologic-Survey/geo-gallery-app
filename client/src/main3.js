@@ -77,7 +77,7 @@ const ewgc = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/C
 // osm.addTo(map);
 ewtm.addTo(map);
 
-let currentBaseMap = 'ewtm';
+let currentBaseMap = ewtm;
 
 
 /* ------------------------------------------------------------
@@ -978,25 +978,28 @@ listeners for layer toggle component
 // radio btns - basemaps 
 document.getElementById("radio-osm").addEventListener("change", (event) => {
     // console.log(`${event.target.id}, ${event.target.value}`)
-    // map.removeLayer(currentBaseMap);
-    // currentBaseMap = ewtm;
-    // currentBaseMap.addTo(map);
+    map.removeLayer(currentBaseMap);
+    currentBaseMap = ewtm;
+    currentBaseMap.addTo(map);
+    // console.log(currentBaseMap);
     console.log("Changed basemap to WORLD TOPO")
 });
 
 document.getElementById("radio-esri-world-img").addEventListener("change", (event) => {
     // console.log(`${event.target.id}, ${event.target.value}`)
-    // map.removeLayer(currentBaseMap);
-    // currentBaseMap = ewi;
-    // currentBaseMap.addTo(map);
+    map.removeLayer(currentBaseMap);
+    currentBaseMap = ewi;
+    currentBaseMap.addTo(map);
+    // console.log(currentBaseMap);
     console.log("Changed basemap to WORLD IMG")
 });
 
 document.getElementById("radio-esri-gray-canvas").addEventListener("change", (event) => {
     // console.log(`${event.target.id}, ${event.target.value}`)
-    // map.removeLayer(currentBaseMap);
-    // currentBaseMap = ewgc;
-    // currentBaseMap.addTo(map);
+    map.removeLayer(currentBaseMap);
+    currentBaseMap = ewgc;
+    currentBaseMap.addTo(map);
+    // console.log(currentBaseMap);
     console.log("Changed basemap to WORLD GRAY CANVAS")
 });
 
@@ -1065,16 +1068,16 @@ layer_toggle_rows.forEach(checkbox => {
 
 // checkboxes - points 
 // #toggle-layer-num
-document.getElementById("toggle-layer-0").addEventListener("change", (event) => {
-    if (event.target.checked) {
-        console.log(`${event.target.value} - Checked`)
-        featureLayers.pointLayers.point1.addTo(map);
-        featureLayers.pointLayers.point1.bringToFront();
-    } else {
-        console.log(`${event.target.value} - Unchecked`)
-        map.removeLayer(featureLayers.pointLayers.point1);
-    }
-});
+// document.getElementById("toggle-layer-0").addEventListener("change", (event) => {
+//     if (event.target.checked) {
+//         console.log(`${event.target.value} - Checked`)
+//         featureLayers.pointLayers.point1.addTo(map);
+//         featureLayers.pointLayers.point1.bringToFront();
+//     } else {
+//         console.log(`${event.target.value} - Unchecked`)
+//         map.removeLayer(featureLayers.pointLayers.point1);
+//     }
+// });
 
 
 // checkboxes - boundaries 
