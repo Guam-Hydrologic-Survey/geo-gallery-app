@@ -976,31 +976,22 @@ listeners for layer toggle component
 ------------------------------------------------------------ */
 
 // radio btns - basemaps 
-document.getElementById("radio-osm").addEventListener("change", (event) => {
-    // console.log(`${event.target.id}, ${event.target.value}`)
+document.getElementById("radio-osm").addEventListener("change", () => {
     map.removeLayer(currentBaseMap);
     currentBaseMap = ewtm;
     currentBaseMap.addTo(map);
-    // console.log(currentBaseMap);
-    console.log("Changed basemap to WORLD TOPO")
 });
 
-document.getElementById("radio-esri-world-img").addEventListener("change", (event) => {
-    // console.log(`${event.target.id}, ${event.target.value}`)
+document.getElementById("radio-esri-world-img").addEventListener("change", () => {
     map.removeLayer(currentBaseMap);
     currentBaseMap = ewi;
     currentBaseMap.addTo(map);
-    // console.log(currentBaseMap);
-    console.log("Changed basemap to WORLD IMG")
 });
 
-document.getElementById("radio-esri-gray-canvas").addEventListener("change", (event) => {
-    // console.log(`${event.target.id}, ${event.target.value}`)
+document.getElementById("radio-esri-gray-canvas").addEventListener("change", () => {
     map.removeLayer(currentBaseMap);
     currentBaseMap = ewgc;
     currentBaseMap.addTo(map);
-    // console.log(currentBaseMap);
-    console.log("Changed basemap to WORLD GRAY CANVAS")
 });
 
 // checkboxes - feature group reset 
