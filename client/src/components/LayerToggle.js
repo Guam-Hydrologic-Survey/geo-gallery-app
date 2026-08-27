@@ -198,7 +198,7 @@ function LayerToggleContents(layer_toggle) {
                                     <p class="layer-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}"/>
+                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}" checked/>
                         </div>
                         `;
                         break;
@@ -230,7 +230,7 @@ function LayerToggleContents(layer_toggle) {
                                     <p class="layer-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}"/>
+                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}" checked/>
                         </div>
                         `;
                         break;
@@ -252,7 +252,7 @@ function LayerToggleContents(layer_toggle) {
                                     <p class="layer-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}"/>
+                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}" checked/>
                         </div>
                         `;
                         break;
@@ -271,7 +271,7 @@ function LayerToggleContents(layer_toggle) {
                             <p class="layer-description">${geologic_units[i].description}</p>
                         </div>
                     </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units[i].label}"/>
+                    <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units[i].label}" checked/>
                 </div>
                 `;
             } // end of conditional statement 
@@ -307,7 +307,7 @@ function LayerToggleContents(layer_toggle) {
                         <!-- <p class="layer-description">${point_units[i].description}</p> -->
                     </div>
                 </div>
-                <input class="form-check-input" type="checkbox" id="toggle-layer-${point_units[i].number}"/>
+                <input class="form-check-input" type="checkbox" id="toggle-layer-${point_units[i].number}" checked/>
             </div>`;
 
             point_tab.insertAdjacentHTML("beforeend", layer_row);
@@ -323,7 +323,7 @@ function LayerToggleContents(layer_toggle) {
                     <p class="layer-label text-bold-weight">Sinkhole</p>
                     <!-- <p class="layer-description"></p> -->
                 </div>
-                <input class="form-check-input" type="checkbox" id=""/>
+                <input class="form-check-input" type="checkbox" id="" checked/>
             </div>
         </div>
         `;
@@ -338,7 +338,7 @@ function LayerToggleContents(layer_toggle) {
                     <p class="layer-label text-bold-weight">Cave</p>
                     <!-- <p class="layer-description"></p> -->
                 </div>
-                <input class="form-check-input" type="checkbox" id=""/>
+                <input class="form-check-input" type="checkbox" id="" checked/>
             </div>
         </div>
         `;
@@ -353,7 +353,7 @@ function LayerToggleContents(layer_toggle) {
                     <p class="layer-label text-bold-weight">Aerial</p>
                     <!-- <p class="layer-description"></p> -->
                 </div>
-                <input class="form-check-input" type="checkbox" id=""/>
+                <input class="form-check-input" type="checkbox" id="" checked/>
             </div>
         </div>
         `;
@@ -393,7 +393,7 @@ function LayerToggleContents(layer_toggle) {
                             <p class="layer-description">${boundary_units[i].description}</p>
                         </div>
                     </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-layer-${boundary_units[i].label}"/>
+                    <input class="form-check-input" type="checkbox" id="toggle-boundary-${boundary_units[i].number}" checked/>
                 </div>
                 `;
             } else { // dashed lines
@@ -410,7 +410,7 @@ function LayerToggleContents(layer_toggle) {
                             <p class="layer-description">${boundary_units[i].description}</p>
                         </div>
                     </div>
-                    <input class="form-check-input" type="checkbox" id="toggle-layer-${boundary_units[i].label}"/>
+                    <input class="form-check-input" type="checkbox" id="toggle-boundary-${boundary_units[i].number}" checked/>
                 </div>
                 `;
             }
