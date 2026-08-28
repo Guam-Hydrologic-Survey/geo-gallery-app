@@ -75,25 +75,19 @@ function ToggleBaseMaps() {
     const toggle_basemap = document.createElement("div");
     toggle_basemap.id = "toggle_basemap_radio";
 
-    const radio_ids = {
-        osm: "radio-osm",
-        esri_world_img: "radio-esri-world-img",
-        esri_gray_canvas: "radio-esri-gray-canvas"
-    };
-
     toggle_basemap.innerHTML = /*html*/ `
     <ul class="list-group">
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${radio_ids.osm}" checked>
-            <label class="form-check-label" for="${radio_ids.osm}">Open Street Map</label>
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${basemap_radios.osm}" checked>
+            <label class="form-check-label" for="${basemap_radios.osm}">Open Street Map</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${radio_ids.esri_world_img}">
-            <label class="form-check-label" for="${radio_ids.esri_world_img}">World Imagery Map (ESRI)</label>
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${basemap_radios.esri_world_img}">
+            <label class="form-check-label" for="${basemap_radios.esri_world_img}">World Imagery Map (ESRI)</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${radio_ids.esri_gray_canvas}">
-            <label class="form-check-label" for="thirdRadio">Gray Canvas Map (ESRI)</label>
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${basemap_radios.esri_gray_canvas}">
+            <label class="form-check-label" for="${basemap_radios.esri_gray_canvas}">Gray Canvas Map (ESRI)</label>
         </li>
     </ul>
     `;
