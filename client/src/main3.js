@@ -192,8 +192,20 @@ document.getElementById('recenter-btn').addEventListener('click', () => {
     map.setView(center, defaultZoom);
 });
 
-document.getElementById('transparency-btn').addEventListener('click', () => {
-    
+
+function updateSliderColor() {
+    const value = Number(transparency_slider.value);
+    const min = Number(transparency_slider.min);
+    const max = Number(transparency_slider.max);
+    const percent = ((value - min) / (max - min)) * 100;
+
+    transparency_slider.style.setProperty('--slider-fill', `linear-gradient(to right, #007bff ${percent}%, #dee2e6 ${percent}%)`);
+    document.getElementById("range-value-label").textContent = `${value}%`;
+}
+
+const transparency_slider = document.getElementById('transparency-range-slider')
+transparency_slider.addEventListener('input', () => {
+    updateSliderColor();
 });
 
 
