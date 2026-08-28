@@ -1099,7 +1099,7 @@ document.getElementById("toggle-polygon-2").addEventListener("change", (event) =
 
 document.getElementById("toggle-polygon-3").addEventListener("change", (event) => {
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly3_Ta.addTo(map);
+        featureLayers.polygonLayers.poly3_Tam.addTo(map);
     } else {
         map.removeLayer(featureLayers.polygonLayers.poly3_Tam);
     }
