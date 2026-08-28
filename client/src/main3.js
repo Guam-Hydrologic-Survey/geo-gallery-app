@@ -15,7 +15,7 @@ import { MapContainer } from './components/MapContainer.js';
 // import { Legend } from './components/Legend.js';
 import { NavBar } from './components/NavBar2.js';
 import { About } from './components/About2.js';
-import { Legend } from './components/Legend2.js';
+import { Legend } from './components/Legend4.js';
 import { Tutorial } from './components/Tutorial2.js';
 import { Gallery } from './components/Gallery2.js';
 import { Dock } from './components/Dock2.js';
@@ -468,9 +468,9 @@ functions for leaflet map layers, image retrieval
 ------------------------------------------------------------ */
 
 
-const polygonLayers = {};
-const boundaryLayers = {};
-const pointLayers = {};
+// const polygonLayers = {};
+// const boundaryLayers = {};
+// const pointLayers = {};
 
 // params:
 // data (url to geojson)
@@ -660,7 +660,7 @@ function getLayers(data, ftype) {
 
             // polyLayer.addTo(map);
             // Object.values(featureLayers.polygonLayers).forEach(group => group.addTo(map));
-            featureLayers.polygonLayers.poly0_all.addTo(map);
+            // featureLayers.polygonLayers.poly0_all.addTo(map);
             injectDefs();
 
         // boundaries
@@ -675,8 +675,8 @@ function getLayers(data, ftype) {
                     }
                 },
                 onEachFeature: (feature, layer) => {
-                    const bType = feature.properties.Code1;
-                    boundaryLayers[bType] = layer;
+                    // const bType = feature.properties.Code1;
+                    // boundaryLayers[bType] = layer;
 
                     layer.addTo(featureLayers.allLayers); // add to all feature layers 
                     layer.addTo(featureLayers.boundaryLayers.boundary0_all); // add to all boundaries 
@@ -697,7 +697,7 @@ function getLayers(data, ftype) {
 
             // bLayer.addTo(map);
             // Object.values(featureLayers.boundaryLayers).forEach(group => group.addTo(map));
-            featureLayers.boundaryLayers.boundary0_all.addTo(map)
+            // featureLayers.boundaryLayers.boundary0_all.addTo(map)
 
         // points
         } else if (ftype === 3) {
@@ -824,8 +824,8 @@ function getLayers(data, ftype) {
             // ptLayer.bringToFront();
 
             // Object.values(featureLayers.pointLayers).forEach(group => group.addTo(map));
-            featureLayers.pointLayers.point0_all.addTo(map)
-            featureLayers.pointLayers.point0_all.bringToFront()
+            // featureLayers.pointLayers.point0_all.addTo(map)
+            // featureLayers.pointLayers.point0_all.bringToFront()
         } // end of conditional for point
     }); // end of fetch call
 } // end of getLayers function
@@ -989,6 +989,18 @@ function clearGallery() {
 listeners for layer toggle component 
 ------------------------------------------------------------ */
 
+function addLayerObjectsToMap(layerGroup) { 
+    Object.values(layerGroup).forEach(group => group.addTo(map));
+}
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    setTimeout(() => { 
+        addLayerObjectsToMap(featureLayers.polygonLayers);
+        addLayerObjectsToMap(featureLayers.pointLayers);
+        addLayerObjectsToMap(featureLayers.boundaryLayers);
+    }, 100); 
+});
+
 // radio btns - basemaps 
 document.getElementById("radio-osm").addEventListener("change", () => {
     map.removeLayer(currentBaseMap);
@@ -1057,6 +1069,12 @@ document.getElementById("reset-all-layers").addEventListener("click", () => {
     layer_toggle_rows.forEach(checkbox => {
         checkbox.checked = true;
     });
+
+    const reset_layers_toggle = document.querySelectorAll('.reset-layers-checkbox > input[type="checkbox"]');
+
+    reset_layers_toggle.forEach(checkbox => {
+        checkbox.checked = true;
+    });
 });
 
 document.getElementById("remove-all-layers").addEventListener("click", () => {
@@ -1068,6 +1086,12 @@ document.getElementById("remove-all-layers").addEventListener("click", () => {
     const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
 
     layer_toggle_rows.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    const reset_layers_toggle = document.querySelectorAll('.reset-layers-checkbox > input[type="checkbox"]');
+
+    reset_layers_toggle.forEach(checkbox => {
         checkbox.checked = false;
     });
 }); 
@@ -1351,31 +1375,49 @@ document.getElementById("toggle-point-cave").addEventListener("change", (event) 
 // checkboxes - boundaries 
 // #toggle-boundary-num
 document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
-        if (event.target.checked) {
-            if (!map.hasLayer(featureLayers.boundaryLayers.boundary1)) {
-                featureLayers.boundaryLayers.boundary1.addTo(map);
-            }
-        } else {
-            map.removeLayer(featureLayers.boundaryLayers.boundary1);
-        }
-    });
-
-document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
+    const layer = featureLayers.boundaryLayers.boundary1;
     if (event.target.checked) {
-        if (!map.hasLayer(featureLayers.boundaryLayers.boundary2)) {
-            featureLayers.boundaryLayers.boundary2.addTo(map);
+        if (!map.hasLayer(layer)) {
+            layer.addTo(map);
         }
     } else {
-        map.removeLayer(featureLayers.boundaryLayers.boundary2);
+        if (map.hasLayer(layer)) {
+            map.removeLayer(layer);
+        }
+    }
+});
+
+document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
+    const layer = featureLayers.boundaryLayers.boundary2;
+    if (event.target.checked) {
+        if (!map.hasLayer(layer)) {
+            layer.addTo(map);
+        }
+    } else {
+        if (map.hasLayer(layer)) {
+            map.removeLayer(layer);
+        }
     }
 });
 
 document.getElementById("toggle-boundary-2").addEventListener("change", (event) => {
+    const layer = featureLayers.boundaryLayers.boundary3;
     if (event.target.checked) {
-        if (!map.hasLayer(featureLayers.boundaryLayers.boundary3)) {
-            featureLayers.boundaryLayers.boundary3.addTo(map);
+        if (!map.hasLayer(layer)) {
+            layer.addTo(map);
         }
     } else {
-        map.removeLayer(featureLayers.boundaryLayers.boundary3);
+        if (map.hasLayer(layer)) {
+            map.removeLayer(layer);
+        }
     }
 });
+
+
+function checkLayerExistence(layer) {
+    if (!map.hasLayer(layer)) {
+        layer.addTo(map);
+    } else {
+        map.removeLayer(layer);
+    }
+}
