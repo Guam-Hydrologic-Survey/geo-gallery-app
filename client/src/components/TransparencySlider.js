@@ -31,10 +31,10 @@ export function TransparencySlider() {
     contents.innerHTML = /*html*/ `
     <p>Adjust the transparency of the polygons on the map using the range slider below:</p>
     <div class="mb-3 d-flex align-items-center justify-content-between">
-        <span id="range-value-label">0%</span>
+        <span id="range-value-label">100%</span>
     </div>
 
-    <input type="range" class="form-range" min="0" max="100" step="1" id="transparency-range-slider">
+    <input type="range" class="form-range" min="0" max="100" step="1" id="transparency-range-slider" value="100">
 
     <div class="d-flex justify-content-between text-muted mt-1">
         <span>0%</span>
