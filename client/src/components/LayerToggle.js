@@ -106,16 +106,16 @@ function ResetLayerButtons() {
     reset_btns_container.innerHTML = /*html*/ `
     <ul class="list-group">
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="reset-polygons">
-            <label class="form-check-label" for="reset-polygons">Reset polygons</label>
+            <input class="form-check-input me-1" type="checkbox" value="" id="${reset_layers_btns.polygons}">
+            <label class="form-check-label" for="${reset_layers_btns.polygons}">Reset polygons</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="reset-points">
-            <label class="form-check-label" for="reset-points">Reset points</label>
+            <input class="form-check-input me-1" type="checkbox" value="" id="${reset_layers_btns.points}">
+            <label class="form-check-label" for="${reset_layers_btns.points}">Reset points</label>
         </li>
         <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="reset-boundaries">
-            <label class="form-check-label" for="reset-boundaries">Reset boundaries</label>
+            <input class="form-check-input me-1" type="checkbox" value="" id="${reset_layers_btns.boundaries}">
+            <label class="form-check-label" for="${reset_layers_btns.boundaries}">Reset boundaries</label>
         </li>
     </ul>
     `;
