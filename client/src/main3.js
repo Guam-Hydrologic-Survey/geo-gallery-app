@@ -762,6 +762,18 @@ function getLayers(data, ftype) {
                 }, // end of pointToLayer property
 
                 onEachFeature: (feature, layer) => {
+
+                    // add tooltip with polygon label on mouse hover
+                    layer.bindTooltip(
+                        `${feature.properties.Place}`,
+                        {
+                            sticky: true,
+                            direction: 'top',
+                            opacity: 0.9,
+                            className: 'polygon-tooltip',
+                        }
+                    );
+
                     layer.on('click', async () => {
                         // TODO - check JSON properties (get list of keys)
                         findImagesSet_v2(API_PHOTOS_URL, feature.properties.PID).then(images => {
