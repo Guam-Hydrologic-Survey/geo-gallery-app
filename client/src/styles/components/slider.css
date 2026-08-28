@@ -1,0 +1,46 @@
+/* 
+slider.css
+Description: 
+*/
+
+#transparency-range-slider {
+    --range-color: #0d6efd;
+    --fill-percent: 100%:
+}
+
+#transparency-range-slider::-webkit-slider-thumb {
+    background-color: var(--range-color);
+    transition: background-color 0.2s ease;
+}
+
+#transparency-range-slider::-moz-range-thumb {
+    background-color: var(--range-color);
+    transition: background-color 0.2s ease;
+}
+
+#transparency-range-slider::-webkit-slider-runnable-track {
+    background: linear-gradient(
+        to right,
+        var(--range-color) 0%,
+        var(--range-color) var(--fill-percent),
+        #0d6efd var(--fill-percent),
+        #0d6efd 100%
+    );
+}
+
+#transparency-range-slider::-moz-range-track {
+    background: linear-gradient(
+        to right,
+        var(--range-color) 0%,
+        var(--range-color) var(--fill-percent),
+        #0d6efd var(--fill-percent),
+        #0d6efd 100%
+    );
+}
+
+#range-value-label {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0d6efd;
+    transition: color 0.2s ease;
+}
