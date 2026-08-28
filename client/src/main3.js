@@ -21,6 +21,7 @@ import { Gallery } from './components/Gallery2.js';
 import { Dock } from './components/Dock2.js';
 import { LayerToggle } from './components/LayerToggle.js';
 import { Toast } from './components/Toast.js';
+import { TransparencySlider } from './components/TransparencySlider.js';
 
 // constants 
 import { API_PHOTOS_URL } from './constants/index.js';
@@ -34,7 +35,7 @@ const app = document.getElementById("app");
 
 app.append(NavBar(), MapContainer(), Dock());
 
-document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(), Toast());
+document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(), Toast(), TransparencySlider());
 
 
 /* ------------------------------------------------------------
@@ -189,6 +190,10 @@ document.getElementById('zoom-out-btn').addEventListener('click', () => {
 
 document.getElementById('recenter-btn').addEventListener('click', () => {
     map.setView(center, defaultZoom);
+});
+
+document.getElementById('transparency-btn').addEventListener('click', () => {
+    
 });
 
 
