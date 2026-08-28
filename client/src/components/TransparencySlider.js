@@ -1,19 +1,19 @@
 /* 
-RangeSlider.js
+TransparencySlider.js
 Description: 
 */
 
-export function RangeSlider() {
-    console.log("Added Range Slider component");
+export function TransparencySlider() {
+    console.log("Added Transparency Slider component");
 
-    const range_slider = document.createElement("div");
+    const transparency_slider = document.createElement("div");
 
-    range_slider.className = "offcanvas offcanvas-start";
-    range_slider.tabIndex = -1;
-    range_slider.id = "range-slider-offcanvas";
+    transparency_slider.className = "offcanvas offcanvas-start";
+    transparency_slider.tabIndex = -1;
+    transparency_slider.id = "transparency-slider-offcanvas";
 
-    range_slider.setAttribute("data-bs-scroll", "true");
-    range_slider.setAttribute("data-bs-backdrop", "false");
+    transparency_slider.setAttribute("data-bs-scroll", "true");
+    transparency_slider.setAttribute("data-bs-backdrop", "false");
 
     // range slider header 
     const header = document.createElement("div");
@@ -28,7 +28,24 @@ export function RangeSlider() {
     contents.className = "offcanvas-body";
     contents.id = "range-slider-contents";
 
-    range_slider.append(header, LegendContents(contents));
+    contents.innerHTML = /*html*/ `
+    <p>Adjust the transparency of the polygons on the map using the range slider below:</p>
+    <div class="mb-3 d-flex align-items-center justify-content-between">
+        <span id="range-value-label">0%</span>
+    </div>
 
-    return range_slider; 
+    <input type="range" class="form-range" min="0" max="100" step="1" id="transparency-range-slider">
+
+    <div class="d-flex justify-content-between text-muted mt-1">
+        <span>0%</span>
+        <span>25%</span>
+        <span>50%</span>
+        <span>75%</span>
+        <span>100%</span>
+    </div>
+    `;
+
+    transparency_slider.append(header, contents);
+
+    return transparency_slider; 
 }
