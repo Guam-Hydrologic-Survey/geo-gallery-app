@@ -1051,6 +1051,12 @@ document.getElementById("reset-all-layers").addEventListener("click", () => {
     featureLayers.boundaryLayers.boundary0_all.addTo(map);
     featureLayers.pointLayers.point0_all.addTo(map);
     featureLayers.pointLayers.point0_all.bringToFront();
+
+    const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
+
+    layer_toggle_rows.forEach(checkbox => {
+        checkbox.checked = true;
+    });
 });
 
 document.getElementById("remove-all-layers").addEventListener("click", () => {
@@ -1058,67 +1064,111 @@ document.getElementById("remove-all-layers").addEventListener("click", () => {
     map.removeLayer(featureLayers.polygonLayers.poly0_all);
     map.removeLayer(featureLayers.boundaryLayers.boundary0_all);
     map.removeLayer(featureLayers.pointLayers.point0_all);
-});
+
+    const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
+
+    layer_toggle_rows.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+}); 
 
 // general
-const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
-layer_toggle_rows.forEach(checkbox => {
-    checkbox.addEventListener("change", (e) => {
-        console.log(`${e.target.value} --> ${e.target.checked}`);
-    });
-});
+// const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
+// layer_toggle_rows.forEach(checkbox => {
+//     checkbox.addEventListener("change", (e) => {
+//         console.log(`${e.target.value} --> ${e.target.checked}`);
+//     });
+// });
 
 // checkboxes - polygons 
 
 
 // checkboxes - points 
 // #toggle-layer-num
-// document.getElementById("toggle-layer-0").addEventListener("change", (event) => {
-//     if (event.target.checked) {
-//         console.log(`${event.target.value} - Checked`)
-//         featureLayers.pointLayers.point1.addTo(map);
-//         featureLayers.pointLayers.point1.bringToFront();
-//     } else {
-//         console.log(`${event.target.value} - Unchecked`)
-//         map.removeLayer(featureLayers.pointLayers.point1);
-//     }
-// });
+document.getElementById("toggle-point-0").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        console.log(`${event.target.value} - Checked`)
+        featureLayers.pointLayers.point1.addTo(map);
+        featureLayers.pointLayers.point1.bringToFront();
+    } else {
+        console.log(`${event.target.value} - Unchecked`)
+        map.removeLayer(featureLayers.pointLayers.point1);
+    }
+});
+
+document.getElementById("toggle-point-1").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        console.log(`${event.target.value} - Checked`)
+        featureLayers.pointLayers.point2.addTo(map);
+        featureLayers.pointLayers.point2.bringToFront();
+    } else {
+        console.log(`${event.target.value} - Unchecked`)
+        map.removeLayer(featureLayers.pointLayers.point2);
+    }
+});
+
+document.getElementById("toggle-point-sinkhole").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        console.log(`${event.target.value} - Checked`)
+        featureLayers.pointLayers.point3.addTo(map);
+        featureLayers.pointLayers.point3.bringToFront();
+    } else {
+        console.log(`${event.target.value} - Unchecked`)
+        map.removeLayer(featureLayers.pointLayers.point3);
+    }
+});
+
+document.getElementById("toggle-point-aerial").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        console.log(`${event.target.value} - Checked`)
+        featureLayers.pointLayers.point4.addTo(map);
+        featureLayers.pointLayers.point4.bringToFront();
+    } else {
+        console.log(`${event.target.value} - Unchecked`)
+        map.removeLayer(featureLayers.pointLayers.point4);
+    }
+});
+
+document.getElementById("toggle-point-cave").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        console.log(`${event.target.value} - Checked`)
+        featureLayers.pointLayers.point5.addTo(map);
+        featureLayers.pointLayers.point5.bringToFront();
+    } else {
+        console.log(`${event.target.value} - Unchecked`)
+        map.removeLayer(featureLayers.pointLayers.point5);
+    }
+});
 
 
 // checkboxes - boundaries 
 // #toggle-boundary-num
+document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
+        if (event.target.checked) {
+            if (!map.hasLayer(featureLayers.boundaryLayers.boundary1)) {
+                featureLayers.boundaryLayers.boundary1.addTo(map);
+            }
+        } else {
+            map.removeLayer(featureLayers.boundaryLayers.boundary1);
+        }
+    });
 
-// document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
-//         if (event.target.checked) {
-//             // if (!map.hasLayer(featureLayers.boundaryLayers.boundary1)) {
-//             //     featureLayers.boundaryLayers.boundary1.addTo(map);
-//             // }
-//             console.log(`Checked ${event.target.value}`)
-//         } else {
-//             // map.removeLayer(featureLayers.boundaryLayers.boundary1);
-//             console.log(`Unchecked ${event.target.value}`)
-//         }
-//     });
+document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        if (!map.hasLayer(featureLayers.boundaryLayers.boundary2)) {
+            featureLayers.boundaryLayers.boundary2.addTo(map);
+        }
+    } else {
+        map.removeLayer(featureLayers.boundaryLayers.boundary2);
+    }
+});
 
-// document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
-//     if (event.target.checked) {
-//         if (!map.hasLayer(featureLayers.boundaryLayers.boundary2)) {
-//             featureLayers.boundaryLayers.boundary2.addTo(map);
-//         }
-//     } else {
-//         map.removeLayer(featureLayers.boundaryLayers.boundary2);
-//     }
-// });
-
-// document.getElementById("toggle-boundary-2").addEventListener("change", (event) => {
-//     if (event.target.checked) {
-//         if (!map.hasLayer(featureLayers.boundaryLayers.boundary3)) {
-//             featureLayers.boundaryLayers.boundary3.addTo(map);
-//         }
-//     } else {
-//         map.removeLayer(featureLayers.boundaryLayers.boundary3);
-//     }
-// });
-
-console.log("Event listeners for boundaries")
-console.log(document.getElementById("toggle-boundary-0"));
+document.getElementById("toggle-boundary-2").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        if (!map.hasLayer(featureLayers.boundaryLayers.boundary3)) {
+            featureLayers.boundaryLayers.boundary3.addTo(map);
+        }
+    } else {
+        map.removeLayer(featureLayers.boundaryLayers.boundary3);
+    }
+});
