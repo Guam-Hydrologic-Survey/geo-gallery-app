@@ -1081,6 +1081,213 @@ document.getElementById("remove-all-layers").addEventListener("click", () => {
 // });
 
 // checkboxes - polygons 
+document.getElementById("toggle-polygon-1").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly1_Tf.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly1_Tf);
+    }
+});
+
+document.getElementById("toggle-polygon-2").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly2_Ta.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly2_Ta);
+    }
+});
+
+document.getElementById("toggle-polygon-3").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly3_Ta.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly3_Tam);
+    }
+});
+
+document.getElementById("toggle-polygon-4").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly4_Tt.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly4_Tt);
+    }
+});
+
+document.getElementById("toggle-polygon-5").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly5_Tug.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly5_Tug);
+    }
+});
+
+document.getElementById("toggle-polygon-6").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly6_Tus.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly6_Tus);
+    }
+});
+
+document.getElementById("toggle-polygon-7").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly7_Tub.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly7_Tub);
+    }
+});
+
+document.getElementById("toggle-polygon-8").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly8_Tud.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly8_Tud);
+    }
+});
+
+document.getElementById("toggle-polygon-9").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly9_Tu.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly9_Tu);
+    }
+});
+
+document.getElementById("toggle-polygon-10").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly10_Tm.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly10_Tm);
+    }
+});
+
+document.getElementById("toggle-polygon-11").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly11_Tb.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly11_Tb);
+    }
+});
+
+document.getElementById("toggle-polygon-12").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly12_Tbl.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly12_Tbl);
+    }
+});
+
+document.getElementById("toggle-polygon-13").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly13_Tj.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly13_Tj);
+    }
+});
+
+document.getElementById("toggle-polygon-14").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly14_Tal.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly14_Tal);
+    }
+});
+
+document.getElementById("toggle-polygon-15").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly15_QTmp.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly15_QTmp);
+    }
+});
+
+document.getElementById("toggle-polygon-16").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly16_QTmh.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly16_QTmh);
+    }
+});
+
+document.getElementById("toggle-polygon-17").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly17_QTma.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly17_QTma);
+    }
+});
+
+document.getElementById("toggle-polygon-18").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly18_QTmf.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly18_QTmf);
+    }
+});
+
+document.getElementById("toggle-polygon-19").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly19_QTmm.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly19_QTmm);
+    }
+});
+
+document.getElementById("toggle-polygon-20").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly20_QTmd.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly20_QTmd);
+    }
+});
+
+document.getElementById("toggle-polygon-21").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly21_QTmr.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly21_QTmr);
+    }
+});
+
+document.getElementById("toggle-polygon-22").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly22_Qt.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly22_Qt);
+    }
+});
+
+document.getElementById("toggle-polygon-23").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly23_Qal.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly23_Qal);
+    }
+});
+
+document.getElementById("toggle-polygon-24").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly24_Qrm.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly24_Qrm);
+    }
+});
+
+document.getElementById("toggle-polygon-25").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly25_Qrb.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly25_Qrb);
+    }
+});
+
+document.getElementById("toggle-polygon-26").addEventListener("change", (event) => {
+    if (event.target.checked) {
+        featureLayers.polygonLayers.poly26_Qaf.addTo(map);
+    } else {
+        map.removeLayer(featureLayers.polygonLayers.poly26_Qaf);
+    }
+});
 
 
 // checkboxes - points 
