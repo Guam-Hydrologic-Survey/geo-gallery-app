@@ -3,6 +3,30 @@ Legend.js
 Description: Creates the Legend component
 */
 
+// constants 
+
+// used in ToggleBaseMaps()
+export const basemap_radios = {
+    osm: "radio-osm",
+    esri_world_img: "radio-esri-world-img",
+    esri_gray_canvas: "radio-esri-gray-canvas"
+}
+
+// used in ResetLayerButtons()
+export const reset_layers_btns = {
+    polygons: "reset-polygons",
+    points: "reset-points",
+    boundaries: "reset-boundaries"
+}
+
+export const reset_all_layers_btn = "reset-all-layers";
+export const remove_all_layers_btn = "remove-all-layers";
+
+export const polygons_toggle_id_prefix = "toggle-polygon-";
+
+
+// functions 
+
 export function LayerToggle() {
     console.log("Added Layer Toggle component");
 
@@ -35,8 +59,9 @@ export function LayerToggle() {
     contents.append(
         ToggleBaseMaps(), 
         ResetLayerButtons(), 
-        ResetLayersBlockButtons(), 
-        LayerToggleContents(map_features));
+        ResetLayersBlockButtons()
+        // LayerToggleContents(map_features)
+    );
 
     // add everything to layer_toggle container 
     layer_toggle.append(header, contents);
@@ -198,7 +223,7 @@ function LayerToggleContents(layer_toggle) {
                                     <p class="layer-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}" checked/>
+                            <input class="form-check-input" type="checkbox" id="toggle-polygon-${(geologic_units.label).toLowerCase()}" checked/>
                         </div>
                         `;
                         break;
@@ -230,7 +255,7 @@ function LayerToggleContents(layer_toggle) {
                                     <p class="layer-description">${geologic_units[i].description}</p>
                                 </div>
                             </div>
-                            <input class="form-check-input" type="checkbox" id="toggle-layer-${geologic_units.label}" checked/>
+                            <input class="form-check-input" type="checkbox" id="toggle-polygon-${(geologic_units.label).toLowerCase()}" checked/>
                         </div>
                         `;
                         break;
