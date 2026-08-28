@@ -22,6 +22,8 @@ import { Dock } from './components/Dock2.js';
 import { LayerToggle } from './components/LayerToggle.js';
 import { Toast } from './components/Toast.js';
 
+// constants 
+import { API_PHOTOS_URL } from './constants/index.js';
 
 /* ------------------------------------------------------------
 initialize and add components to #app
@@ -619,7 +621,7 @@ function getLayers(data, ftype) {
                         `;
 
                         // TODO - check JSON properties (get list of keys)
-                        findImagesSet_v2('/api/photos/', feature.properties.GID).then(images => {
+                        findImagesSet_v2(API_PHOTOS_URL, feature.properties.GID).then(images => {
                             document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
                             document.getElementById("text-description").innerText = images.description || '';
 
@@ -762,7 +764,7 @@ function getLayers(data, ftype) {
                 onEachFeature: (feature, layer) => {
                     layer.on('click', async () => {
                         // TODO - check JSON properties (get list of keys)
-                        findImagesSet_v2('/api/photos/', feature.properties.PID).then(images => {
+                        findImagesSet_v2(API_PHOTOS_URL, feature.properties.PID).then(images => {
                             document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
                             document.getElementById("text-description").innerText = images.description || '';
 
@@ -1074,35 +1076,37 @@ layer_toggle_rows.forEach(checkbox => {
 // checkboxes - boundaries 
 // #toggle-boundary-num
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
-        if (event.target.checked) {
-            if (!map.hasLayer(featureLayers.boundaryLayers.boundary1)) {
-                featureLayers.boundaryLayers.boundary1.addTo(map);
-            }
-        } else {
-            map.removeLayer(featureLayers.boundaryLayers.boundary1);
-        }
-    });
+// document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
+//         if (event.target.checked) {
+//             // if (!map.hasLayer(featureLayers.boundaryLayers.boundary1)) {
+//             //     featureLayers.boundaryLayers.boundary1.addTo(map);
+//             // }
+//             console.log(`Checked ${event.target.value}`)
+//         } else {
+//             // map.removeLayer(featureLayers.boundaryLayers.boundary1);
+//             console.log(`Unchecked ${event.target.value}`)
+//         }
+//     });
 
-    document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
-        if (event.target.checked) {
-            if (!map.hasLayer(featureLayers.boundaryLayers.boundary2)) {
-                featureLayers.boundaryLayers.boundary2.addTo(map);
-            }
-        } else {
-            map.removeLayer(featureLayers.boundaryLayers.boundary2);
-        }
-    });
+// document.getElementById("toggle-boundary-1").addEventListener("change", (event) => {
+//     if (event.target.checked) {
+//         if (!map.hasLayer(featureLayers.boundaryLayers.boundary2)) {
+//             featureLayers.boundaryLayers.boundary2.addTo(map);
+//         }
+//     } else {
+//         map.removeLayer(featureLayers.boundaryLayers.boundary2);
+//     }
+// });
 
-    document.getElementById("toggle-boundary-2").addEventListener("change", (event) => {
-        if (event.target.checked) {
-            if (!map.hasLayer(featureLayers.boundaryLayers.boundary3)) {
-                featureLayers.boundaryLayers.boundary3.addTo(map);
-            }
-        } else {
-            map.removeLayer(featureLayers.boundaryLayers.boundary3);
-        }
-    });
+// document.getElementById("toggle-boundary-2").addEventListener("change", (event) => {
+//     if (event.target.checked) {
+//         if (!map.hasLayer(featureLayers.boundaryLayers.boundary3)) {
+//             featureLayers.boundaryLayers.boundary3.addTo(map);
+//         }
+//     } else {
+//         map.removeLayer(featureLayers.boundaryLayers.boundary3);
+//     }
+// });
 
-})
+console.log("Event listeners for boundaries")
+console.log(document.getElementById("toggle-boundary-0"));
