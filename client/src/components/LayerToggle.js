@@ -216,7 +216,7 @@ function LayerToggleContents(layer_toggle) {
                                 <p class="layer-description">${polygon_units[i].description}</p>
                             </div>
                         </div>
-                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${(polygon_units.label).toLowerCase()}" checked/>
+                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units.number}" checked/>
                     </div>
                     `;
                     break;
@@ -248,7 +248,7 @@ function LayerToggleContents(layer_toggle) {
                                 <p class="layer-description">${polygon_units[i].description}</p>
                             </div>
                         </div>
-                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${(polygon_units.label).toLowerCase()}" checked/>
+                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${(polygon_units.number).toLowerCase()}" checked/>
                     </div>
                     `;
                     break;
@@ -270,7 +270,7 @@ function LayerToggleContents(layer_toggle) {
                                 <p class="layer-description">${polygon_units[i].description}</p>
                             </div>
                         </div>
-                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units.label}" checked/>
+                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units.number}" checked/>
                     </div>
                     `;
                     break;
@@ -289,7 +289,7 @@ function LayerToggleContents(layer_toggle) {
                         <p class="layer-description">${polygon_units[i].description}</p>
                     </div>
                 </div>
-                <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units[i].label}" checked/>
+                <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units[i].number}" checked/>
             </div>
             `;
         } // end of conditional 
