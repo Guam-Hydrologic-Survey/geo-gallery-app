@@ -11,6 +11,14 @@ must set map container dimensions (height and width) for visibility
     height: 100%;
 }
 
+.custom-icon {
+  transition: transform 0.15s ease-out;
+}
+
+.custom-icon:hover {
+  transform: scale(1.3);
+}
+
 /* custom styles for leaflet tooltip */
 .polygon-tooltip {
     background-color: #2b2b2b;
