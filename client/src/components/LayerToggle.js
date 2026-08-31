@@ -144,14 +144,14 @@ function ResetLayerButtons() {
 
 function ResetLayersBlockButtons() {
     const reset_btns_container = document.createElement("div");
-    reset_btns_container.className = "d-grid gap-2";
+    reset_btns_container.className = "d-flex gap-2 mx-auto";
 
     reset_btns_container.innerHTML = /*html*/ `
-    <button class="btn btn-success" type="button" title="Reset all layers on map" id="${reset_all_layers_btn}">
+    <button class="btn btn-success flex-fill" type="button" title="Reset all layers on map" id="${reset_all_layers_btn}">
         <i class="bi bi-arrow-clockwise"></i>
         Reset all layers
     </button>
-    <button class="btn btn-danger" type="button" title="Remove all layers from map" id="${remove_all_layers_btn}">
+    <button class="btn btn-danger flex-fill" type="button" title="Remove all layers from map" id="${remove_all_layers_btn}">
         <i class="bi bi-x-lg"></i>
         Remove all layers
     </button>
