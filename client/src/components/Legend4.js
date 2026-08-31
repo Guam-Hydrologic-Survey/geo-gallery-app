@@ -295,6 +295,69 @@ function LegendContents(legend) {
 
     // add tabs and tab content to overall legend contents 
     legend.append(legend_tabs, legend_tabs_content);
+    legend.append(PolygonsTab())
 
     return legend;
+}
+
+function PolygonsTab() { // TODO add tab as parameter 
+    const accordion_wrapper = document.createElement("div");
+    accordion_wrapper.className = "container mt-5";
+
+    const accordion_id = "polygons-accordion";
+    const accordion = document.createElement("div");
+    accordion.id = accordion_id;
+    accordion.className = "accordion accordion-flush";
+    
+    for (let i = 0; i < polygon_units.length; i++) {
+        const accordion_item = document.createElement("div");
+        accordion_item.className = "accordion-item card shadow-sm mb-3 border-0 rounded-3 overflow-hidden";
+
+        const accordion_header_id = "heading1"; // TODO CHANGE THIS TO POLYGON NUM OR ABBREV
+        const accordion_header = document.createElement("div");
+        accordion_header.id = accordion_header_id;
+        accordion_header.className = "accordion-header";
+
+        const accordion_body_wrapper_id = "collapse1";
+        const accordion_body_wrapper = document.createElement("div");
+        accordion_body_wrapper.id = accordion_body_wrapper_id;
+        accordion_body_wrapper.className = "accordion-collapse collapse";
+        accordion_body_wrapper.setAttribute("aria-labelledby", accordion_header_id);
+        accordion_body_wrapper.setAttribute("data-bs-parent", `#${accordion_id}`);
+
+        accordion_header.innerHTML = /*html*/ `
+        <button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${accordion_body_wrapper_id}" aria-expanded="false" aria-constrols="${accordion_body_wrapper_id}">
+            <span class="">
+                <!-- INSERT SVG HERE / SWATCH OF COLOR OR PATTERN --> 
+            </span>
+            HEADER NAME
+        </button>
+        `;
+
+        const accordion_body = document.createElement("div");
+        // accordion_body.id = "";
+        accordion_body.className = "accordion-body";
+        accordion_body.textContent = "This is the body of the accordion";
+
+        // compile everything together 
+        accordion_body_wrapper.append(accordion_body);
+        accordion_item.append(accordion_header, accordion_body_wrapper);
+        accordion.append(accordion_item)
+    }
+
+    accordion_wrapper.append(accordion);
+    // tab.append(accordion_wrapper);
+    
+    // return tab;
+    return accordion_wrapper;
+}
+
+function PointsTab(tab) {
+    
+    return tab;
+}
+
+function BoundariesTab(tab) {
+    
+    return tab;
 }
