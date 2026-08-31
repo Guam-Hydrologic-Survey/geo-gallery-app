@@ -87,7 +87,7 @@ function ToggleBaseMaps() {
     toggle_basemap.id = "toggle_basemap_radio";
 
     toggle_basemap.innerHTML = /*html*/ `
-    <h4>
+    <h4 class="layer-toggle-heading">
         <span class="" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Base Maps" data-bs-content="Different base map options for the visualization">Base Maps</span>
     </h4>
     <ul class="list-group">
@@ -118,11 +118,11 @@ function ResetLayerButtons() {
 
     // temporary
     reset_btns_container.innerHTML = /*html*/ `
-    <h4>
+    <h4 class="layer-toggle-heading layer-toggle-heading-spacing">
         <!--<span class="" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Map Feature Groups" data-bs-content="Toggle visibility of different map feature groups">Map Feature Groups</span>-->
         Map Feature Groups
     </h4>
-    <p>Toggle the visibility of different map feature groups<p>
+    <p class="layer-toggle-description">Toggle the visibility of different map feature groups<p>
     <ul class="list-group">
         <li class="reset-layers-checkbox list-group-item">
             <input class="form-check-input me-1" type="checkbox" value="" id="${reset_layers_btns.polygons}" checked>
@@ -425,11 +425,13 @@ function LayerToggleContents(layer_toggle) {
     layer_tabs_content.append(polygon_tab, point_tab, boundaries_tab);
 
     const header = document.createElement("h4");
+    header.className = "layer-toggle-heading layer-toggle-heading-spacing";
     header.innerHTML = /*html*/ `
         <!-- <span class="" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Map Features" data-bs-content="Toggle visibility of different map features">Map Features</span> -->
         Map Features
     `;
     const p = document.createElement("p");
+    p.className = "layer-toggle-description";
     p.textContent = "Toggle the visibility of map features individually";
     layer_toggle.append(header, p);
 

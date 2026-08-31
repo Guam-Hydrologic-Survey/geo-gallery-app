@@ -9,6 +9,21 @@ layerToggle.css
     row-gap: 20px;
 }
 
+.layer-toggle-heading {
+    font-size: 18px;
+}
+
+.layer-toggle-heading-spacing {
+    margin-top: 7%;
+}
+
+.layer-toggle-description {
+    font-size: 14px;
+    /* font-style: italic; */
+    /* color: #495057; */
+    color: #6c757d;
+}
+
 .layer-row {
     display: flex;
     /* flex-direction: row; */
