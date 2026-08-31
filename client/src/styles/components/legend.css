@@ -40,14 +40,19 @@ legend.css
 }
 
 .legend-label {
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 0.08rem;
     padding: 0px;
     margin: 0px;
 }
 
 .legend-description {
-    font-size: 14px;
+    font-size: 16px;
+    font-style: italic;
     padding: 0px;
     margin: 0px;
+}
+
+.legend-paragraph {
+    font-size: 14px;
 }

@@ -101,6 +101,7 @@ function LegendContents(legend) {
                             <div class="legend-key">
                                 <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                                 <p class="legend-description">${polygon_units[i].description}</p>
+                                <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                             </div>
                         </div>
                     </div>
@@ -132,6 +133,7 @@ function LegendContents(legend) {
                             <div class="legend-key">
                                 <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                                 <p class="legend-description">${polygon_units[i].description}</p>
+                                <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                             </div>
                         </div>
                     </div>
@@ -153,6 +155,7 @@ function LegendContents(legend) {
                             <div class="legend-key">
                                 <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                                 <p class="legend-description">${polygon_units[i].description}</p>
+                                <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                             </div>
                         </div>
                     </div>
@@ -171,6 +174,7 @@ function LegendContents(legend) {
                     <div class="legend-key">
                         <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                         <p class="legend-description">${polygon_units[i].description}</p>
+                        <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                     </div>
                 </div>
             </div>
