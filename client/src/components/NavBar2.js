@@ -80,23 +80,23 @@ export function NavBar() {
     <span class="navbar-icon-tooltip">Legend</span>
     `;
 
-    // for testing purpose only - remove later 
-    const galleryBtn = document.createElement("button");
-    galleryBtn.type = "button";
-    galleryBtn.className = "btn btn-outline-light btn-sm";
-    // galleryBtn.textContent = "Gallery";
-    galleryBtn.setAttribute("data-bs-toggle", "modal");
-    galleryBtn.setAttribute("data-bs-target", "#results");
-    galleryBtn.setAttribute("aria-controls", "gallery");
-    // galleryBtn.setAttribute("title", "Gallery");
-    galleryBtn.innerHTML = /*html*/ `
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images-icon lucide-images"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg>
-    <span class="navbar-icon-tooltip">Gallery</span>
-    `;
+    // // for testing purpose only - remove later 
+    // const galleryBtn = document.createElement("button");
+    // galleryBtn.type = "button";
+    // galleryBtn.className = "btn btn-outline-light btn-sm";
+    // // galleryBtn.textContent = "Gallery";
+    // galleryBtn.setAttribute("data-bs-toggle", "modal");
+    // galleryBtn.setAttribute("data-bs-target", "#results");
+    // galleryBtn.setAttribute("aria-controls", "gallery");
+    // // galleryBtn.setAttribute("title", "Gallery");
+    // galleryBtn.innerHTML = /*html*/ `
+    // <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images-icon lucide-images"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg>
+    // <span class="navbar-icon-tooltip">Gallery</span>
+    // `;
 
     const dropdown = createDropdownLinks();
 
-    controls.append(aboutBtn, tutorialBtn, lengendBtn, galleryBtn, dropdown);
+    controls.append(aboutBtn, tutorialBtn, lengendBtn, dropdown);
     navbar.append(brand, controls);
     return navbar;
 }
