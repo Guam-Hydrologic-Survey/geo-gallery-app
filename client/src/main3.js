@@ -1039,36 +1039,71 @@ document.getElementById("radio-esri-gray-canvas").addEventListener("change", () 
 // checkboxes - feature group reset 
 document.getElementById("reset-polygons").addEventListener("change", (event) => {
     // console.log("Reset polygons");
+    const single_layers_toggle = document.querySelectorAll('#layers-panel-one > .layer-row > input[type="checkbox"]');
+
     if (event.target.checked) {
         console.log("Checked reset polygons");
         featureLayers.polygonLayers.poly0_all.addTo(map);
+
+        // mark all individual checkboxes as checked 
+        single_layers_toggle.forEach(checkbox => {
+            checkbox.checked = true;
+        });
     } else {
         console.log("Unchecked reset polygons")
         map.removeLayer(featureLayers.polygonLayers.poly0_all)
+
+        // uncheck all individual checkboxes 
+        single_layers_toggle.forEach(checkbox => {
+            checkbox.checked = false;
+        });
     }
 });
 
 document.getElementById("reset-points").addEventListener("change", (event) => {
     // console.log("Reset points");
+    const single_layers_toggle = document.querySelectorAll('#layers-panel-two > .layer-row > input[type="checkbox"]');
+
     if (event.target.checked) {
-        console.log("Checked reset points");
+        // console.log("Checked reset points");
         featureLayers.pointLayers.point0_all.addTo(map);
         featureLayers.pointLayers.point0_all.bringToFront();
+
+        // mark all individual checkboxes as checked 
+        single_layers_toggle.forEach(checkbox => {
+            checkbox.checked = true;
+        });
     } else {
-        console.log("Unchecked reset points")
+        // console.log("Unchecked reset points")
         map.removeLayer(featureLayers.pointLayers.point0_all);
+
+        // uncheck all individual checkboxes 
+        single_layers_toggle.forEach(checkbox => {
+            checkbox.checked = false;
+        });
     }
 });
 
 document.getElementById("reset-boundaries").addEventListener("change", (event) => {
-    console.log("Reset boundaries");
+    // console.log("Reset boundaries");
+    const single_layers_toggle = document.querySelectorAll('#layers-panel-three > .layer-row > input[type="checkbox"]');
+
     if (event.target.checked) {
-        console.log("Checked reset boundaries");
+        // console.log("Checked reset boundaries");
         featureLayers.boundaryLayers.boundary0_all.addTo(map);
         featureLayers.boundaryLayers.boundary0_all.bringToFront();
+
+        single_layers_toggle.forEach(checkbox => {
+            checkbox.checked = true;
+        });
     } else {
-        console.log("Unchecked reset boundaries")
+        // console.log("Unchecked reset boundaries")
         map.removeLayer(featureLayers.boundaryLayers.boundary0_all);
+
+        // uncheck all individual checkboxes 
+        single_layers_toggle.forEach(checkbox => {
+            checkbox.checked = false;
+        });
     }
 });
 
