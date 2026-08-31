@@ -253,6 +253,17 @@ map.on('locationerror', function(e) {
 
 
 /* ------------------------------------------------------------
+global fallback: explicitly close tooltips
+------------------------------------------------------------ */
+
+// map.on('mousemove', function (e) {
+//     if(!e.originalEvent.target.closest('path .leaflet-marker-icon')) {
+//         map.eachLayer(l => l.closeTooltip && l.closeTooltip());
+//     }
+// });
+
+
+/* ------------------------------------------------------------
 add map layers
 ------------------------------------------------------------ */
 
@@ -666,8 +677,15 @@ function getLayers(data, ftype) {
                         },
                         mouseout(e) {
                             polyLayer.resetStyle(e.target);
+                            layer.closeTooltip();
                         }
                     });
+
+                    // explicitly close tooltip
+                    layer.on('remove', () => {
+                        layer.closeTooltip();
+                    });
+
                 } // end of onEachFeature property
             }); // end of L.geoJSON
 
@@ -812,6 +830,15 @@ function getLayers(data, ftype) {
                         // getImageDescription_v2(feature.properties.PID);
                     });// end of layer on click listener 
 
+                    // explicitly close tooltip
+                    layer.on('remove', () => {
+                        layer.closeTooltip();
+                    });
+
+                    layer.on('mouseout', () => {
+                        layer.closeTooltip();
+                    })
+
                     layer.addTo(featureLayers.allLayers); // add to all feature layers 
                     layer.addTo(featureLayers.pointLayers.point0_all); // add to all point layers 
 
@@ -845,6 +872,11 @@ function getLayers(data, ftype) {
         } // end of conditional for point
     }); // end of fetch call
 } // end of getLayers function
+
+
+/* ------------------------------------------------------------
+image retrieval functions
+------------------------------------------------------------ */
 
 // for polygons (to implement for points as well)
 async function findImagesSet_v2(apiUrl, searchId) {
@@ -999,6 +1031,11 @@ function clearGallery() {
         gallery.removeChild(gallery.firstChild);
     }
 }
+
+
+/* ------------------------------------------------------------
+explicit open/close leaflet tooltips 
+------------------------------------------------------------ */
 
 
 /* ------------------------------------------------------------
