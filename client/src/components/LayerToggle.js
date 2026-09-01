@@ -199,16 +199,16 @@ function LayerToggleContents(layer_toggle) {
     boundaries_tab.className = "tab-pane fade";
     boundaries_tab.id = "layers-panel-three";
 
-    const HEIGHT = 40;
-    const WIDTH = 40;
+    const HEIGHT = 50;
+    const WIDTH = 50;
 
     // initialize variable containing layer_toggle row contents 
     let layer_row;
 
     // add polygon labels 
     for (let i = 0; i < polygon_units.length; i++) {
-        if (patterned_polygons.has(polygon_units.number)) {
-            switch (polygon_units.number) {
+        if (patterned_polygons.has(polygon_units[i].number)) {
+            switch (polygon_units[i].number) {
                 case 4:
                     layer_row = /*html*/ `
                     <div class="layer-row">
@@ -216,12 +216,12 @@ function LayerToggleContents(layer_toggle) {
                             <div class="layer-swatch">
                                 <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
-                                        <pattern id="swatch-pat-4" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                        <pattern id="tt-brown-stripes" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                                             <rect width="12" height="12" fill="#${polygon_units[i].hexcode}"/>
                                             <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="1.5"/>
                                         </pattern>
                                     </defs>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#swatch-pat-4)" />
+                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#tt-brown-stripes)"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -229,7 +229,7 @@ function LayerToggleContents(layer_toggle) {
                                 <p class="layer-description">${polygon_units[i].description}</p>
                             </div>
                         </div>
-                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units.number}" checked/>
+                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units[i].number}" checked/>
                     </div>
                     `;
                     break;
@@ -239,8 +239,8 @@ function LayerToggleContents(layer_toggle) {
                         <div class="layer-toggle">
                             <div class="layer-swatch">
                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                    <pattern id="" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
-                                        <rect width="56" height="56" fill="#c77bb2"/>
+                                    <pattern id="tu-dots" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
+                                        <rect width="56" height="56" fill="#${polygon_units[i].hexcode}"/>
                                         <circle cx="7" cy="12" r="3" fill="#ffffff"/>
                                         <circle cx="23" cy="4" r="3" fill="#ffffff"/>
                                         <circle cx="41" cy="9" r="3" fill="#ffffff"/>
@@ -253,7 +253,7 @@ function LayerToggleContents(layer_toggle) {
                                         <circle cx="38" cy="49" r="3" fill="#ffffff"/>
                                         <circle cx="27" cy="18" r="3" fill="#ffffff"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" />
+                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#tu-dots)"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -261,7 +261,7 @@ function LayerToggleContents(layer_toggle) {
                                 <p class="layer-description">${polygon_units[i].description}</p>
                             </div>
                         </div>
-                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${(polygon_units.number).toLowerCase()}" checked/>
+                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units[i].number}" checked/>
                     </div>
                     `;
                     break;
@@ -271,11 +271,11 @@ function LayerToggleContents(layer_toggle) {
                         <div class="layer-toggle">
                             <div class="layer-swatch">
                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                    <pattern id="" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
-                                        <rect width="14" height="14" fill="#ade9ff"/>
+                                    <pattern id="blue-stripes" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+                                        <rect width="14" height="14" fill="#${polygon_units[i].hexcode}"/>
                                         <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" />
+                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#blue-stripes)"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -283,7 +283,7 @@ function LayerToggleContents(layer_toggle) {
                                 <p class="layer-description">${polygon_units[i].description}</p>
                             </div>
                         </div>
-                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units.number}" checked/>
+                        <input class="form-check-input" type="checkbox" id="toggle-polygon-${polygon_units[i].number}" checked/>
                     </div>
                     `;
                     break;
