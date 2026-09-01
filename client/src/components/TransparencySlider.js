@@ -45,7 +45,14 @@ export function TransparencySlider() {
     </div>
     `;
 
+    const contents2 = document.createElement("div");
+    contents2.innerHTML = /*html*/ `
+    <label for="range1" class="form-label">Example range</label>
+    <input type="range" class="form-range" id="range1">
+    `;
+
     transparency_slider.append(header, contents);
+    transparency_slider.append(contents2);
 
     return transparency_slider; 
 }
