@@ -79,11 +79,14 @@ function LegendContents(legend) {
     // initialize variable containing legend row contents 
     let layer_row;
 
+    let pattern_id;
+
     // add polygon labels 
     for (let i = 0; i < polygon_units.length; i++) {
         if (patterned_polygons.has(polygon_units[i].number)) {
             switch (polygon_units[i].number) {
                 case 4:
+                    pattern_id = "tt-brown-stripes";
                     layer_row = /*html*/ `
                     <div class="legend-row">
                         <div class="legend-header">
@@ -91,12 +94,12 @@ function LegendContents(legend) {
                             <div class="legend-header-column legend-swatch">
                                 <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
-                                        <pattern id="swatch-pat-4" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                        <pattern id="${pattern_id}" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                                             <rect width="12" height="12" fill="#${polygon_units[i].hexcode}"/>
                                             <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="1.5"/>
                                         </pattern>
                                     </defs>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#swatch-pat-4)" />
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#${pattern_id})" />
                                 </svg>
                             </div>
                             <div class="legend-header-column legend-key">
@@ -116,13 +119,14 @@ function LegendContents(legend) {
                     `;
                     break;
                 case 9:
+                    pattern_id = "tu-dots";
                     layer_row = /*html*/ `
                     <div class="legend-row">
                         <div class="legend-header">
                             <!-- <p>${i + 1}</p> -->
                             <div class="legend-header-column legend-swatch">
                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                    <pattern id="dots" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
+                                    <pattern id="${pattern_id}" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
                                         <rect width="56" height="56" fill="#${polygon_units[i].hexcode}"/>
                                         <circle cx="7" cy="12" r="3" fill="#ffffff"/>
                                         <circle cx="23" cy="4" r="3" fill="#ffffff"/>
@@ -137,7 +141,7 @@ function LegendContents(legend) {
                                         <circle cx="27" cy="18" r="3" fill="#ffffff"/>
                                     </pattern>
                                     <!-- <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" /> -->
-                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#dots)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#${pattern_id})"/>
                                 </svg>
                             </div>
                             <div class="legend-header-column legend-key">
@@ -157,17 +161,18 @@ function LegendContents(legend) {
                     `;
                     break;
                 case 17:
+                    pattern_id = "qtma-blue-stripes";
                     layer_row = /*html*/ `
                     <div class="legend-row">
                         <div class="legend-header">
                             <!-- <p>${i + 1}</p> -->
                             <div class="legend-header-column legend-swatch">
                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                    <pattern id="qtma-blue-stripes" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+                                    <pattern id="${pattern_id}" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
                                         <rect width="14" height="14" fill="#${polygon_units[i].hexcode}"/>
                                         <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#qtma-blue-stripes)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#${pattern_id})"/>
                                 </svg>
                             </div>
                             <div class="legend-header-column legend-key">
