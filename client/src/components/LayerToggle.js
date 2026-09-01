@@ -205,23 +205,26 @@ function LayerToggleContents(layer_toggle) {
     // initialize variable containing layer_toggle row contents 
     let layer_row;
 
+    let pattern_id;
+
     // add polygon labels 
     for (let i = 0; i < polygon_units.length; i++) {
         if (patterned_polygons.has(polygon_units[i].number)) {
             switch (polygon_units[i].number) {
                 case 4:
+                    pattern_id = "brown-stripes";
                     layer_row = /*html*/ `
                     <div class="layer-row">
                         <div class="layer-toggle">
                             <div class="layer-swatch">
                                 <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
-                                        <pattern id="tt-brown-stripes" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                        <pattern id="${pattern_id}" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                                             <rect width="12" height="12" fill="#${polygon_units[i].hexcode}"/>
                                             <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="1.5"/>
                                         </pattern>
                                     </defs>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#tt-brown-stripes)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#${pattern_id})"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -234,12 +237,13 @@ function LayerToggleContents(layer_toggle) {
                     `;
                     break;
                 case 9:
+                    pattern_id = "white-dots";
                     layer_row = /*html*/ `
                     <div class="layer-row">
                         <div class="layer-toggle">
                             <div class="layer-swatch">
                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                    <pattern id="tu-dots" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
+                                    <pattern id="${pattern_id}" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
                                         <rect width="56" height="56" fill="#${polygon_units[i].hexcode}"/>
                                         <circle cx="7" cy="12" r="3" fill="#ffffff"/>
                                         <circle cx="23" cy="4" r="3" fill="#ffffff"/>
@@ -253,7 +257,7 @@ function LayerToggleContents(layer_toggle) {
                                         <circle cx="38" cy="49" r="3" fill="#ffffff"/>
                                         <circle cx="27" cy="18" r="3" fill="#ffffff"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#tu-dots)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#${pattern_id})"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -266,6 +270,7 @@ function LayerToggleContents(layer_toggle) {
                     `;
                     break;
                 case 17:
+                    pattern_id = "blue-stripes";
                     layer_row = /*html*/ `
                     <div class="layer-row">
                         <div class="layer-toggle">
@@ -275,7 +280,7 @@ function LayerToggleContents(layer_toggle) {
                                         <rect width="14" height="14" fill="#${polygon_units[i].hexcode}"/>
                                         <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#blue-stripes)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#${pattern_id})"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
