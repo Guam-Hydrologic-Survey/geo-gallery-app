@@ -106,7 +106,7 @@ function LegendContents(legend) {
                         </div> <!-- end .legend-header -->
 
                         <div class="legend-body">
-                            <span class="legend-badge badge rounded-pill" style="--bs-badge-bg: #7FDEFF; --bs-badge-color: #0d6efd;">
+                            <span class="legend-badge badge rounded-pill">
                                 <i class="bi bi-clock-history"></i>
                                 ${polygon_units[i].epoch}
                             </span>
