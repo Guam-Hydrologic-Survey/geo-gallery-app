@@ -73,21 +73,22 @@ function LegendContents(legend) {
     boundaries_tab.className = "tab-pane fade";
     boundaries_tab.id = "legend-panel-three";
 
-    const HEIGHT = 40;
-    const WIDTH = 40;
+    const HEIGHT = 50;
+    const WIDTH = 50;
 
     // initialize variable containing legend row contents 
     let layer_row;
 
     // add polygon labels 
     for (let i = 0; i < polygon_units.length; i++) {
-        if (patterned_polygons.has(polygon_units.number)) {
-            switch (polygon_units.number) {
+        if (patterned_polygons.has(polygon_units[i].number)) {
+            switch (polygon_units[i].number) {
                 case 4:
                     layer_row = /*html*/ `
                     <div class="legend-row">
-                        <div class="legend-toggle">
-                            <div class="legend-swatch">
+                        <div class="legend-header">
+                            <!-- <p>${i + 1}</p> -->
+                            <div class="legend-header-column legend-swatch">
                                 <svg viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
                                     <defs>
                                         <pattern id="swatch-pat-4" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -98,23 +99,31 @@ function LegendContents(legend) {
                                     <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#swatch-pat-4)" />
                                 </svg>
                             </div>
-                            <div class="legend-key">
+                            <div class="legend-header-column legend-key">
                                 <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                                 <p class="legend-description">${polygon_units[i].description}</p>
-                                <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                             </div>
-                        </div>
-                    </div>
+                        </div> <!-- end .legend-header -->
+
+                        <div class="legend-body">
+                            <span class="legend-badge badge rounded-pill" style="--bs-badge-bg: #7FDEFF; --bs-badge-color: #0d6efd;">
+                                <i class="bi bi-clock-history"></i>
+                                ${polygon_units[i].epoch}
+                            </span>
+                            <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
+                        </div> <!-- end .legend-body -->
+                    </div> <!-- end .legend-header -->
                     `;
                     break;
                 case 9:
                     layer_row = /*html*/ `
                     <div class="legend-row">
-                        <div class="legend-toggle">
-                            <div class="legend-swatch">
+                        <div class="legend-header">
+                            <!-- <p>${i + 1}</p> -->
+                            <div class="legend-header-column legend-swatch">
                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                    <pattern id="" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
-                                        <rect width="56" height="56" fill="#c77bb2"/>
+                                    <pattern id="dots" x="0" y="0" width="56" height="56"  patternUnits="userSpaceOnUse">
+                                        <rect width="56" height="56" fill="#${polygon_units[i].hexcode}"/>
                                         <circle cx="7" cy="12" r="3" fill="#ffffff"/>
                                         <circle cx="23" cy="4" r="3" fill="#ffffff"/>
                                         <circle cx="41" cy="9" r="3" fill="#ffffff"/>
@@ -127,57 +136,81 @@ function LegendContents(legend) {
                                         <circle cx="38" cy="49" r="3" fill="#ffffff"/>
                                         <circle cx="27" cy="18" r="3" fill="#ffffff"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" />
+                                    <!-- <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" /> -->
+                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#dots)"/>
                                 </svg>
                             </div>
-                            <div class="legend-key">
+                            <div class="legend-header-column legend-key">
                                 <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                                 <p class="legend-description">${polygon_units[i].description}</p>
-                                <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                             </div>
-                        </div>
-                    </div>
+                        </div> <!-- end .legend-header -->
+
+                        <div class="legend-body">
+                            <span class="legend-badge badge rounded-pill" style="--bs-badge-bg: #7FDEFF; --bs-badge-color: #0d6efd;">
+                                <i class="bi bi-clock-history"></i>
+                                ${polygon_units[i].epoch}
+                            </span>
+                            <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
+                        </div> <!-- end .legend-body -->
+                    </div> <!-- end .legend-header -->
                     `;
                     break;
                 case 17:
                     layer_row = /*html*/ `
                     <div class="legend-row">
-                        <div class="legend-toggle">
-                            <div class="legend-swatch">
+                        <div class="legend-header">
+                            <!-- <p>${i + 1}</p> -->
+                            <div class="legend-header-column legend-swatch">
                                 <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                                    <pattern id="" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
-                                        <rect width="14" height="14" fill="#ade9ff"/>
+                                    <pattern id="qtma-blue-stripes" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+                                        <rect width="14" height="14" fill="#${polygon_units[i].hexcode}"/>
                                         <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" />
+                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#qtma-blue-stripes)"/>
                                 </svg>
                             </div>
-                            <div class="legend-key">
+                            <div class="legend-header-column legend-key">
                                 <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                                 <p class="legend-description">${polygon_units[i].description}</p>
-                                <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                             </div>
-                        </div>
-                    </div>
+                        </div> <!-- end .legend-header -->
+
+                        <div class="legend-body">
+                            <span class="legend-badge badge rounded-pill" style="--bs-badge-bg: #7FDEFF; --bs-badge-color: #0d6efd;">
+                                <i class="bi bi-clock-history"></i>
+                                ${polygon_units[i].epoch}
+                            </span>
+                            <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
+                        </div> <!-- end .legend-body -->
+                    </div> <!-- end .legend-header -->
                     `;
                     break;
             } // end of switch
         } else {
             layer_row = /*html*/ `
             <div class="legend-row">
-                <div class="legend-toggle">
-                    <div class="legend-swatch">
-                        <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+                <div class="legend-header">
+                    <!-- <p>${i + 1}</p> -->
+                    <div class="legend-header-column legend-swatch">
+                        <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg"> 
                             <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" />
                         </svg>
                     </div>
-                    <div class="legend-key">
+                    <div class="legend-header-column legend-key">
                         <p class="legend-label text-bold-weight">${polygon_units[i].label}</p>
                         <p class="legend-description">${polygon_units[i].description}</p>
-                        <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
                     </div>
-                </div>
-            </div>
+                </div> <!-- end .legend-header -->
+
+                <div class="legend-body">
+                    <span class="legend-badge badge rounded-pill" style="--bs-badge-bg: #7FDEFF; --bs-badge-color: #0d6efd;">
+                        <i class="bi bi-clock-history"></i>
+                        ${polygon_units[i].epoch}
+                    </span>
+                    <p class="legend-paragraph">${polygon_units[i].paragraph}</p>
+                </div> <!-- end .legend-body -->
+            </div> <!-- end .legend-header -->
             `;
         } // end of conditional 
 
@@ -296,8 +329,53 @@ function LegendContents(legend) {
     // add tabs and tab content to overall legend contents 
     legend.append(legend_tabs, legend_tabs_content);
     legend.append(PolygonsTab())
+    // legend.insertAdjacentHTML("beforeend", Accordion());
 
     return legend;
+}
+
+function Accordion() {
+    const a = /* html */ `
+    <div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Accordion Item #1
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Accordion Item #2
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the second item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Accordion Item #3
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the third item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+</div>
+    `;
+    return a;
 }
 
 function PolygonsTab() { // TODO add tab as parameter 
@@ -313,12 +391,14 @@ function PolygonsTab() { // TODO add tab as parameter
         const accordion_item = document.createElement("div");
         accordion_item.className = "accordion-item card shadow-sm mb-3 border-0 rounded-3 overflow-hidden";
 
-        const accordion_header_id = "heading1"; // TODO CHANGE THIS TO POLYGON NUM OR ABBREV
+        const accordion_header_id = `polygon-accordion-heading-${i}`; // TODO CHANGE THIS TO POLYGON NUM OR ABBREV
+
         const accordion_header = document.createElement("div");
         accordion_header.id = accordion_header_id;
         accordion_header.className = "accordion-header";
 
-        const accordion_body_wrapper_id = "collapse1";
+        const accordion_body_wrapper_id = `polygon-collapse-${i}`; // TODO CHANGE THIS TO POLYGON NUM OR ABBREV
+
         const accordion_body_wrapper = document.createElement("div");
         accordion_body_wrapper.id = accordion_body_wrapper_id;
         accordion_body_wrapper.className = "accordion-collapse collapse";
@@ -345,11 +425,12 @@ function PolygonsTab() { // TODO add tab as parameter
         accordion.append(accordion_item)
     }
 
-    accordion_wrapper.append(accordion);
+    // accordion_wrapper.append(accordion);
     // tab.append(accordion_wrapper);
     
     // return tab;
     return accordion_wrapper;
+    // return accordion;
 }
 
 function PointsTab(tab) {
