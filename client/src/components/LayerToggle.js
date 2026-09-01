@@ -221,7 +221,7 @@ function LayerToggleContents(layer_toggle) {
                                             <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="1.5"/>
                                         </pattern>
                                     </defs>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#tt-brown-stripes)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#tt-brown-stripes)"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -253,7 +253,7 @@ function LayerToggleContents(layer_toggle) {
                                         <circle cx="38" cy="49" r="3" fill="#ffffff"/>
                                         <circle cx="27" cy="18" r="3" fill="#ffffff"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#tu-dots)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#tu-dots)"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -275,7 +275,7 @@ function LayerToggleContents(layer_toggle) {
                                         <rect width="14" height="14" fill="#${polygon_units[i].hexcode}"/>
                                         <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#blue-stripes)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#blue-stripes)"/>
                                 </svg>
                             </div>
                             <div class="layer-key">
@@ -294,7 +294,7 @@ function LayerToggleContents(layer_toggle) {
                 <div class="layer-toggle">
                     <div class="layer-swatch">
                         <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" />
+                            <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="#${polygon_units[i].hexcode}" />
                         </svg>
                     </div>
                     <div class="layer-key">

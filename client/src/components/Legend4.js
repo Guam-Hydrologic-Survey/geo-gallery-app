@@ -137,7 +137,7 @@ function LegendContents(legend) {
                                         <circle cx="27" cy="18" r="3" fill="#ffffff"/>
                                     </pattern>
                                     <!-- <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" /> -->
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#dots)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#dots)"/>
                                 </svg>
                             </div>
                             <div class="legend-header-column legend-key">
@@ -167,7 +167,7 @@ function LegendContents(legend) {
                                         <rect width="14" height="14" fill="#${polygon_units[i].hexcode}"/>
                                         <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-width="4"/>
                                     </pattern>
-                                    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#qtma-blue-stripes)"/>
+                                    <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="url(#qtma-blue-stripes)"/>
                                 </svg>
                             </div>
                             <div class="legend-header-column legend-key">
@@ -194,7 +194,7 @@ function LegendContents(legend) {
                     <!-- <p>${i + 1}</p> -->
                     <div class="legend-header-column legend-swatch">
                         <svg viewBox="0 0 ${HEIGHT} ${WIDTH}" width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg"> 
-                            <rect width="${WIDTH}" height="${HEIGHT}" fill="#${polygon_units[i].hexcode}" />
+                            <rect width="${WIDTH}" height="${HEIGHT}" rx="8" fill="#${polygon_units[i].hexcode}" />
                         </svg>
                     </div>
                     <div class="legend-header-column legend-key">
