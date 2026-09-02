@@ -644,7 +644,20 @@ function getLayers(data, ftype) {
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="https://placehold.co/400" class="img-fluid rounded-start" alt="...">
+                                    <svg viewBox="0 0 200 200" width="100%" height="100%" role="img" aria-label="Decorative striped rounded rectangle" style="display:block;">
+                                        <defs>
+                                        <clipPath id="rectClip">
+                                            <rect x="10" y="10" width="180" height="180" rx="" ry="" />
+                                        </clipPath>
+                                        <pattern id="stripes" width="20" height="20" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                                            <rect width="20" height="20" fill="#0d6efd"></rect>
+                                            <rect width="10" height="20" fill="#6ea8fe"></rect>
+                                        </pattern>
+                                        </defs>
+                                        <g clip-path="url(#rectClip)">
+                                        <rect x="0" y="0" width="200" height="200" fill="url(#stripes)"></rect>
+                                        </g>
+                                    </svg>
                                 </div>
                                 <div class="col-md-8">
                                 <div class="card-body">
