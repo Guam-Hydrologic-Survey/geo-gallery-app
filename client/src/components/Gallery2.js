@@ -40,7 +40,7 @@ export function Gallery() {
     const information = document.createElement("div");
     information.id = "text-info";
 
-    const num_photos = document.createElement("p");
+    const num_photos = document.createElement("div");
     num_photos.className = "legend-badge badge rounded-pill";
     num_photos.id = "num-photos";
 
