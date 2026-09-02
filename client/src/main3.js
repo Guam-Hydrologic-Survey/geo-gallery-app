@@ -645,13 +645,7 @@ function getLayers(data, ftype) {
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <svg viewBox="0 0 200 200" preserveAspectRatio="none" class="img-fluid rounded-start" role="img" aria-label="Decorative striped rectangle" style="width: 100%; height: 100%; display: block;">
-                                        <defs>
-                                        <pattern id="stripes" width="20" height="20" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-                                            <rect width="20" height="20" fill="#0d6efd"></rect>
-                                            <rect width="10" height="20" fill="#6ea8fe"></rect>
-                                        </pattern>
-                                        </defs>
-                                        <rect x="0" y="0" width="200" height="200" fill="url(#stripes)"></rect>
+                                        <rect x="0" y="0" width="200" height="200" fill="#${feature.properties.Hex}"></rect>
                                     </svg>
                                 </div>
                                 <div class="col-md-8">
@@ -691,6 +685,10 @@ function getLayers(data, ftype) {
                         </div>
                         `;
 
+                        // show loading screen for image retrieval first and open the modal dialog
+                        skeletonDisplay();
+                        modalDialog.show();
+
                         // TODO - check JSON properties (get list of keys)
                         findImagesSet_v2(API_PHOTOS_URL, feature.properties.GID).then(images => {
                             document.getElementById("point-clicked").innerText = `Photo Gallery`;
@@ -701,8 +699,6 @@ function getLayers(data, ftype) {
                             } else {
                                 console.log(`Sorry, could not find images :-(`);
                             }
-
-                            modalDialog.show();
                         });
                         // getImageDescription_v2(feature.properties.id);
                         // getImageDescription_v2(feature.properties.PID);
@@ -998,7 +994,7 @@ async function displayImages_v3(images) {
             plural = "photos";
         }
 
-        document.getElementById("num-photos").innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature: `;
+        document.getElementById("num-photos").innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
 
         let loadedImgs = [];
         let imgsLoaded = 0;
@@ -1034,6 +1030,28 @@ function displayImages_v3_sub(images) {
 
         gallery.append(img);
     });
+}
+
+// loading screen to show before the actual photos 
+function skeletonDisplay() {
+
+    clearGallery();
+
+    document.getElementById("num-photos").innerHTML = /*html*/ `
+    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+    <span role="status">Loading photos...</span>
+    `;
+
+    const skeleton = document.createElement("div");
+    skeleton.className = "row g-3";
+    skeleton.innerHTML = /*html*/ `
+    ${[0, 1, 2].map(() => `<div class="col-3" style="justify-content:center; align-items:center; flex:1;"> 
+        <div class="skeleton" style="width:150px; height:150px;"></div>
+        </div>`).join('')}
+    </div>
+    <!-- <p class="text-muted text-center mt-4 mb-0" style="font-size:14px;">Loading photos...</p> -->
+    `;
+    gallery.append(skeleton);
 }
 
 
