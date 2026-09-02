@@ -41,6 +41,7 @@ export function Gallery() {
     information.id = "text-info";
 
     const num_photos = document.createElement("p");
+    num_photos.className = "legend-badge badge rounded-pill";
     num_photos.id = "num-photos";
 
     const gallery_container = document.createElement("div");
