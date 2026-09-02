@@ -644,19 +644,14 @@ function getLayers(data, ftype) {
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <svg viewBox="0 0 200 200" width="100%" height="100%" role="img" aria-label="Decorative striped rounded rectangle" style="display:block;">
+                                    <svg viewBox="0 0 200 200" preserveAspectRatio="none" class="img-fluid rounded-start" role="img" aria-label="Decorative striped rectangle" style="width: 100%; height: 100%; display: block;">
                                         <defs>
-                                        <clipPath id="rectClip">
-                                            <rect x="10" y="10" width="180" height="180" rx="24" ry="24" />
-                                        </clipPath>
                                         <pattern id="stripes" width="20" height="20" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
                                             <rect width="20" height="20" fill="#0d6efd"></rect>
                                             <rect width="10" height="20" fill="#6ea8fe"></rect>
                                         </pattern>
                                         </defs>
-                                        <g clip-path="url(#rectClip)">
                                         <rect x="0" y="0" width="200" height="200" fill="url(#stripes)"></rect>
-                                        </g>
                                     </svg>
                                 </div>
                                 <div class="col-md-8">
