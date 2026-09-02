@@ -13,7 +13,7 @@ export const boundary_units = [
         {
             number: 1,
             label: "Approximately located",
-            description: "Gradational or inferred",
+            description: "Dashed lines where approximately located, gradational or inferred",
             hexcode: "000"
         },
         {
@@ -28,13 +28,13 @@ export const point_units = [
         {
             number: 0,
             label: "Within 100 ft. vacinity",
-            description: "(certain)",
+            description: "",
             hexcode: "000"
         },
         {
             number: 1,
             label: "Within general area",
-            description: "(uncertain)",
+            description: "",
             hexcode: "fff"
         },
         {
@@ -52,7 +52,7 @@ export const point_units = [
         {
             number: 4,
             label: "Cave",
-            description: "Photos taken inside and outside of caves",
+            description: "Photos of a cave's interior and exterior",
             hexcode: "50C878"
         }
     ];
