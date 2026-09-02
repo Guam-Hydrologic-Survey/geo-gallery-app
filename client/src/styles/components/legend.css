@@ -48,6 +48,7 @@ legend.css
 }
 
 .legend-label {
+    font-family: 'Roboto Slab';
     font-size: 18px;
     letter-spacing: 0.08rem;
     padding: 0px;
