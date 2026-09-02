@@ -647,7 +647,7 @@ function getLayers(data, ftype) {
                                     <svg viewBox="0 0 200 200" width="100%" height="100%" role="img" aria-label="Decorative striped rounded rectangle" style="display:block;">
                                         <defs>
                                         <clipPath id="rectClip">
-                                            <rect x="10" y="10" width="180" height="180" rx="" ry="" />
+                                            <rect x="10" y="10" width="180" height="180" rx="24" ry="24" />
                                         </clipPath>
                                         <pattern id="stripes" width="20" height="20" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
                                             <rect width="20" height="20" fill="#0d6efd"></rect>
