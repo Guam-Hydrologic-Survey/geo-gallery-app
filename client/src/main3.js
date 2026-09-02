@@ -641,16 +641,52 @@ function getLayers(data, ftype) {
                         const formation = feature.properties.Formation.trim() === "" ? "" : `<p>Formation: ${feature.properties.Formation}</p>`;
 
                         document.getElementById("text-info").innerHTML = /*html*/ `
-                        <p class="text-bold-weight">${feature.properties.UnitAbr}</p>
-                        <p>${feature.properties.MapUnit}</p>
-                        ${formation}
-                        <p>Epoch: ${feature.properties.Epoch}</p>
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="https://placehold.co/400" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-font-style-roboto-slab">
+                                        ${feature.properties.MapUnit} (${feature.properties.UnitAbr})
+                                    </h5>
+                                    <span class="legend-badge badge rounded-pill">
+                                        <i class="bi bi-clock-history"></i>
+                                        ${feature.properties.Epoch}
+                                    </span>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+                                    <ul class="list-group list-group-horizontal w-100">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            ${(feature.properties.sqmi).toFixed(3)} sq mi
+                                            <!-- <span class="legend-badge badge rounded-pill">14</span> -->
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            ${(feature.properties.sqKm).toFixed(3)} sq Km
+                                            <!-- <span class="badge text-bg-primary rounded-pill">2</span> -->
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            ${(feature.properties.Area_acres).toFixed(3)} acres
+                                            <!-- <span class="badge text-bg-primary rounded-pill">1</span> -->
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            ${(feature.properties.Area_ha).toFixed(3)} hectres
+                                            <!-- <span class="badge text-bg-primary rounded-pill">1</span> -->
+                                        </li>
+                                    </ul>
+
+                                    <!-- <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> -->
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                         `;
 
                         // TODO - check JSON properties (get list of keys)
                         findImagesSet_v2(API_PHOTOS_URL, feature.properties.GID).then(images => {
-                            document.getElementById("point-clicked").innerText = `${feature.properties.MapUnit}`;
-                            document.getElementById("text-description").innerText = images.description || '';
+                            document.getElementById("point-clicked").innerText = `Photo Gallery`;
+                            // document.getElementById("text-description").innerText = images.description || '';
 
                             if (images.paths != null) {
                                 displayImages_v3(images.paths);
@@ -931,7 +967,7 @@ async function getImageDescription_v2(loc) {
 
         for (let i = 0; i < descriptions.length; i++) {
             if (descriptions[i].id === loc) {
-                document.getElementById("text-description").innerText = `${descriptions[i].text}`;
+                // document.getElementById("text-description").innerText = `${descriptions[i].text}`;
                 break;
             } else {
                 document.getElementById("text-description").innerText = '';
@@ -954,7 +990,7 @@ async function displayImages_v3(images) {
             plural = "photos";
         }
 
-        document.getElementById("num-photos").innerText = `${images.length} ${plural} available for this location: `;
+        document.getElementById("num-photos").innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature: `;
 
         let loadedImgs = [];
         let imgsLoaded = 0;
@@ -975,7 +1011,7 @@ async function displayImages_v3(images) {
         });
     } else {
         document.getElementById("num-photos").innerText = "";
-        gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, this location does not have any photos available.</p>`;
+        gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
     }
 }
 
