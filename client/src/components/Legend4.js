@@ -234,7 +234,7 @@ function LegendContents(legend) {
                     </div>
                     <div class="legend-key">
                         <p class="legend-label text-bold-weight">${point_units[i].label}</p>
-                        <!-- <p class="legend-description">${point_units[i].description}</p> -->
+                        <p class="legend-description">${point_units[i].description}</p>
                     </div>
                 </div>
             </div>`;
@@ -250,7 +250,7 @@ function LegendContents(legend) {
                 </div>
                 <div class="legend-key">
                     <p class="legend-label text-bold-weight">Sinkhole</p>
-                    <!-- <p class="legend-description"></p> -->
+                    <p class="legend-description">${point_units[2].description}</p>
                 </div>
             </div>
         </div>
@@ -264,7 +264,7 @@ function LegendContents(legend) {
                 </div>
                 <div class="legend-key">
                     <p class="legend-label text-bold-weight">Cave</p>
-                    <!-- <p class="legend-description"></p> -->
+                    <p class="legend-description">${point_units[3].description}</p>
                 </div>
             </div>
         </div>
@@ -278,7 +278,7 @@ function LegendContents(legend) {
                 </div>
                 <div class="legend-key">
                     <p class="legend-label text-bold-weight">Aerial</p>
-                    <!-- <p class="legend-description"></p> -->
+                    <p class="legend-description">${point_units[4].description}</p>
                 </div>
             </div>
         </div>
