@@ -51,16 +51,17 @@ export function Dock() {
     <span class="dock-icon-tooltip">Find My Location</span>
     `;
 
+    const tooltip = "Adjust Layer Transparency";
     const transparency_slider = document.createElement("button");
     transparency_slider.id = "transparency-btn";
     transparency_slider.innerHTML = /*html*/ `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings2-icon lucide-settings-2"><path d="M14 17H5"/><path d="M19 7h-9"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-    <span class="dock-icon-tooltip">Adjust Polygon Transparency</span>
+    <span class="dock-icon-tooltip">${tooltip}</span>
     `;
     transparency_slider.setAttribute("data-bs-toggle", "offcanvas");
     transparency_slider.setAttribute("data-bs-target", "#transparency-slider-offcanvas");
 
-    dock.append(toggle_layer, zoom_in, zoom_out, recenter, locate, transparency_slider);
+    dock.append(toggle_layer, transparency_slider, zoom_in, zoom_out, recenter, locate);
     dock_wrapper.append(dock);
 
     console.log(dock_wrapper);
