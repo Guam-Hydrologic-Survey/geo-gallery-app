@@ -233,7 +233,7 @@ const locateIcon = L.divIcon({
 const locateBtn = document.getElementById('locate-btn');
 
 locateBtn.addEventListener('click', () => {
-    console.log('Clicked on LOCATE button');
+    // console.log('Clicked on LOCATE button');
     map.locate({
         setView: true, maxZoom: 15
     });
@@ -380,7 +380,7 @@ function injectDefs() {
     const svg = document.querySelector(".leaflet-polygon-pane svg");
 
     if (!svg) {
-        console.log('injectDefs: SVG not found yet');
+        // console.log('injectDefs: SVG not found yet');
         return;
     }
 
@@ -394,7 +394,7 @@ function injectDefs() {
     defs.innerHTML = pattern_defs;
 
     // confirm function run
-    console.log("Ran injectDefs");
+    // console.log("Ran injectDefs");
 }
 
 map.on("layeradd zoomend moveend viewreset", injectDefs);
@@ -515,7 +515,7 @@ function getLayers(data, ftype) {
                 // style polygons
                 style: (feature) => {
                     if (patterned_polygons.has(Number(feature.properties.SID))) {
-                            console.log(feature.properties.SID);
+                            // console.log(feature.properties.SID);
                             return {
                                 weight: 1,
                                 color: `#${feature.properties.Hex}`,
@@ -716,7 +716,7 @@ function getLayers(data, ftype) {
                             // });
 
                             layer.bringToFront();
-                            console.log(feature.properties.UnitAbr);
+                            // console.log(feature.properties.UnitAbr);
                         },
                         mouseout(e) {
                             // polyLayer.resetStyle(e.target);
