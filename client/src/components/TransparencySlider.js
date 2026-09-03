@@ -19,7 +19,7 @@ export function TransparencySlider() {
     const header = document.createElement("div");
     header.className = "offcanvas-header";
     header.innerHTML = /*html*/ `
-    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Adjust Polygon Transparency</h5>
+    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Adjust Layer Transparency</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     `;
 
@@ -32,8 +32,9 @@ export function TransparencySlider() {
     section_slider.id = "transparency-slider-section";
 
     section_slider.innerHTML = /*html*/ `
-    <p>Adjust the transparency of the polygons on the map using the range slider below:</p>
+    <p>Change the transparency of the polygons on the map using the range slider below:</p>
     <div class="mb-3 d-flex align-items-center justify-content-between">
+        <p>Current transparency level = </p>
         <span id="range-value-label">100%</span>
     </div>
 
