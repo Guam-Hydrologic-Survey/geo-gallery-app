@@ -1010,12 +1010,26 @@ async function displayImages_v3(images) {
             const img = new Image();
             img.src = imageUrl;
 
-            img.onload = function() {
+            img.decode()
+            .then(() => {
                 imgsLoaded++;
                 if (imgsLoaded === images.length) {
                     displayImages_v3_sub(loadedImgs);
                 }
-            };
+            })
+            .catch(() => {
+                imgsLoaded++;
+                if (imgsLoaded === images.length) {
+                    displayImages_v3_sub(loadedImgs);
+                }
+            })
+
+            // img.onload = function() {
+            //     imgsLoaded++;
+            //     if (imgsLoaded === images.length) {
+            //         displayImages_v3_sub(loadedImgs);
+            //     }
+            // };
 
             loadedImgs.push(img);
         });
