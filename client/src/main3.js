@@ -1,18 +1,16 @@
+// main.js 
+
 // libraries, extensions, plugins
-import L, { polygon } from 'leaflet';
+import L from 'leaflet';
 import Viewer from 'viewerjs';
 
 // styles
 import 'viewerjs/dist/viewer.css';
 import 'leaflet/dist/leaflet.css';
 
-// import "leaflet.locatecontrol"; // Import plugin
-// import "leaflet.locatecontrol/dist/L.Control.Locate.min.css"; // Import styles
-
 import { MapContainer } from './components/MapContainer.js';
 
 // components
-// import { Legend } from './components/Legend.js';
 import { NavBar } from './components/NavBar2.js';
 import { About } from './components/About2.js';
 import { Legend } from './components/Legend4.js';
@@ -26,10 +24,10 @@ import { TransparencySlider } from './components/TransparencySlider.js';
 // constants 
 import { API_PHOTOS_URL } from './constants/index.js';
 
+
 /* ------------------------------------------------------------
 initialize and add components to #app
 ------------------------------------------------------------ */
-
 
 const app = document.getElementById("app");
 
@@ -86,7 +84,6 @@ let currentBaseMap = ewtm;
 /* ------------------------------------------------------------
 leaflet marker icon adjustment
 ------------------------------------------------------------ */
-
 
 // fix marker icons
 delete L.Icon.Default.prototype._getIconUrl;
