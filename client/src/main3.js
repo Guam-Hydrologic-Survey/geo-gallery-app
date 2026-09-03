@@ -144,19 +144,6 @@ document.addEventListener('keydown', (pressed) => {
     }
 }, true);
 
-// const photoset = document.getElementsByClassName("gallery-img");
-// photoset.addEventListener('click', (event) => {
-//     console.log("Clicked on photo, viewer is open")
-// });
-
-// // if viewer is open, hide modal for gallery
-// viewer.addEventListener('shown', () => {
-//     modalDialog.style.display = 'none';
-// });
-
-// viewer.addEventListener('hidden', () => {
-//     modalDialog.style.display = '';
-// });
 
 /* ------------------------------------------------------------
 event listeners for dock buttons
@@ -164,18 +151,6 @@ event listeners for dock buttons
 
 
 lucide.createIcons();
-
-// document.getElementById('toggle-layer-btn').addEventListener('click', () => {
-//     if (currentLayer === 'ewtm') {
-//         map.removeLayer(ewtm);
-//         ewi.addTo(map);
-//         currentLayer = 'ewi';
-//     } else {
-//         map.removeLayer(ewi);
-//         ewtm.addTo(map);
-//         currentLayer = 'ewtm';
-//     }
-// });
 
 document.getElementById('zoom-in-btn').addEventListener('click', () => {
     map.zoomIn();
@@ -230,7 +205,6 @@ const locateIcon = L.divIcon({
 const locateBtn = document.getElementById('locate-btn');
 
 locateBtn.addEventListener('click', () => {
-    // console.log('Clicked on LOCATE button');
     map.locate({
         setView: true, maxZoom: 15
     });
@@ -338,6 +312,7 @@ leaflet pattern fill rendering
 const patterned_polygons = new Set([4, 9, 17]);
 
 // define patterns - each have a different id
+
 const pattern_defs = /*html*/`
 <!-- blue stripes with SID 17 (label: QTma, description: Mariana, Hagåtña argillacous member -->
 <pattern id="pat-17" x="0" y="0" width ="14" height="14" patternUnits="userSpaceOnUse"
@@ -398,8 +373,6 @@ map.on("layeradd zoomend moveend viewreset", injectDefs);
 
 // style function
 function addPatternStyle(feature) {
-    // const id = feature.properties.SID;
-    // const pattern = Object.prototype.hasOwnProperty.call(id);
     const patterned_polygons = new Set([4, 9, 17]);
 
     if (patterned_polygons.has(feature.properties.SID)) {
@@ -430,7 +403,6 @@ function darkenHex(hexcode) {
 
     const darkerHexcode = "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("");
 
-    // console.log(`Original hex: ${hexcode} | Num: ${num} | Darker hex: ${darkerHexcode}`);
     return darkerHexcode;
 }
 
@@ -493,10 +465,6 @@ functions for leaflet map layers, image retrieval
 
 let layer_transparency_level = 1;
 
-// const polygonLayers = {};
-// const boundaryLayers = {};
-// const pointLayers = {};
-
 // params:
 // data (url to geojson)
 // ftype (feature type: 1 = polygon, 2 = boundary, 3 = point)
@@ -512,7 +480,6 @@ function getLayers(data, ftype) {
                 // style polygons
                 style: (feature) => {
                     if (patterned_polygons.has(Number(feature.properties.SID))) {
-                            // console.log(feature.properties.SID);
                             return {
                                 weight: 1,
                                 color: `#${feature.properties.Hex}`,
@@ -660,23 +627,17 @@ function getLayers(data, ftype) {
                                     <ul class="list-group list-group-horizontal w-100">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             ${(feature.properties.sqmi).toFixed(3)} sq mi
-                                            <!-- <span class="legend-badge badge rounded-pill">14</span> -->
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             ${(feature.properties.sqKm).toFixed(3)} sq Km
-                                            <!-- <span class="badge text-bg-primary rounded-pill">2</span> -->
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             ${(feature.properties.Area_acres).toFixed(3)} acres
-                                            <!-- <span class="badge text-bg-primary rounded-pill">1</span> -->
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             ${(feature.properties.Area_ha).toFixed(3)} hectres
-                                            <!-- <span class="badge text-bg-primary rounded-pill">1</span> -->
                                         </li>
                                     </ul>
-
-                                    <!-- <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> -->
                                 </div>
                                 </div>
                             </div>
@@ -729,12 +690,6 @@ function getLayers(data, ftype) {
                 } // end of onEachFeature property
             }); // end of L.geoJSON
 
-            // console.log(featureLayers.polygonLayers)
-            // console.log(polygonLayers[1]);
-
-            // polyLayer.addTo(map);
-            // Object.values(featureLayers.polygonLayers).forEach(group => group.addTo(map));
-            // featureLayers.polygonLayers.poly0_all.addTo(map);
             injectDefs();
 
         // boundaries
@@ -749,9 +704,6 @@ function getLayers(data, ftype) {
                     }
                 },
                 onEachFeature: (feature, layer) => {
-                    // const bType = feature.properties.Code1;
-                    // boundaryLayers[bType] = layer;
-
                     layer.addTo(featureLayers.allLayers); // add to all feature layers 
                     layer.addTo(featureLayers.boundaryLayers.boundary0_all); // add to all boundaries 
 
@@ -768,10 +720,6 @@ function getLayers(data, ftype) {
                     }
                 }
             });
-
-            // bLayer.addTo(map);
-            // Object.values(featureLayers.boundaryLayers).forEach(group => group.addTo(map));
-            // featureLayers.boundaryLayers.boundary0_all.addTo(map)
 
         // points
         } else if (ftype === 3) {
@@ -857,7 +805,6 @@ function getLayers(data, ftype) {
 
                         // TODO - check JSON properties (get list of keys)
                         findImagesSet_v2(API_PHOTOS_URL, feature.properties.PID).then(images => {
-                            // document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
                             document.getElementById("text-description").innerText = images.description || '';
 
                             if (images.paths != null) {
@@ -865,10 +812,6 @@ function getLayers(data, ftype) {
                             } else {
                                 console.log(`Sorry, could not find images :-(`);
                             }
-
-                            // document.getElementsByClassName("toast-body").innerText = "Fetching images...";
-                            // const notif = bootstrap.Toast.getOrCreateInstance(document.getElementById("notif"));
-                            // notif.show();
 
                             modalDialog.show();
                         });
@@ -908,13 +851,6 @@ function getLayers(data, ftype) {
 
                 } // end of onEachFeature property
             });
-
-            // ptLayer.addTo(map);
-            // ptLayer.bringToFront();
-
-            // Object.values(featureLayers.pointLayers).forEach(group => group.addTo(map));
-            // featureLayers.pointLayers.point0_all.addTo(map)
-            // featureLayers.pointLayers.point0_all.bringToFront()
         } // end of conditional for point
     }); // end of fetch call
 } // end of getLayers function
@@ -934,7 +870,6 @@ async function findImagesSet_v2(apiUrl, searchId) {
         }
 
         const data = await response.json();
-        // console.log(data);
         const photos = data.photos;
 
         let imageList = {
@@ -954,9 +889,6 @@ async function findImagesSet_v2(apiUrl, searchId) {
                 break;
             }
         }
-
-        console.log(imageList);
-
         return imageList;
     } catch (error) {
         console.error('Error fetching file: ', error);
@@ -1024,13 +956,6 @@ async function displayImages_v3(images) {
                 }
             })
 
-            // img.onload = function() {
-            //     imgsLoaded++;
-            //     if (imgsLoaded === images.length) {
-            //         displayImages_v3_sub(loadedImgs);
-            //     }
-            // };
-
             loadedImgs.push(img);
         });
     } else {
@@ -1071,7 +996,6 @@ function skeletonDisplay() {
         <div class="skeleton" style="width:150px; height:150px;"></div>
         </div>`).join('')}
     </div>
-    <!-- <p class="text-muted text-center mt-4 mb-0" style="font-size:14px;">Loading photos...</p> -->
     `;
     gallery.append(skeleton);
 }
@@ -1087,9 +1011,6 @@ function initializeViewer() {
     if (viewer) {
         viewer.destroy();
     }
-
-    // set viewer state to true
-    // viewerState = true;
 
     // initialize viewer.js on next set of images
     viewer = new Viewer(gallery, {
@@ -1115,11 +1036,6 @@ function clearGallery() {
         gallery.removeChild(gallery.firstChild);
     }
 }
-
-
-/* ------------------------------------------------------------
-explicit open/close leaflet tooltips 
------------------------------------------------------------- */
 
 
 /* ------------------------------------------------------------
@@ -1159,7 +1075,6 @@ document.getElementById("radio-esri-gray-canvas").addEventListener("change", () 
 
 // checkboxes - feature group reset 
 document.getElementById("reset-polygons").addEventListener("change", (event) => {
-    // console.log("Reset polygons");
     const single_layers_toggle = document.querySelectorAll('#layers-panel-one > .layer-row > input[type="checkbox"]');
 
     if (event.target.checked) {
@@ -1182,11 +1097,9 @@ document.getElementById("reset-polygons").addEventListener("change", (event) => 
 });
 
 document.getElementById("reset-points").addEventListener("change", (event) => {
-    // console.log("Reset points");
     const single_layers_toggle = document.querySelectorAll('#layers-panel-two > .layer-row > input[type="checkbox"]');
 
     if (event.target.checked) {
-        // console.log("Checked reset points");
         featureLayers.pointLayers.point0_all.addTo(map);
         featureLayers.pointLayers.point0_all.bringToFront();
 
@@ -1195,7 +1108,6 @@ document.getElementById("reset-points").addEventListener("change", (event) => {
             checkbox.checked = true;
         });
     } else {
-        // console.log("Unchecked reset points")
         map.removeLayer(featureLayers.pointLayers.point0_all);
 
         // uncheck all individual checkboxes 
@@ -1206,11 +1118,9 @@ document.getElementById("reset-points").addEventListener("change", (event) => {
 });
 
 document.getElementById("reset-boundaries").addEventListener("change", (event) => {
-    // console.log("Reset boundaries");
     const single_layers_toggle = document.querySelectorAll('#layers-panel-three > .layer-row > input[type="checkbox"]');
 
     if (event.target.checked) {
-        // console.log("Checked reset boundaries");
         featureLayers.boundaryLayers.boundary0_all.addTo(map);
         featureLayers.boundaryLayers.boundary0_all.bringToFront();
 
@@ -1218,7 +1128,6 @@ document.getElementById("reset-boundaries").addEventListener("change", (event) =
             checkbox.checked = true;
         });
     } else {
-        // console.log("Unchecked reset boundaries")
         map.removeLayer(featureLayers.boundaryLayers.boundary0_all);
 
         // uncheck all individual checkboxes 
@@ -1602,7 +1511,6 @@ listeners for polygon transparency slider
 const tslider = document.getElementById("transparency-range-slider");
 
 tslider.addEventListener("input", (event) => { 
-    // console.log("Slider: " + event.target.value);
     layer_transparency_level = event.target.value / 100;
 
     featureLayers.polygonLayers.poly0_all.setStyle({ fillOpacity: layer_transparency_level, opacity: layer_transparency_level });
