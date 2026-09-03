@@ -849,6 +849,12 @@ function getLayers(data, ftype) {
                     );
 
                     layer.on('click', async () => {
+                        // clear #text-info contents 
+                        document.getElementById("text-info").replaceChildren();
+                        document.getElementById("text-info").innerHTML = /*html*/ `
+                        <!--<h5>${feature.properties.Place}</h5>-->
+                        `;
+
                         // TODO - check JSON properties (get list of keys)
                         findImagesSet_v2(API_PHOTOS_URL, feature.properties.PID).then(images => {
                             document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
