@@ -494,6 +494,7 @@ const featureLayers = {
 functions for leaflet map layers, image retrieval
 ------------------------------------------------------------ */
 
+let layer_transparency_level = 1;
 
 // const polygonLayers = {};
 // const boundaryLayers = {};
@@ -706,17 +707,19 @@ function getLayers(data, ftype) {
 
                     layer.on({
                         mouseover(e) {
-                            e.target.setStyle({
-                                weight: 4,
-                                color: `${darkenHex(feature.properties.Hex)}`,
-                                // fillColor: `${darkenHex(feature.properties.Hex)}`,
-                            });
+                            // e.target.setStyle({
+                            //     weight: 4,
+                            //     color: `${darkenHex(feature.properties.Hex)}`,
+                            //     opacity: layer_transparency_level,
+                            //     fillOpacity: layer_transparency_level,
+                            //     // fillColor: `${darkenHex(feature.properties.Hex)}`,
+                            // });
 
                             layer.bringToFront();
-                            console.log(feature.properties.UnitAbr)
+                            console.log(feature.properties.UnitAbr);
                         },
                         mouseout(e) {
-                            polyLayer.resetStyle(e.target);
+                            // polyLayer.resetStyle(e.target);
                             layer.closeTooltip();
                         }
                     });
@@ -1571,3 +1574,33 @@ function checkLayerExistence(layer) {
         map.removeLayer(layer);
     }
 }
+
+
+/* ------------------------------------------------------------
+listeners for polygon transparency slider
+------------------------------------------------------------ */
+
+const tslider = document.getElementById("transparency-range-slider");
+
+tslider.addEventListener("input", (event) => { 
+    // console.log("Slider: " + event.target.value);
+    layer_transparency_level = event.target.value / 100;
+
+    featureLayers.polygonLayers.poly0_all.setStyle({ fillOpacity: layer_transparency_level, opacity: layer_transparency_level });
+});
+
+const restore_transparency_btn = document.getElementById("restore-transparency-btn");
+
+console.log(restore_transparency_btn);
+
+restore_transparency_btn.addEventListener("click", () => {
+    layer_transparency_level = 1;
+    tslider.value = 100;
+
+    document.getElementById("range-value-label").innerText = "100%";
+
+    featureLayers.polygonLayers.poly0_all.setStyle({
+        fillOpacity: layer_transparency_level, 
+        opacity: layer_transparency_level 
+    });
+});

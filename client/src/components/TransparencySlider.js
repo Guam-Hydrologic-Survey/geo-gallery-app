@@ -28,7 +28,10 @@ export function TransparencySlider() {
     contents.className = "offcanvas-body";
     contents.id = "range-slider-contents";
 
-    contents.innerHTML = /*html*/ `
+    const section_slider = document.createElement("div");
+    section_slider.id = "transparency-slider-section";
+
+    section_slider.innerHTML = /*html*/ `
     <p>Adjust the transparency of the polygons on the map using the range slider below:</p>
     <div class="mb-3 d-flex align-items-center justify-content-between">
         <span id="range-value-label">100%</span>
@@ -45,14 +48,41 @@ export function TransparencySlider() {
     </div>
     `;
 
+    // contents.innerHTML = /*html*/ `
+    // <p>Adjust the transparency of the polygons on the map using the range slider below:</p>
+    // <div class="mb-3 d-flex align-items-center justify-content-between">
+    //     <span id="range-value-label">100%</span>
+    // </div>
+
+    // <input type="range" class="form-range" min="0" max="100" step="1" id="transparency-range-slider" value="100">
+
+    // <div class="d-flex justify-content-between text-muted mt-1">
+    //     <span>0%</span>
+    //     <span>25%</span>
+    //     <span>50%</span>
+    //     <span>75%</span>
+    //     <span>100%</span>
+    // </div>
+    // `;
+
     const contents2 = document.createElement("div");
     contents2.innerHTML = /*html*/ `
     <label for="range1" class="form-label">Example range</label>
     <input type="range" class="form-range" id="range1">
     `;
 
+    const restore = document.createElement("button");
+    restore.className = "btn btn-primary mt-3";
+    restore.id = "restore-transparency-btn";
+    restore.innerText = "Restore Default Transparency";
+
+    // offcanvas body 
+    contents.append(section_slider, restore);
+
+    // offcanvas element 
     transparency_slider.append(header, contents);
-    transparency_slider.append(contents2);
+    // transparency_slider.append(contents2);
+    // transparency_slider.append(restore);
 
     return transparency_slider; 
 }
