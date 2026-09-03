@@ -30,6 +30,24 @@ app.use('/photos', express.static(photosDirectory));
 // server frontend
 // app.use(express.static(path.join(__dirname, '../client/dist')));
 
+async function detectFileType(filePath) {
+    const fileHandle = await fs.promises.open(filePath, 'r');
+    
+    try {
+        const { size } = await fileHandle.stat();
+        const readLength = Math.min(size, 4100); 
+        const buffer = Buffer.alloc(readLength);
+        
+        await fileHandle.read(buffer, 0, readLength, 0);
+        
+        const type = await fileType.fromBuffer(buffer);
+
+        return { type, buffer }
+    } finally {
+        await fileHandle.close();
+    }
+}
+
 async function getPhotosInDirectory(dir, basePath) {
     let results = {};
 
@@ -46,8 +64,8 @@ async function getPhotosInDirectory(dir, basePath) {
             } else {
                 
                 // read a portion of the file buffer for type detection
-                const buffer = await fs.promises.readFile(photoPath);
-                const type = await fileType.fromBuffer(buffer);
+                // and avoid loading full images into memory
+                const { type, buffer } = await detectFileType(photoPath);
 
                 if (type) {
                     if (type.mime.startsWith('image/')) {
@@ -58,7 +76,8 @@ async function getPhotosInDirectory(dir, basePath) {
                     if (isTextFile(buffer)) {
                         if (!results['text']) { results['text'] = []; results['description'] = ''; }
                         results['text'].push(relativePath);
-                        results['description'] = buffer.toString('utf-8');
+                        // results['description'] = buffer.toString('utf-8');
+                        results['description'] = await fs.promises.readFile(photoPath, 'utf-8');
                     } 
                     // else {
                     //     if (!results['unknown']) { results['unknown'] = []; }
