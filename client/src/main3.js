@@ -689,7 +689,7 @@ function getLayers(data, ftype) {
 
                         // TODO - check JSON properties (get list of keys)
                         findImagesSet_v2(API_PHOTOS_URL, feature.properties.GID).then(images => {
-                            document.getElementById("point-clicked").innerText = `Photo Gallery`;
+                            // document.getElementById("point-clicked").innerText = `Photo Gallery`;
                             // document.getElementById("text-description").innerText = images.description || '';
 
                             if (images.paths != null) {
@@ -852,12 +852,12 @@ function getLayers(data, ftype) {
                         // clear #text-info contents 
                         document.getElementById("text-info").replaceChildren();
                         document.getElementById("text-info").innerHTML = /*html*/ `
-                        <!--<h5>${feature.properties.Place}</h5>-->
+                        <h5>${feature.properties.Place}</h5>
                         `;
 
                         // TODO - check JSON properties (get list of keys)
                         findImagesSet_v2(API_PHOTOS_URL, feature.properties.PID).then(images => {
-                            document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
+                            // document.getElementById("point-clicked").innerText = `${feature.properties.Place}`;
                             document.getElementById("text-description").innerText = images.description || '';
 
                             if (images.paths != null) {

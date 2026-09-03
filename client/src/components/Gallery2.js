@@ -24,7 +24,7 @@ export function Gallery() {
     const header = document.createElement("div");
     header.className = "modal-header";
     header.innerHTML = /*html*/ `
-    <h5 class="modal-title" id="point-clicked"></h5>
+    <h5 class="modal-title" id="point-clicked">Photo Gallery</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     `;
 
