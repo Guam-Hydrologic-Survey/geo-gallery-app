@@ -999,11 +999,10 @@ async function displayImages_v3(images) {
         let loadedImgs = [];
         let imgsLoaded = 0;
 
-        // new code to display images gallery-style (using viewer.js
+        // new code to display images gallery-style (using viewer.js)
         images.forEach((imageUrl) => {
             const img = new Image();
             img.src = imageUrl;
-            // gallery.appendChild(img);
 
             img.onload = function() {
                 imgsLoaded++;
@@ -1011,6 +1010,7 @@ async function displayImages_v3(images) {
                     displayImages_v3_sub(loadedImgs);
                 }
             };
+
             loadedImgs.push(img);
         });
     } else {
@@ -1025,11 +1025,13 @@ function displayImages_v3_sub(images) {
 
         setTimeout(() => {
             img.classList.add("loaded"); // apply animation class
-            initializeViewer();
         }, index * 300); // staggered animation effect
 
         gallery.append(img);
     });
+
+    // initialize viewer here
+    initializeViewer();
 }
 
 // loading screen to show before the actual photos 
