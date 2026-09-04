@@ -33,7 +33,6 @@ export const polygons_toggle_id_prefix = "toggle-polygon-";
 // functions 
 
 export function LayerToggle() {
-    console.log("Added Layer Toggle component");
 
     const layer_toggle = document.createElement("div");
 

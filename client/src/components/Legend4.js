@@ -9,7 +9,6 @@ import {
  } from "../constants/index.js";
 
 export function Legend() {
-    console.log("Added Legend component");
 
     const legend = document.createElement("div");
 

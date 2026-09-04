@@ -4,7 +4,6 @@ Description:
 */
 
 export function Toast() {
-    console.log("Added Toast component");
 
     const toast_wrapper = document.createElement("div");
     toast_wrapper.id = "toast-wrapper";
@@ -29,7 +28,6 @@ export function Toast() {
     body.className = "toast-body";
 
     toast.append(header, body);
-    console.log(toast);
 
     return toast;
 }

@@ -4,8 +4,6 @@ Description: Creates the About component
 */
 
 export function About() {
-    console.log("Added About component");
-
     const modal = document.createElement("div");
 
     modal.className = "modal fade";

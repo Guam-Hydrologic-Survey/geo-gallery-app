@@ -4,7 +4,6 @@ Description:
 */
 
 export function TransparencySlider() {
-    console.log("Added Transparency Slider component");
 
     const transparency_slider = document.createElement("div");
 

@@ -18,7 +18,6 @@ import { Tutorial } from './components/Tutorial2.js';
 import { Gallery } from './components/Gallery2.js';
 import { Dock } from './components/Dock2.js';
 import { LayerToggle } from './components/LayerToggle.js';
-import { Toast } from './components/Toast.js';
 import { TransparencySlider } from './components/TransparencySlider.js';
 
 // constants 
@@ -33,7 +32,7 @@ const app = document.getElementById("app");
 
 app.append(NavBar(), MapContainer(), Dock());
 
-document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(), Toast(), TransparencySlider());
+document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(),  TransparencySlider());
 
 
 /* ------------------------------------------------------------
@@ -1556,8 +1555,6 @@ tslider.addEventListener("input", (event) => {
 });
 
 const restore_transparency_btn = document.getElementById("restore-transparency-btn");
-
-console.log(restore_transparency_btn);
 
 restore_transparency_btn.addEventListener("click", () => {
     layer_transparency_level = 1;

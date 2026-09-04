@@ -4,7 +4,6 @@ Description:
 */
 
 export function Dock() {
-    console.log("Added Dock component");
 
     const dock_wrapper = document.createElement("div");
     dock_wrapper.className = "dock-wrapper";
@@ -63,8 +62,6 @@ export function Dock() {
 
     dock.append(toggle_layer, transparency_slider, zoom_in, zoom_out, recenter, locate);
     dock_wrapper.append(dock);
-
-    console.log(dock_wrapper);
 
     return dock_wrapper;
 }

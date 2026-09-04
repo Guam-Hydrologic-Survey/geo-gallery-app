@@ -4,7 +4,6 @@ Description: Provides information on how to use map features
 */
 
 export function Tutorial() {
-    console.log("Create Tutorial component");
 
     const modal = document.createElement("div");
     modal.className = "modal fade";

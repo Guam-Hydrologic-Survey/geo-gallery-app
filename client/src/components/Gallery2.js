@@ -4,7 +4,6 @@ Description: Creates the Gallery component for site photos
 */
 
 export function Gallery() {
-    console.log("Added Gallery component");
 
     const modal = document.createElement("div");
 

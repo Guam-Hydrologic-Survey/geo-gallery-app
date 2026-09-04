@@ -4,7 +4,6 @@ Description: Creates the Navigation Bar component.
 */
 
 export function NavBar() {
-    console.log("Added NavBar");
 
     const title = "MAppFx: Geology Photo Gallery";
 
