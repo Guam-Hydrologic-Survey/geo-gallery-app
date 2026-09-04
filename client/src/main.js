@@ -148,7 +148,6 @@ document.addEventListener('keydown', (pressed) => {
 event listeners for dock buttons
 ------------------------------------------------------------ */
 
-
 lucide.createIcons();
 
 document.getElementById('zoom-in-btn').addEventListener('click', () => {
@@ -161,22 +160,6 @@ document.getElementById('zoom-out-btn').addEventListener('click', () => {
 
 document.getElementById('recenter-btn').addEventListener('click', () => {
     map.setView(center, defaultZoom);
-});
-
-
-function updateSliderColor() {
-    const value = Number(transparency_slider.value);
-    const min = Number(transparency_slider.min);
-    const max = Number(transparency_slider.max);
-    const percent = ((value - min) / (max - min)) * 100;
-
-    transparency_slider.style.setProperty('--slider-fill', `linear-gradient(to right, #007bff ${percent}%, #dee2e6 ${percent}%)`);
-    document.getElementById("range-value-label").textContent = `${value}%`;
-}
-
-const transparency_slider = document.getElementById('transparency-range-slider')
-transparency_slider.addEventListener('input', () => {
-    updateSliderColor();
 });
 
 
@@ -1545,21 +1528,99 @@ function checkLayerExistence(layer) {
 listeners for polygon transparency slider
 ------------------------------------------------------------ */
 
-const tslider = document.getElementById("transparency-range-slider");
+const transparency_slider = document.getElementById('transparency-range-slider');
+const transparency_slider_label = document.getElementById("range-value-label");
 
-tslider.addEventListener("input", (event) => { 
+function updateSliderColor() {
+    const value = Number(transparency_slider.value);
+    const min = Number(transparency_slider.min);
+    const max = Number(transparency_slider.max);
+    const percent = ((value - min) / (max - min)) * 100;
+
+    transparency_slider.style.setProperty('--fill-percent', `${percent}%`);
+    transparency_slider_label.textContent = `${value}%`
+}
+
+// event listener for slider 
+transparency_slider.addEventListener('input', (event) => {
+    updateSliderColor();
+
     layer_transparency_level = event.target.value / 100;
-
-    featureLayers.polygonLayers.poly0_all.setStyle({ fillOpacity: layer_transparency_level, opacity: layer_transparency_level });
+    featureLayers.polygonLayers.poly0_all.setStyle({ 
+        fillOpacity: layer_transparency_level, 
+        pacity: layer_transparency_level });
 });
 
+// individual transparency percentages (labels under slider input)
+document.getElementById("poly-layer-0-pct-trans").addEventListener("click", () => {
+    layer_transparency_level = 0;
+    transparency_slider.value = 0;
+    updateSliderColor();
+
+    transparency_slider_label.innerText = "0%";
+    featureLayers.polygonLayers.poly0_all.setStyle({
+        fillOpacity: layer_transparency_level, 
+        opacity: layer_transparency_level 
+    });
+});
+
+document.getElementById("poly-layer-25-pct-trans").addEventListener("click", () => {
+    layer_transparency_level = 0 / 100;
+    transparency_slider.value = 25;
+    updateSliderColor();
+
+    transparency_slider_label.innerText = "25%";
+    featureLayers.polygonLayers.poly0_all.setStyle({
+        fillOpacity: layer_transparency_level, 
+        opacity: layer_transparency_level 
+    });
+});
+
+document.getElementById("poly-layer-50-pct-trans").addEventListener("click", () => {
+    layer_transparency_level = 50 / 100;
+    transparency_slider.value = 50;
+    updateSliderColor();
+
+    transparency_slider_label.innerText = "50%";
+    featureLayers.polygonLayers.poly0_all.setStyle({
+        fillOpacity: layer_transparency_level, 
+        opacity: layer_transparency_level 
+    });
+});
+
+document.getElementById("poly-layer-75-pct-trans").addEventListener("click", () => {
+    layer_transparency_level = 75 / 100;
+    transparency_slider.value = 75;
+    updateSliderColor();
+
+    transparency_slider_label.innerText = "75%";
+    featureLayers.polygonLayers.poly0_all.setStyle({
+        fillOpacity: layer_transparency_level, 
+        opacity: layer_transparency_level 
+    });
+});
+
+document.getElementById("poly-layer-100-pct-trans").addEventListener("click", () => {
+    layer_transparency_level = 1;
+    transparency_slider.value = 100;
+    updateSliderColor();
+
+    transparency_slider_label.innerText = "100%";
+    featureLayers.polygonLayers.poly0_all.setStyle({
+        fillOpacity: layer_transparency_level, 
+        opacity: layer_transparency_level 
+    });
+});
+
+// restore transparency to original btn (100%) 
 const restore_transparency_btn = document.getElementById("restore-transparency-btn");
 
 restore_transparency_btn.addEventListener("click", () => {
     layer_transparency_level = 1;
-    tslider.value = 100;
+    transparency_slider.value = 100;
+    updateSliderColor();
 
-    document.getElementById("range-value-label").innerText = "100%";
+    transparency_slider_label.innerText = "100%";
 
     featureLayers.polygonLayers.poly0_all.setStyle({
         fillOpacity: layer_transparency_level, 
