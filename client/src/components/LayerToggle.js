@@ -47,7 +47,7 @@ export function LayerToggle() {
     const header = document.createElement("div");
     header.className = "offcanvas-header";
     header.innerHTML = /*html*/ `
-    <h2 class="offcanvas-title" id="offcanvasScrollingLabel">Layers</h2>
+    <h2 class="offcanvas-title text-font-style-roboto-slab" id="offcanvasScrollingLabel">Toggle Layers</h2>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     `;
 
