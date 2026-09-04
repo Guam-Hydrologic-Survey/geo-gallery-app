@@ -87,8 +87,11 @@ function ToggleBaseMaps() {
 
     toggle_basemap.innerHTML = /*html*/ `
     <h4 class="layer-toggle-heading">
-        <span class="" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Base Maps" data-bs-content="Different base map options for the visualization">Base Maps</span>
+        <!--
+        <span class="" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Base Maps" data-bs-content="Different base map options for the visualization">Base Maps</span> -->
+        Base Maps
     </h4>
+    <p class="layer-toggle-description">Different base map options for the map tiles</p>
     <ul class="list-group">
         <li class="list-group-item">
             <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${basemap_radios.osm}" checked>
@@ -160,10 +163,6 @@ function ResetLayersBlockButtons() {
 }
 
 function LayerToggleContents(layer_toggle) {
-
-    // const geo = "/data/GeologicUnits.json";
-    // const pts = "/data/PointUnits.json";
-    // const bndry = "/data/BoundaryUnits.json";
 
     const patterned_polygons = new Set([4, 9, 17]);
 
