@@ -5,7 +5,8 @@ Description:
 
 #transparency-range-slider {
     --range-color: #0d6efd;
-    --fill-percent: 100%:
+    --track-color: #DEE2E6;
+    --fill-percent: 100%;
 }
 
 #transparency-range-slider::-webkit-slider-thumb {
@@ -23,19 +24,17 @@ Description:
         to right,
         var(--range-color) 0%,
         var(--range-color) var(--fill-percent),
-        #0d6efd var(--fill-percent),
-        #0d6efd 100%
+        var(--track-color) var(--fill-percent),
+        var(--track-color) 100%
     );
 }
 
 #transparency-range-slider::-moz-range-track {
-    background: linear-gradient(
-        to right,
-        var(--range-color) 0%,
-        var(--range-color) var(--fill-percent),
-        #0d6efd var(--fill-percent),
-        #0d6efd 100%
-    );
+    background: var(--track-color);
+}
+
+#transparency-range-slider::-moz-range-progress {
+    background-color: var(--range-color);
 }
 
 #range-value-label {
@@ -43,4 +42,48 @@ Description:
     font-weight: 600;
     color: #0d6efd;
     transition: color 0.2s ease;
+}
+
+.slider-labels {
+    position: relative;
+    height: 1.2em;
+    margin-top: 4px;
+}
+
+.slider-labels span {
+    cursor: pointer;
+
+    color: #6c757d;
+    transition: color 0.2s ease;
+
+    font-size: 0.875rem;
+    white-space: nowrap;
+
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+.slider-labels span:hover {
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+/* 
+NOTES: 
+calc() mirrors the browser's actual thumb-position formula: thumbRadius + percent * (trackWidth - thumbWidth)
+so every label (not just 0-50-100 percent) lines up with the thumb
+8px / 16 px below = half / full of Bootstrap's default form-range thumb size
+if resizing thumb, adjust both of these numbers 
+*/
+.slider-labels span[data-pct="0"]   { left: calc(8px + 0.00 * (100% - 16px)); }
+.slider-labels span[data-pct="25"]  { left: calc(8px + 0.25 * (100% - 16px)); }
+.slider-labels span[data-pct="50"]  { left: calc(8px + 0.50 * (100% - 16px)); }
+.slider-labels span[data-pct="75"]  { left: calc(8px + 0.75 * (100% - 16px)); }
+.slider-labels span[data-pct="100"] { left: calc(8px + 1.00 * (100% - 16px)); }
+
+#restore-transparency-btn {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 14px;
 }

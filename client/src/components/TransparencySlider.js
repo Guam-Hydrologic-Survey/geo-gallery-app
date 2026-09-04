@@ -18,7 +18,7 @@ export function TransparencySlider() {
     const header = document.createElement("div");
     header.className = "offcanvas-header";
     header.innerHTML = /*html*/ `
-    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Adjust Layer Transparency</h5>
+    <h2 class="offcanvas-title text-font-style-roboto-slab" id="offcanvasScrollingLabel">Layer Settings</h2>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     `;
 
@@ -31,58 +31,39 @@ export function TransparencySlider() {
     section_slider.id = "transparency-slider-section";
 
     section_slider.innerHTML = /*html*/ `
-    <p>Change the transparency of the polygons on the map using the range slider below:</p>
-    <div class="mb-3 d-flex align-items-center justify-content-between">
-        <p>Current transparency level = </p>
+    <p>Adjust the transparency of the <span class="text-bold-weight">polygons</span> on the map using the range slider below:</p>
+    <div class="mb-3 d-flex align-items-end justify-content-between">
+        <p id="range-value-text" class="text-italicize mb-0">Current transparency level = </p>
         <span id="range-value-label">100%</span>
     </div>
 
     <input type="range" class="form-range" min="0" max="100" step="1" id="transparency-range-slider" value="100">
 
-    <div class="d-flex justify-content-between text-muted mt-1">
-        <span>0%</span>
-        <span>25%</span>
-        <span>50%</span>
-        <span>75%</span>
-        <span>100%</span>
+    <div  class="slider-labels">
+        <span id="poly-layer-0-pct-trans" data-pct="0">0%</span>
+        <span id="poly-layer-25-pct-trans" data-pct="25">25%</span>
+        <span id="poly-layer-50-pct-trans" data-pct="50">50%</span>
+        <span id="poly-layer-75-pct-trans" data-pct="75">75%</span>
+        <span id="poly-layer-100-pct-trans" data-pct="100">100%</span>
     </div>
+
+    <hr class-"my-4">
     `;
 
-    // contents.innerHTML = /*html*/ `
-    // <p>Adjust the transparency of the polygons on the map using the range slider below:</p>
-    // <div class="mb-3 d-flex align-items-center justify-content-between">
-    //     <span id="range-value-label">100%</span>
-    // </div>
-
-    // <input type="range" class="form-range" min="0" max="100" step="1" id="transparency-range-slider" value="100">
-
-    // <div class="d-flex justify-content-between text-muted mt-1">
-    //     <span>0%</span>
-    //     <span>25%</span>
-    //     <span>50%</span>
-    //     <span>75%</span>
-    //     <span>100%</span>
-    // </div>
-    // `;
-
-    const contents2 = document.createElement("div");
-    contents2.innerHTML = /*html*/ `
-    <label for="range1" class="form-label">Example range</label>
-    <input type="range" class="form-range" id="range1">
+    const restore_poly_trans_btn = document.createElement("button");
+    restore_poly_trans_btn.className = "btn btn-success mt-3";
+    restore_poly_trans_btn.id = "restore-transparency-btn";
+    restore_poly_trans_btn.setAttribute("title", "Restore polygons to default transparency");
+    restore_poly_trans_btn.innerHTML = /*html*/ `
+    <i class="bi bi-arrow-clockwise"></i>
+    Restore polygons to default transparency
     `;
-
-    const restore = document.createElement("button");
-    restore.className = "btn btn-primary mt-3";
-    restore.id = "restore-transparency-btn";
-    restore.innerText = "Restore Default Transparency";
 
     // offcanvas body 
-    contents.append(section_slider, restore);
+    contents.append(section_slider, restore_poly_trans_btn);
 
     // offcanvas element 
     transparency_slider.append(header, contents);
-    // transparency_slider.append(contents2);
-    // transparency_slider.append(restore);
 
     return transparency_slider; 
 }
