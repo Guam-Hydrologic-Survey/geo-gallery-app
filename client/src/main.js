@@ -1026,6 +1026,7 @@ function clearGallery() {
 listeners for layer toggle component 
 ------------------------------------------------------------ */
 
+// first, add all layers to map 
 function addLayerObjectsToMap(layerGroup) { 
     Object.values(layerGroup).forEach(group => group.addTo(map));
 }
@@ -1038,7 +1039,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }, 100); 
 });
 
-// radio btns - basemaps 
+
+/* ------------------------------------------------------------
+listeners for basemap radio btns
+------------------------------------------------------------ */
+
 document.getElementById("radio-osm").addEventListener("change", () => {
     map.removeLayer(currentBaseMap);
     currentBaseMap = ewtm;
@@ -1056,6 +1061,11 @@ document.getElementById("radio-esri-gray-canvas").addEventListener("change", () 
     currentBaseMap = ewgc;
     currentBaseMap.addTo(map);
 });
+
+
+/* ------------------------------------------------------------
+listeners for feature group reset checkboxes and btns
+------------------------------------------------------------ */
 
 // checkboxes - feature group reset 
 document.getElementById("reset-polygons").addEventListener("change", (event) => {
@@ -1181,7 +1191,11 @@ document.getElementById("remove-all-layers").addEventListener("click", () => {
     });
 }); 
 
-// checkboxes - polygons 
+
+/* ------------------------------------------------------------
+listeners for polygon checkboxes
+------------------------------------------------------------ */
+
 document.getElementById("toggle-polygon-1").addEventListener("change", (event) => {
     let target_layer = featureLayers.polygonLayers.poly1_Tf;
     if (event.target.checked & !map.hasLayer(target_layer)) {
@@ -1189,12 +1203,6 @@ document.getElementById("toggle-polygon-1").addEventListener("change", (event) =
     } else {
         map.removeLayer(target_layer);
     }
-
-    // if (event.target.checked) {
-    //     featureLayers.polygonLayers.poly1_Tf.addTo(map);
-    // } else {
-    //     map.removeLayer(featureLayers.polygonLayers.poly1_Tf);
-    // }
 });
 
 document.getElementById("toggle-polygon-2").addEventListener("change", (event) => {
@@ -1423,8 +1431,11 @@ document.getElementById("toggle-polygon-26").addEventListener("change", (event) 
 });
 
 
-// checkboxes - points 
-// #toggle-layer-num
+/* ------------------------------------------------------------
+listeners for point checkboxes
+targets #toggle-layer-num
+------------------------------------------------------------ */
+
 document.getElementById("toggle-point-0").addEventListener("change", (event) => {
     let target_layer = featureLayers.pointLayers.point1;
     if (event.target.checked) {
@@ -1476,8 +1487,11 @@ document.getElementById("toggle-point-cave").addEventListener("change", (event) 
 });
 
 
-// checkboxes - boundaries 
-// #toggle-boundary-num
+/* ------------------------------------------------------------
+listeners for point checkboxes
+targets #toggle-boundary-num
+------------------------------------------------------------ */
+
 document.getElementById("toggle-boundary-0").addEventListener("change", (event) => {
     const layer = featureLayers.boundaryLayers.boundary1;
     if (event.target.checked) {
