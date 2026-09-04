@@ -1078,16 +1078,18 @@ document.getElementById("reset-polygons").addEventListener("change", (event) => 
     const single_layers_toggle = document.querySelectorAll('#layers-panel-one > .layer-row > input[type="checkbox"]');
 
     if (event.target.checked) {
-        console.log("Checked reset polygons");
-        featureLayers.polygonLayers.poly0_all.addTo(map);
+        Object.values(featureLayers.polygonLayers).forEach((layer) => {
+            layer.addTo(map);
+        });
 
         // mark all individual checkboxes as checked 
         single_layers_toggle.forEach(checkbox => {
             checkbox.checked = true;
         });
     } else {
-        console.log("Unchecked reset polygons")
-        map.removeLayer(featureLayers.polygonLayers.poly0_all)
+        Object.values(featureLayers.polygonLayers).forEach((layer) => {
+            map.removeLayer(layer);
+        });
 
         // uncheck all individual checkboxes 
         single_layers_toggle.forEach(checkbox => {
@@ -1100,15 +1102,19 @@ document.getElementById("reset-points").addEventListener("change", (event) => {
     const single_layers_toggle = document.querySelectorAll('#layers-panel-two > .layer-row > input[type="checkbox"]');
 
     if (event.target.checked) {
-        featureLayers.pointLayers.point0_all.addTo(map);
-        featureLayers.pointLayers.point0_all.bringToFront();
+        Object.values(featureLayers.pointLayers).forEach((layer) => {
+            layer.addTo(map);
+            layer.bringToFront()
+        });
 
         // mark all individual checkboxes as checked 
         single_layers_toggle.forEach(checkbox => {
             checkbox.checked = true;
         });
     } else {
-        map.removeLayer(featureLayers.pointLayers.point0_all);
+        Object.values(featureLayers.pointLayers).forEach((layer) => {
+            map.removeLayer(layer);
+        });
 
         // uncheck all individual checkboxes 
         single_layers_toggle.forEach(checkbox => {
@@ -1121,14 +1127,18 @@ document.getElementById("reset-boundaries").addEventListener("change", (event) =
     const single_layers_toggle = document.querySelectorAll('#layers-panel-three > .layer-row > input[type="checkbox"]');
 
     if (event.target.checked) {
-        featureLayers.boundaryLayers.boundary0_all.addTo(map);
-        featureLayers.boundaryLayers.boundary0_all.bringToFront();
+        Object.values(featureLayers.boundaryLayers).forEach((layer) => {
+            layer.addTo(map);
+            layer.bringToFront();
+        });
 
         single_layers_toggle.forEach(checkbox => {
             checkbox.checked = true;
         });
     } else {
-        map.removeLayer(featureLayers.boundaryLayers.boundary0_all);
+        Object.values(featureLayers.boundaryLayers).forEach((layer) => {
+            map.removeLayer(layer);
+        });
 
         // uncheck all individual checkboxes 
         single_layers_toggle.forEach(checkbox => {
@@ -1139,11 +1149,16 @@ document.getElementById("reset-boundaries").addEventListener("change", (event) =
 
 // btns - reset all features, remove layers 
 document.getElementById("reset-all-layers").addEventListener("click", () => {
-    console.log("Reset all layers on map");
-    featureLayers.polygonLayers.poly0_all.addTo(map);
-    featureLayers.boundaryLayers.boundary0_all.addTo(map);
-    featureLayers.pointLayers.point0_all.addTo(map);
-    featureLayers.pointLayers.point0_all.bringToFront();
+    Object.values(featureLayers.polygonLayers).forEach((layer) => {
+        layer.addTo(map);
+    });
+    Object.values(featureLayers.boundaryLayers).forEach((layer) => {
+        layer.addTo(map);
+    });
+    Object.values(featureLayers.pointLayers).forEach((layer) => {
+        layer.addTo(map);
+        layer.bringToFront();
+    });
 
     const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
 
@@ -1159,10 +1174,15 @@ document.getElementById("reset-all-layers").addEventListener("click", () => {
 });
 
 document.getElementById("remove-all-layers").addEventListener("click", () => {
-    console.log("Remove all layers from map");
-    map.removeLayer(featureLayers.polygonLayers.poly0_all);
-    map.removeLayer(featureLayers.boundaryLayers.boundary0_all);
-    map.removeLayer(featureLayers.pointLayers.point0_all);
+    Object.values(featureLayers.polygonLayers).forEach((layer) => {
+        map.removeLayer(layer);
+    });
+    Object.values(featureLayers.boundaryLayers).forEach((layer) => {
+        map.removeLayer(layer);
+    });
+    Object.values(featureLayers.pointLayers).forEach((layer) => {
+        map.removeLayer(layer);
+    });
 
     const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
 
@@ -1177,220 +1197,244 @@ document.getElementById("remove-all-layers").addEventListener("click", () => {
     });
 }); 
 
-// general
-// const layer_toggle_rows = document.querySelectorAll('.layer-row > input[type="checkbox"]');
-// layer_toggle_rows.forEach(checkbox => {
-//     checkbox.addEventListener("change", (e) => {
-//         console.log(`${e.target.value} --> ${e.target.checked}`);
-//     });
-// });
-
 // checkboxes - polygons 
 document.getElementById("toggle-polygon-1").addEventListener("change", (event) => {
-    if (event.target.checked) {
-        featureLayers.polygonLayers.poly1_Tf.addTo(map);
+    let target_layer = featureLayers.polygonLayers.poly1_Tf;
+    if (event.target.checked & !map.hasLayer(target_layer)) {
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly1_Tf);
+        map.removeLayer(target_layer);
     }
+
+    // if (event.target.checked) {
+    //     featureLayers.polygonLayers.poly1_Tf.addTo(map);
+    // } else {
+    //     map.removeLayer(featureLayers.polygonLayers.poly1_Tf);
+    // }
 });
 
 document.getElementById("toggle-polygon-2").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly2_Ta;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly2_Ta.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly2_Ta);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-3").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly3_Tam;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly3_Tam.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly3_Tam);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-4").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly4_Tt;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly4_Tt.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly4_Tt);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-5").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly5_Tug;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly5_Tug.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly5_Tug);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-6").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly6_Tus;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly6_Tus.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly6_Tus);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-7").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly7_Tub;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly7_Tub.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly7_Tub);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-8").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly8_Tud;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly8_Tud.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly8_Tud);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-9").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly9_Tu;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly9_Tu.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly9_Tu);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-10").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly10_Tm;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly10_Tm.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly10_Tm);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-11").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly11_Tb;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly11_Tb.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly11_Tb);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-12").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly12_Tbl;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly12_Tbl.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly12_Tbl);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-13").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly13_Tj;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly13_Tj.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly13_Tj);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-14").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly14_Tal;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly14_Tal.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly14_Tal);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-15").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly15_QTmp;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly15_QTmp.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly15_QTmp);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-16").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly16_QTmh;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly16_QTmh.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly16_QTmh);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-17").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly17_QTma;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly17_QTma.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly17_QTma);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-18").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly18_QTmf;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly18_QTmf.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly18_QTmf);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-19").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly19_QTmm;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly19_QTmm.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly19_QTmm);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-20").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly20_QTmd;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly20_QTmd.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly20_QTmd);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-21").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly21_QTmr;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly21_QTmr.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly21_QTmr);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-22").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly22_Qt;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly22_Qt.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly22_Qt);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-23").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly23_Qal;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly23_Qal.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly23_Qal);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-24").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly24_Qrm;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly24_Qrm.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly24_Qrm);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-25").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly25_Qrb;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly25_Qrb.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly25_Qrb);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-polygon-26").addEventListener("change", (event) => {
+    let target_layer = featureLayers.polygonLayers.poly26_Qaf;
     if (event.target.checked) {
-        featureLayers.polygonLayers.poly26_Qaf.addTo(map);
+        target_layer.addTo(map);
     } else {
-        map.removeLayer(featureLayers.polygonLayers.poly26_Qaf);
+        map.removeLayer(target_layer);
     }
 });
 
@@ -1398,57 +1442,52 @@ document.getElementById("toggle-polygon-26").addEventListener("change", (event) 
 // checkboxes - points 
 // #toggle-layer-num
 document.getElementById("toggle-point-0").addEventListener("change", (event) => {
+    let target_layer = featureLayers.pointLayers.point1;
     if (event.target.checked) {
-        console.log(`${event.target.value} - Checked`)
-        featureLayers.pointLayers.point1.addTo(map);
-        featureLayers.pointLayers.point1.bringToFront();
+        target_layer.addTo(map);
+        target_layer.bringToFront();
     } else {
-        console.log(`${event.target.value} - Unchecked`)
-        map.removeLayer(featureLayers.pointLayers.point1);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-point-1").addEventListener("change", (event) => {
+    let target_layer = featureLayers.pointLayers.point2;
     if (event.target.checked) {
-        console.log(`${event.target.value} - Checked`)
-        featureLayers.pointLayers.point2.addTo(map);
-        featureLayers.pointLayers.point2.bringToFront();
+        target_layer.addTo(map);
+        target_layer.bringToFront();
     } else {
-        console.log(`${event.target.value} - Unchecked`)
-        map.removeLayer(featureLayers.pointLayers.point2);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-point-sinkhole").addEventListener("change", (event) => {
+    let target_layer = featureLayers.pointLayers.point3;
     if (event.target.checked) {
-        console.log(`${event.target.value} - Checked`)
-        featureLayers.pointLayers.point3.addTo(map);
-        featureLayers.pointLayers.point3.bringToFront();
+        target_layer.addTo(map);
+        target_layer.bringToFront();
     } else {
-        console.log(`${event.target.value} - Unchecked`)
-        map.removeLayer(featureLayers.pointLayers.point3);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-point-aerial").addEventListener("change", (event) => {
+    let target_layer = featureLayers.pointLayers.point4;
     if (event.target.checked) {
-        console.log(`${event.target.value} - Checked`)
-        featureLayers.pointLayers.point4.addTo(map);
-        featureLayers.pointLayers.point4.bringToFront();
+        target_layer.addTo(map);
+        target_layer.bringToFront();
     } else {
-        console.log(`${event.target.value} - Unchecked`)
-        map.removeLayer(featureLayers.pointLayers.point4);
+        map.removeLayer(target_layer);
     }
 });
 
 document.getElementById("toggle-point-cave").addEventListener("change", (event) => {
+    let target_layer = featureLayers.pointLayers.point5;
     if (event.target.checked) {
-        console.log(`${event.target.value} - Checked`)
-        featureLayers.pointLayers.point5.addTo(map);
-        featureLayers.pointLayers.point5.bringToFront();
+        target_layer.addTo(map);
+        target_layer.bringToFront();
     } else {
-        console.log(`${event.target.value} - Unchecked`)
-        map.removeLayer(featureLayers.pointLayers.point5);
+        map.removeLayer(target_layer);
     }
 });
 
