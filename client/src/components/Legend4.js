@@ -23,7 +23,7 @@ export function Legend() {
     const header = document.createElement("div");
     header.className = "offcanvas-header";
     header.innerHTML = /*html*/ `
-    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Legend</h5>
+    <h2 class="offcanvas-title text-font-style-roboto-slab" id="offcanvasScrollingLabel">Legend</h2>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     `;
 
