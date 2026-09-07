@@ -628,18 +628,6 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        // TODO - check JSON properties (get list of keys)
-                        // findImagesSet_v2(feature.properties.GID).then(images => {
-                        //     // document.getElementById("point-clicked").innerText = `Photo Gallery`;
-                        //     // document.getElementById("text-description").innerText = images.description || '';
-
-                        //     if (images.paths != null) {
-                        //         displayImages_v3(images.paths);
-                        //     } else {
-                        //         console.log(`Sorry, could not find images :-(`);
-                        //     }
-                        // });
-
                         findImagesSet_v3(feature.properties.GID).then(target => { 
                             if (target.images != null) {
                                 displayImages_v3(target.images);
@@ -647,8 +635,6 @@ function getLayers(data, ftype) {
                                 console.log(`Sorry, could not find images :-(`);
                             }
                         });
-                        // getImageDescription_v2(feature.properties.id);
-                        // getImageDescription_v2(feature.properties.PID);
                     });
 
                     layer.on({
@@ -782,19 +768,6 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        // // TODO - check JSON properties (get list of keys)
-                        // findImagesSet_v2(feature.properties.PID).then(images => {
-                        //     document.getElementById("text-description").innerText = images.description || '';
-
-                        //     if (images.paths != null) {
-                        //         displayImages_v3(images.paths);
-                        //     } else {
-                        //         console.log(`Sorry, could not find images :-(`);
-                        //     }
-
-                        //     modalDialog.show();
-                        // });
-
                         findImagesSet_v3(feature.properties.PID).then(target => { 
                             if (target.images != null) {
                                 displayImages_v3(target.images);
@@ -803,8 +776,6 @@ function getLayers(data, ftype) {
                                 console.log(`Sorry, could not find images :-(`);
                             }
                         });
-                        // getImageDescription_v2(feature.properties.id);
-                        // getImageDescription_v2(feature.properties.PID);
                     });// end of layer on click listener 
 
                     // explicitly close tooltip
@@ -849,45 +820,6 @@ image retrieval functions
 ------------------------------------------------------------ */
 
 
-async function findImagesSet_v2(searchId) {
-    try {
-        const response = await fetch(API_PHOTOS_URL);
-
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        const photos = data.photos;
-
-        console.log('findImagesSet_v2');
-        console.log(photos);
-
-        let imageList = {
-            paths: [],
-            description: "",
-        }
-
-        for (const [point, pointData] of Object.entries(photos)) {
-            // console.log(`Checking point ${point} against search ID ${searchId}`);
-            if (point.match(searchId.split("_", 1)[0])) {
-                if (pointData.images && Array.isArray(pointData.images)) {
-                    pointData.images.forEach((photo) => {
-                        imageList.paths.push(photo);
-                    });
-                }
-                imageList.description = pointData.description || "";
-                break;
-            }
-        }
-        return imageList;
-    } catch (error) {
-        console.error('Error fetching file: ', error);
-        return null;
-    }
-}
-
-
 // updated version 
 async function findImagesSet_v3(searchId) {
     try {
@@ -908,30 +840,6 @@ async function findImagesSet_v3(searchId) {
     } catch (error) {
         console.error('Error fetching file: ', error);
         return null;
-    }
-}
-
-async function getImageDescription_v2(loc) {
-    try {
-        const response = await fetch('/descriptions');
-
-        if (!response.ok) {
-            throw new Error(`Descriptions API error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        const descriptions = data;
-
-        for (let i = 0; i < descriptions.length; i++) {
-            if (descriptions[i].id === loc) {
-                // document.getElementById("text-description").innerText = `${descriptions[i].text}`;
-                break;
-            } else {
-                document.getElementById("text-description").innerText = '';
-            }
-        }
-    } catch (error) {
-        console.error('Error retrieving photo descriptions: ', error);
     }
 }
 
