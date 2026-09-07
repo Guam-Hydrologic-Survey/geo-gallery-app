@@ -10,21 +10,20 @@ const fileType = require('file-type');
 const Papa = require('papaparse');
 
 const app = express();
+
 // const PORT = process.env.PORT || 3000; 
-
 const PORT = 3000; 
-
-// const photosDirectory = path.join(__dirname, 'photos');
-// const photosDirectory = '../uploads';
 
 const photosDirectory = path.join(__dirname, '../uploads');
 
-const image_extensions = ['.jpg', '.jpeg', '.png']
+const image_extensions = ['.jpg', '.jpeg', '.png'];
+
+const photos_serve = '/photos/';
 
 app.use(cors()); // enable cors for frontend requests
 
 // serve static files 
-app.use('/photos', express.static(photosDirectory));
+app.use(photos_serve, express.static(photosDirectory));
 // app.use('/description', express.static(photosDirectory));
 
 // server frontend
@@ -70,7 +69,8 @@ async function getPhotosInDirectory(dir, basePath) {
                 if (type) {
                     if (type.mime.startsWith('image/')) {
                         if (!results['images']) { results['images'] = []; }
-                        results['images'].push(relativePath);
+                        // results['images'].push(relativePath);
+                        results['images'].push(photos_serve + relativePath); // prepend photos_serve for frontend use
                     } 
                 } else {
                     if (isTextFile(buffer)) {
@@ -92,6 +92,17 @@ async function getPhotosInDirectory(dir, basePath) {
     return results;
 }
 
+// retrieve only the directory matching the given id from the full list of directories
+async function directoryLookup(full_list, id) {
+    let found_dir;
+    const target = Object.keys(full_list).find(key => key === id);
+    if (target) {
+        found_dir = full_list[target];
+        console.log(`Found ${id}:\n`, found_dir);
+    }
+    return found_dir;
+}
+
 // check if a file is a text file
 function isTextFile(buffer) {
     // convert buffer to string and check for non-printable characters 
@@ -100,6 +111,12 @@ function isTextFile(buffer) {
     // ensures it contains only printable characters 
     return /^[\x20-\x7E\r\n\t]*$/.test(text);
 }
+
+
+/* ------------------------------------------------------------
+API endpoints for photos and description 
+------------------------------------------------------------ */
+
 
 // endpoint to read and parse a master csv file containing descriptions for each 
 app.get('/descriptions', (req, res) => {
@@ -132,9 +149,26 @@ app.get('/api/photos', async (req, res) => {
         const filesData = await getPhotosInDirectory(photosDirectory, photosDirectory);
         res.json({ photos: filesData });
     } catch (error) {
-        res.status(500).json({ error: 'Unable to retrieve photos :-('});
+        res.status(500).json({ error: 'Sorry, unable to retrieve photos at this time.'});
     }
-})
+});
+
+// endpoint to get specific photo directory 
+app.get('/api/photos/:dir_id', async (req, res) => { 
+    try {
+        const dirId = req.params.dir_id;
+        const filesData = await getPhotosInDirectory(photosDirectory, photosDirectory);
+        const foundDir = await directoryLookup(filesData, dirId);
+        if (foundDir) {
+            console.log(`Found directory for ${dirId}:`, foundDir);
+            res.json({ photos: foundDir });
+        } else {
+            res.status(404).json({ error: 'Sorry, unable to retrieve photos at this time.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Sorry, unable to retrieve photos at this time.'});
+    }
+});
 
 // endpoint to get the data file containing geojson 
 app.get('/api/data/:filename', (req, res) => {
