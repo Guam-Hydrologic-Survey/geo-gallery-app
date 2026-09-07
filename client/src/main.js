@@ -629,12 +629,20 @@ function getLayers(data, ftype) {
                         modalDialog.show();
 
                         // TODO - check JSON properties (get list of keys)
-                        findImagesSet_v2(API_PHOTOS_URL, feature.properties.GID).then(images => {
-                            // document.getElementById("point-clicked").innerText = `Photo Gallery`;
-                            // document.getElementById("text-description").innerText = images.description || '';
+                        // findImagesSet_v2(feature.properties.GID).then(images => {
+                        //     // document.getElementById("point-clicked").innerText = `Photo Gallery`;
+                        //     // document.getElementById("text-description").innerText = images.description || '';
 
-                            if (images.paths != null) {
-                                displayImages_v3(images.paths);
+                        //     if (images.paths != null) {
+                        //         displayImages_v3(images.paths);
+                        //     } else {
+                        //         console.log(`Sorry, could not find images :-(`);
+                        //     }
+                        // });
+
+                        findImagesSet_v3(feature.properties.GID).then(target => { 
+                            if (target.images != null) {
+                                displayImages_v3(target.images);
                             } else {
                                 console.log(`Sorry, could not find images :-(`);
                             }
@@ -770,17 +778,30 @@ function getLayers(data, ftype) {
                         <h5>${feature.properties.Place}</h5>
                         `;
 
-                        // TODO - check JSON properties (get list of keys)
-                        findImagesSet_v2(API_PHOTOS_URL, feature.properties.PID).then(images => {
-                            document.getElementById("text-description").innerText = images.description || '';
+                        // show loading screen for image retrieval first and open the modal dialog
+                        skeletonDisplay();
+                        modalDialog.show();
 
-                            if (images.paths != null) {
-                                displayImages_v3(images.paths);
+                        // // TODO - check JSON properties (get list of keys)
+                        // findImagesSet_v2(feature.properties.PID).then(images => {
+                        //     document.getElementById("text-description").innerText = images.description || '';
+
+                        //     if (images.paths != null) {
+                        //         displayImages_v3(images.paths);
+                        //     } else {
+                        //         console.log(`Sorry, could not find images :-(`);
+                        //     }
+
+                        //     modalDialog.show();
+                        // });
+
+                        findImagesSet_v3(feature.properties.PID).then(target => { 
+                            if (target.images != null) {
+                                displayImages_v3(target.images);
+                                document.getElementById("text-description").innerText = target.description || '';
                             } else {
                                 console.log(`Sorry, could not find images :-(`);
                             }
-
-                            modalDialog.show();
                         });
                         // getImageDescription_v2(feature.properties.id);
                         // getImageDescription_v2(feature.properties.PID);
@@ -827,10 +848,10 @@ function getLayers(data, ftype) {
 image retrieval functions
 ------------------------------------------------------------ */
 
-// for polygons (to implement for points as well)
-async function findImagesSet_v2(apiUrl, searchId) {
+
+async function findImagesSet_v2(searchId) {
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(API_PHOTOS_URL);
 
         if (!response.ok) {
             throw new Error(`API error: ${response.statusText}`);
@@ -839,17 +860,20 @@ async function findImagesSet_v2(apiUrl, searchId) {
         const data = await response.json();
         const photos = data.photos;
 
+        console.log('findImagesSet_v2');
+        console.log(photos);
+
         let imageList = {
             paths: [],
             description: "",
         }
 
         for (const [point, pointData] of Object.entries(photos)) {
-            console.log(`Checking point ${point} against search ID ${searchId}`);
+            // console.log(`Checking point ${point} against search ID ${searchId}`);
             if (point.match(searchId.split("_", 1)[0])) {
                 if (pointData.images && Array.isArray(pointData.images)) {
                     pointData.images.forEach((photo) => {
-                        imageList.paths.push('/photos/' + photo);
+                        imageList.paths.push(photo);
                     });
                 }
                 imageList.description = pointData.description || "";
@@ -857,6 +881,30 @@ async function findImagesSet_v2(apiUrl, searchId) {
             }
         }
         return imageList;
+    } catch (error) {
+        console.error('Error fetching file: ', error);
+        return null;
+    }
+}
+
+
+// updated version 
+async function findImagesSet_v3(searchId) {
+    try {
+        const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const photos = data.photos;
+
+        console.log(`findImagesSet_v3`);
+        console.log(photos);
+
+        return photos;
+
     } catch (error) {
         console.error('Error fetching file: ', error);
         return null;
