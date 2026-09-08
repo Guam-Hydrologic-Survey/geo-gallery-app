@@ -872,6 +872,7 @@ function getLayers(data, ftype) {
                             });
                         },
                         click (e) {
+                            console.log(`Clicked on Cross Section for ${e.target.feature.properties.Label}`);
                             // fetch the images for the cross section and display them in the modal
                             // getXSectionImage(e.target.feature.properties)
                         }
