@@ -3,13 +3,25 @@ Gallery.js
 Description: Creates the Gallery component for site photos 
 */
 
+export const gallery_ids = {
+    modal: "results",
+    text_description: "text-description",
+    information: "text-info",
+    num_photos: "num-photos",
+    gallery: "gallery",
+    photos_tab_btn_id: "photos-tab",
+    photos_tab_pane_id: "photos-tab-pane",
+    videos_tab_btn_id: "videos-tab",
+    videos_tab_pane_id: "videos-tab-pane"
+}
+
 export function Gallery() {
 
     const modal = document.createElement("div");
 
     modal.className = "modal fade";
     modal.tabIndex = -1;
-    modal.id = "results";
+    modal.id = gallery_ids.modal;
 
     modal.setAttribute("aria-hidden", "true");
     modal.setAttribute("data-bs-backdrop", "true");
@@ -46,10 +58,94 @@ export function Gallery() {
     const gallery_container = document.createElement("div");
     gallery_container.id = "gallery";
 
+    const tabs = document.createElement("ul");
+    tabs.className = "nav nav-tabs";
+    tabs.id = "gallery-tabs";
+    tabs.setAttribute("role", "tablist");
+
+    // photos tab
+    const photos_tab_li = document.createElement("li");
+    photos_tab_li.className = "nav-item";
+    photos_tab_li.setAttribute("role", "presentation");
+
+    // const photos_tab_btn_id = "photos-tab";
+    // const photos_tab_pane_id = "photos-tab-pane";
+
+    const photos_tab_btn = document.createElement("button");
+    photos_tab_btn.className = "nav-link active";
+    photos_tab_btn.id = gallery_ids.photos_tab_btn_id;
+    photos_tab_btn.setAttribute("data-bs-toggle", "tab");
+    photos_tab_btn.setAttribute("data-bs-target", `#${gallery_ids.photos_tab_pane_id}`);
+    photos_tab_btn.setAttribute("type", "button");
+    photos_tab_btn.setAttribute("role", "tab");
+    photos_tab_btn.setAttribute("aria-controls", `${gallery_ids.photos_tab_pane_id}`);
+    photos_tab_btn.setAttribute("aria-selected", "true");
+    photos_tab_btn.innerText = "Photos";
+
+    // videos tab
+    const videos_tab_li = document.createElement("li");
+    videos_tab_li.className = "nav-item";
+    videos_tab_li.setAttribute("role", "presentation");
+
+    // const videos_tab_btn_id = "videos-tab";
+    // const videos_tab_pane_id = "videos-tab-pane";
+
+    const videos_tab_btn = document.createElement("button");
+    videos_tab_btn.className = "nav-link";
+    videos_tab_btn.id = gallery_ids.videos_tab_btn_id;
+    videos_tab_btn.setAttribute("data-bs-toggle", "tab");
+    videos_tab_btn.setAttribute("data-bs-target", `#${gallery_ids.videos_tab_pane_id}`);
+    videos_tab_btn.setAttribute("type", "button");
+    videos_tab_btn.setAttribute("role", "tab");
+    videos_tab_btn.setAttribute("aria-controls", `${gallery_ids.videos_tab_pane_id}`);
+    videos_tab_btn.setAttribute("aria-selected", "false");
+    videos_tab_btn.innerText = "Videos";
+
+    // add or remove disabled attribute depending on video availability
+    // videos_tab_btn.setAttribute("disabled", "");
+
+    // compile tabs
+    photos_tab_li.append(photos_tab_btn);
+    videos_tab_li.append(videos_tab_btn);
+    tabs.append(photos_tab_li, videos_tab_li);
+
+    // tab contents (container)
+    const tab_contents = document.createElement("div");
+    tab_contents.className = "tab-content";
+    tab_contents.id = "gallery-tab-contents";
+
+    // photos tab pane 
+    const photos_tab_pane = document.createElement("div");
+    photos_tab_pane.className = "tab-pane fade show active";
+    photos_tab_pane.id = gallery_ids.photos_tab_pane_id;
+    photos_tab_pane.setAttribute("role", "tabpanel");
+    photos_tab_pane.setAttribute("aria-labelledby", gallery_container.photos_tab_btn_id);
+    photos_tab_pane.setAttribute("tabindex", "0");
+
+    // photos_tab_pane.innerText = "Photos tab pane contents";
+
+    const videos_tab_pane = document.createElement("div");
+    videos_tab_pane.className = "tab-pane fade";
+    videos_tab_pane.id = gallery_ids.videos_tab_pane_id;
+    videos_tab_pane.setAttribute("role", "tabpanel");
+    videos_tab_pane.setAttribute("aria-labelledby", gallery_ids.videos_tab_btn_id);
+    videos_tab_pane.setAttribute("tabindex", "0");
+
+    videos_tab_pane.innerHTML = /*html*/ `
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Hlg2OLoAacc?si=sjaWNESeFqPR8wdr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    `;
+
+    photos_tab_pane.append(num_photos, gallery_container)
+
+    // compile tab contents 
+    tab_contents.append(photos_tab_pane, videos_tab_pane);
+
     // add text description, num photos, and gallery container to modal body 
     // body.append(text_description, num_photos, gallery_container);
     // body.append(text_description, information, num_photos, createAccordion(), gallery_container);
-    body.append(text_description, information, num_photos, gallery_container);
+    // body.append(text_description, information, num_photos, gallery_container, tabs, tab_contents);
+    body.append(text_description, information, tabs, tab_contents);
+
 
     const footer = document.createElement("div");
     footer.className = "modal-footer";
