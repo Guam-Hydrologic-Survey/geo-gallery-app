@@ -637,6 +637,8 @@ function getLayers(data, ftype) {
                                 console.log(`Sorry, could not find images :-(`);
                             }
                         });
+
+                        videoLookup(feature.properties.GID);
                     });
 
                     layer.on({
@@ -778,6 +780,8 @@ function getLayers(data, ftype) {
                                 console.log(`Sorry, could not find images :-(`);
                             }
                         });
+
+                        videoLookup(feature.properties.PID);
                     });// end of layer on click listener 
 
                     // explicitly close tooltip
@@ -904,7 +908,40 @@ function displayImages_v3_sub(images) {
     initializeViewer();
 }
 
-// loading screen to show before the actual photos 
+
+/* ------------------------------------------------------------
+loading screen to show before the actual photos 
+------------------------------------------------------------ */
+
+async function videoLookup(id) {
+    // if videos exist for a feature, call display videos 
+    const selection = videos.filter(video => video.id === id);
+
+    console.log(``);
+    console.log(selection);
+
+    if (selection.length > 0) {
+        
+        document.getElementById(gallery_ids.videos_tab_pane_id).innerHTML = /*html*/ `
+        ${selection}
+        <br>
+        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Hlg2OLoAacc?si=sjaWNESeFqPR8wdr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        `;
+    } else {
+        // add the disabled attribute to the video tab btn 
+        // document.getElementById(gallery_ids.videos_tab_btn_id).removeAttribute("disabled")
+        document.getElementById(gallery_ids.videos_tab_btn_id).classList.add("disabled");
+    }
+}
+
+function displayVideos() {
+}
+
+
+/* ------------------------------------------------------------
+loading screen to show before the actual photos 
+------------------------------------------------------------ */
+ 
 function skeletonDisplay() {
 
     clearGallery();
