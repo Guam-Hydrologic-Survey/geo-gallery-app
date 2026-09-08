@@ -24,6 +24,7 @@ import { TransparencySlider } from './components/TransparencySlider.js';
 import { API_PHOTOS_URL } from './constants/index.js';
 import { aerial, cave, sinkhole } from './constants/index.js';
 import { videos } from './constants/index.js';
+import { polygon_units } from './constants/index.js';
 import { gallery_ids } from './components/Gallery2.js';
 
 
@@ -227,6 +228,9 @@ getLayers("/data/GeoGalGMG2026.json", 1);
 getLayers("/data/GeoGalGMGBndry2026.json", 2);
 getLayers("/data/GeoGalPoints_08182026.json", 3);
 
+// cross sections 
+getLayers("/data/GeoGalXSections2026_v3.json", 4);
+
 
 /* ------------------------------------------------------------
 enforce layer orders
@@ -236,10 +240,12 @@ enforce layer orders
 map.createPane('polygonPane');
 map.createPane('linePane');
 map.createPane('pointPane')
+map.createPane('xsectionPane');
 
 // assign z-index values
 map.getPane('polygonPane').style.zIndex = 300;
 map.getPane('linePane').style.zIndex = 350;
+map.getPane('xsectionPane').style.zIndex = 375;
 map.getPane('pointPane').style.zIndex = 399; // keep below 400, so tooltips & popups still work
 
 
@@ -584,6 +590,7 @@ function getLayers(data, ftype) {
 
                     // layer click event
                     layer.on('click', async () => {
+
                         // TODO - clean this up to JS-focused creation instead of raw HTML and strings
                         const formation = feature.properties.Formation.trim() === "" ? "" : `<p>Formation: ${feature.properties.Formation}</p>`;
 
@@ -604,7 +611,7 @@ function getLayers(data, ftype) {
                                         <i class="bi bi-clock-history"></i>
                                         ${feature.properties.Epoch}
                                     </span>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <p class="card-text">${getDescriptionForPolygon(feature.properties.UnitAbr)}</p>
 
                                     <ul class="list-group list-group-horizontal w-100">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -634,11 +641,16 @@ function getLayers(data, ftype) {
                             if (target.images != null) {
                                 displayImages_v3(target.images);
                             } else {
+                                clearGallery();
+                                document.getElementById(gallery_ids.num_photos).innerText = "";
+                                gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
                                 console.log(`Sorry, could not find images :-(`);
                             }
                         });
 
                         videoLookup(feature.properties.GID);
+
+                        // getDescriptionForPolygon(feature.properties.UnitAbr);
                     });
 
                     layer.on({
@@ -777,6 +789,9 @@ function getLayers(data, ftype) {
                                 displayImages_v3(target.images);
                                 document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
+                                clearGallery();
+                                document.getElementById(gallery_ids.num_photos).innerText = "";
+                                gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
                                 console.log(`Sorry, could not find images :-(`);
                             }
                         });
@@ -817,6 +832,74 @@ function getLayers(data, ftype) {
                 } // end of onEachFeature property
             });
         } // end of conditional for point
+        else if (ftype === 4) { 
+            const xsLayer = L.geoJSON(data, {
+                pane: 'xsectionPane',
+                filter: (feature) => {
+                    return feature.geometry.type === 'LineString'
+                },
+                style: (feature) => {
+                    return  {
+                        color: '#3388ff',
+                        weight: 4,
+                        opacity: 0.8
+                    }
+                },
+                onEachFeature: (feature, layer) => { 
+                    layer.bindTooltip(
+                        `Cross Section ${feature.properties.Label}`,
+                        {
+                            sticky: true,
+                            direction: 'top',
+                            opacity: 0.9,
+                            className: 'polygon-tooltip',
+                        }
+                    );
+
+                    layer.on({
+                        mouseover (e) { 
+                            e.target.setStyle({ 
+                                color: '#e85d04',
+                                weight: 8,
+                                opacity: 1
+                            });
+                        },
+                        mouseout (e) {
+                            e.target.setStyle({
+                                color: '#3388ff',
+                                weight: 4,
+                                opacity: 0.8
+                            });
+                        },
+                        click (e) {
+                            // fetch the images for the cross section and display them in the modal
+                            // getXSectionImage(e.target.feature.properties)
+                        }
+                    });
+                } // end of onEachFeature property
+            }); // end of L.geoJSON variable assignment
+
+            xsLayer.addTo(map);
+
+            const xsectionLabels = L.geoJSON(data, {
+                pane: 'xsectionPane',
+                filter: (feature) => {
+                    return feature.geometry.type === 'Point'
+                },
+                pointToLayer: (feature, latlng) => {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            className: "text-icon",
+                            html: `${feature.properties.Label}`,
+                            iconSize: null,
+                            iconAnchor: [feature.properties.Label.length * 3.5, 10]
+                        })
+                    });
+                }
+            });
+            xsectionLabels.addTo(map);
+        } // end of conditional for cross sections 
+
     }); // end of fetch call
 } // end of getLayers function
 
@@ -840,7 +923,6 @@ async function findImagesSet_v3(searchId) {
 
         console.log(`findImagesSet_v3`);
         console.log(photos);
-
         return photos;
 
     } catch (error) {
@@ -908,33 +990,82 @@ function displayImages_v3_sub(images) {
     initializeViewer();
 }
 
+function getXSectionImage() {
+    // lookup path from cross_section_images array 
+
+    // fetch the image 
+    // fetch("/public/assets/cross-sections/")
+
+    // display the modal (or maybe use the photo viewer?)
+}
+
 
 /* ------------------------------------------------------------
-loading screen to show before the actual photos 
+functions to retrieve and display available videos 
 ------------------------------------------------------------ */
 
 async function videoLookup(id) {
     // if videos exist for a feature, call display videos 
     const selection = videos.filter(video => video.id === id);
 
-    console.log(``);
+    console.log("Video lookup for ID: " + id);
     console.log(selection);
 
     if (selection.length > 0) {
         
-        document.getElementById(gallery_ids.videos_tab_pane_id).innerHTML = /*html*/ `
-        ${selection}
-        <br>
-        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Hlg2OLoAacc?si=sjaWNESeFqPR8wdr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        `;
+        // document.getElementById(gallery_ids.videos_tab_pane_id).innerHTML = /*html*/ `
+        // ${selection}
+        // <br>
+        // <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Hlg2OLoAacc?si=sjaWNESeFqPR8wdr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        // `;
+        document.getElementById(gallery_ids.videos_tab_btn_id).classList.remove("disabled");
+        displayVideos(selection);
     } else {
         // add the disabled attribute to the video tab btn 
         // document.getElementById(gallery_ids.videos_tab_btn_id).removeAttribute("disabled")
         document.getElementById(gallery_ids.videos_tab_btn_id).classList.add("disabled");
+
+        document.getElementById(gallery_ids.num_videos).innerHTML = /*html*/ 
+    `<i class="bi bi-play-circle"></i> There are no videos available for this feature
+    `;
+
+        const videos_tab_pane = document.getElementById(gallery_ids.video_playlist);
+        videos_tab_pane.replaceChildren(); // clear existing content, if any 
     }
 }
 
-function displayVideos() {
+function displayVideos(video_list) {
+    const videos_tab_pane = document.getElementById(gallery_ids.video_playlist);
+    videos_tab_pane.replaceChildren(); // clear existing content, if any 
+
+    let plural = "";
+    if (video_list.length == 1) {
+        plural = "video";
+    } else {
+        plural = "videos";
+    }
+
+    document.getElementById(gallery_ids.num_videos).innerHTML = /*html*/ 
+    `<i class="bi bi-play-circle"></i> ${video_list.length} ${plural} available for this feature
+    `;
+
+    video_list.forEach((video) => { 
+        // console.log(video.id);
+        // console.log(video.title);
+        // console.log(video.url);
+
+        const iframe = document.createElement("iframe");
+        iframe.width = "520"; // 560 or 400 or 100% 
+        iframe.height = "293"; // 315 or 225 or auto
+        // iframe.style.aspectRatio = "16 / 9";
+        iframe.src = video.privacy_url;
+        iframe.title = video.title;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.allowFullscreen = true;
+
+        videos_tab_pane.append(iframe);
+    });
 }
 
 
@@ -997,6 +1128,24 @@ function clearGallery() {
     while (gallery.firstChild) {
         gallery.removeChild(gallery.firstChild);
     }
+}
+
+
+/* ------------------------------------------------------------
+lookup descriptions for polygon card
+------------------------------------------------------------ */
+
+async function getDescriptionForPolygon(unit_abr) { 
+    // if videos exist for a feature, call display videos 
+    const info = polygon_units.filter(poly => poly.label.toLowerCase() === unit_abr.toLowerCase());
+
+    console.log("Description lookup for Unit Abr: " + unit_abr);
+    console.log(info);
+
+    const description = info.paragraph;
+
+    // return info.paragraph;
+    return description || "No description available for this feature.";
 }
 
 
