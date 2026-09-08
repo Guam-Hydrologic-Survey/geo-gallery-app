@@ -23,6 +23,7 @@ import { TransparencySlider } from './components/TransparencySlider.js';
 // constants 
 import { API_PHOTOS_URL } from './constants/index.js';
 import { aerial, cave, sinkhole } from './constants/index.js';
+import { videos } from './constants/index.js';
 import { gallery_ids } from './components/Gallery2.js';
 
 
