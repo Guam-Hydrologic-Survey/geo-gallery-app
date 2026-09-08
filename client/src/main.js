@@ -23,6 +23,7 @@ import { TransparencySlider } from './components/TransparencySlider.js';
 // constants 
 import { API_PHOTOS_URL } from './constants/index.js';
 import { aerial, cave, sinkhole } from './constants/index.js';
+import { gallery_ids } from './components/Gallery2.js';
 
 
 /* ------------------------------------------------------------
@@ -100,10 +101,10 @@ modal handling for photo gallery
 
 
 // modal body
-const gallery = document.getElementById('gallery');
+const gallery = document.getElementById(gallery_ids.gallery);
 
 // modal element instance of photo gallery
-const modalElement = document.getElementById('results');
+const modalElement = document.getElementById(gallery_ids.modal);
 const modalDialog = new bootstrap.Modal(modalElement);
 
 const dock = document.getElementById('dock-control');
@@ -585,7 +586,7 @@ function getLayers(data, ftype) {
                         // TODO - clean this up to JS-focused creation instead of raw HTML and strings
                         const formation = feature.properties.Formation.trim() === "" ? "" : `<p>Formation: ${feature.properties.Formation}</p>`;
 
-                        document.getElementById("text-info").innerHTML = /*html*/ `
+                        document.getElementById(gallery_ids.information).innerHTML = /*html*/ `
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
@@ -759,8 +760,8 @@ function getLayers(data, ftype) {
 
                     layer.on('click', async () => {
                         // clear #text-info contents 
-                        document.getElementById("text-info").replaceChildren();
-                        document.getElementById("text-info").innerHTML = /*html*/ `
+                        document.getElementById(gallery_ids.information).replaceChildren();
+                        document.getElementById(gallery_ids.information).innerHTML = /*html*/ `
                         <h5>${feature.properties.Place}</h5>
                         `;
 
@@ -771,7 +772,7 @@ function getLayers(data, ftype) {
                         findImagesSet_v3(feature.properties.PID).then(target => { 
                             if (target.images != null) {
                                 displayImages_v3(target.images);
-                                document.getElementById("text-description").innerText = target.description || '';
+                                document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
                                 console.log(`Sorry, could not find images :-(`);
                             }
@@ -855,7 +856,7 @@ async function displayImages_v3(images) {
             plural = "photos";
         }
 
-        document.getElementById("num-photos").innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
+        document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
 
         let loadedImgs = [];
         let imgsLoaded = 0;
@@ -882,7 +883,7 @@ async function displayImages_v3(images) {
             loadedImgs.push(img);
         });
     } else {
-        document.getElementById("num-photos").innerText = "";
+        document.getElementById(gallery_ids.num_photos).innerText = "";
         gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
     }
 }
@@ -907,7 +908,7 @@ function skeletonDisplay() {
 
     clearGallery();
 
-    document.getElementById("num-photos").innerHTML = /*html*/ `
+    document.getElementById(gallery_ids.num_photos).innerHTML = /*html*/ `
     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
     <span role="status">Loading photos...</span>
     `;
