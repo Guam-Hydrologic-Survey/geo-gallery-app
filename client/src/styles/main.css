@@ -44,6 +44,7 @@ import order    (order matters!)
 @import './components/toasts.css';
 @import './components/dock.css';
 @import './components/images.css';
+@import './components/videos.css';
 @import './components/legend.css';
 @import './components/layerToggle.css';
 @import './components/slider.css';
