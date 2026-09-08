@@ -62,3 +62,7 @@ gallery.css
         transform: translateY(0);
     }
 }
+
+#num-photos {
+    font-size: 18px;
+}
