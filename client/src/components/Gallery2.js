@@ -9,6 +9,8 @@ export const gallery_ids = {
     information: "text-info",
     num_photos: "num-photos",
     gallery: "gallery",
+    num_videos: "num-videos",
+    video_playlist: "video-playlist",
     photos_tab_btn_id: "photos-tab",
     photos_tab_pane_id: "photos-tab-pane",
     videos_tab_btn_id: "videos-tab",
@@ -131,11 +133,19 @@ export function Gallery() {
     videos_tab_pane.setAttribute("aria-labelledby", gallery_ids.videos_tab_btn_id);
     videos_tab_pane.setAttribute("tabindex", "0");
 
-    videos_tab_pane.innerHTML = /*html*/ `
-    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Hlg2OLoAacc?si=sjaWNESeFqPR8wdr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    `;
+    const num_videos = document.createElement("div");
+    num_videos.className = "legend-badge badge rounded-pill";
+    num_videos.id = gallery_ids.num_videos;
 
-    photos_tab_pane.append(num_photos, gallery_container)
+    const video_container = document.createElement("div");
+    video_container.id = gallery_ids.video_playlist;
+
+    // videos_tab_pane.innerHTML = /*html*/ `
+    // <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Hlg2OLoAacc?si=sjaWNESeFqPR8wdr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    // `;
+
+    photos_tab_pane.append(num_photos, gallery_container);
+    videos_tab_pane.append(num_videos, video_container);
 
     // compile tab contents 
     tab_contents.append(photos_tab_pane, videos_tab_pane);
