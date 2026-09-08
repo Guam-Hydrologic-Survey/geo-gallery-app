@@ -1,0 +1,260 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "A",
+                "XSection": "A",
+                "ID": 1
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.900392,
+                        13.646128
+                    ],
+                    [
+                        144.793651,
+                        13.42048
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "B",
+                "XSection": "B",
+                "ID": 2
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.940625,
+                        13.504591
+                    ],
+                    [
+                        144.819926,
+                        13.596121
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "C",
+                "XSection": "C",
+                "ID": 3
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.677058,
+                        13.454021
+                    ],
+                    [
+                        144.789272,
+                        13.395454
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "D",
+                "XSection": "D",
+                "ID": 4
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.622045,
+                        13.341067
+                    ],
+                    [
+                        144.783935,
+                        13.352917
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "E",
+                "XSection": "E",
+                "ID": 5
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.650409,
+                        13.30118
+                    ],
+                    [
+                        144.779593,
+                        13.298916
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "A",
+                "XSection": "A",
+                "ID": 6
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.793647,
+                    13.420459
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "A'",
+                "XSection": "A",
+                "ID": 7
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.900471,
+                    13.646197
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "B",
+                "XSection": "B",
+                "ID": 8
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.819726,
+                    13.596265
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "B'",
+                "XSection": "B",
+                "ID": 9
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.940748,
+                    13.504437
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "C",
+                "XSection": "C",
+                "ID": 10
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.67699,
+                    13.45408
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "C'",
+                "XSection": "C",
+                "ID": 11
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.789273,
+                    13.395454
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "D",
+                "XSection": "D",
+                "ID": 12
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.621902,
+                    13.341072
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "D'",
+                "XSection": "D",
+                "ID": 13
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.78394,
+                    13.352952
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "E",
+                "XSection": "E",
+                "ID": 14
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.650345,
+                    13.301195
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "E'",
+                "XSection": "E",
+                "ID": 15
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.779612,
+                    13.298917
+                ]
+            }
+        }
+    ]
+}
