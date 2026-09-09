@@ -19,6 +19,7 @@ import { Gallery } from './components/Gallery2.js';
 import { Dock } from './components/Dock2.js';
 import { LayerToggle } from './components/LayerToggle.js';
 import { TransparencySlider } from './components/TransparencySlider.js';
+import { CrossSections } from './components/CrossSections.js';
 
 // constants 
 import { API_PHOTOS_URL } from './constants/index.js';
@@ -26,6 +27,7 @@ import { aerial, cave, sinkhole } from './constants/index.js';
 import { videos } from './constants/index.js';
 import { polygon_units } from './constants/index.js';
 import { gallery_ids } from './components/Gallery2.js';
+import { xsection_viewer_ids } from './components/CrossSections.js';
 
 
 /* ------------------------------------------------------------
@@ -36,7 +38,7 @@ const app = document.getElementById("app");
 
 app.append(NavBar(), MapContainer(), Dock());
 
-document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(),  TransparencySlider());
+document.body.append(About(), Tutorial(), Legend(), Gallery(), LayerToggle(),  TransparencySlider(), CrossSections());
 
 
 /* ------------------------------------------------------------
@@ -229,7 +231,7 @@ getLayers("/data/GeoGalGMGBndry2026.json", 2);
 getLayers("/data/GeoGalPoints_08182026.json", 3);
 
 // cross sections 
-getLayers("/data/GeoGalXSections2026_v3.json", 4);
+getLayers("/data/GeoGalXSections2026_v4.json", 4);
 
 
 /* ------------------------------------------------------------
@@ -880,8 +882,46 @@ function getLayers(data, ftype) {
                         },
                         click (e) {
                             console.log(`Clicked on Cross Section for ${e.target.feature.properties.Label}`);
+                            // viewCrossSection(e.target.feature.properties);
                             // fetch the images for the cross section and display them in the modal
                             // getXSectionImage(e.target.feature.properties)
+
+                            const viewer_container = document.getElementById(xsection_viewer_ids.container);
+                            const viewer_img = document.getElementById(xsection_viewer_ids.img);
+
+                            // destroy existing viewer instance if it exists
+                            if (viewer) {
+                                viewer.destroy();
+                            }
+
+                            // initialize viewer.js on next set of images
+                            viewer = new Viewer(viewer_container, {
+                                inline: false,
+                                toolbar: {
+                                    zoomIn: 1,
+                                    zoomOut: 1,
+                                    oneToOne: 1,
+                                    reset: 1,
+                                    prev: 1,
+                                    play: 0,
+                                    next: 1,
+                                    rotateLeft: 1,
+                                    rotateRight: 1,
+                                    flipHorizontal: 1,
+                                    flipVertical: 1,
+                                }
+                            });
+
+                            // set img path and label 
+                            viewer_img.src = "/assets/cross-sections/" + e.target.feature.properties.Image;
+                            viewer.alt = e.target.feature.properties.Label || "";
+
+                            // update and open viewer 
+                            viewer.update();
+                            viewer.view(0);
+
+                            // TODO update tracker of viewer for dock, maybe get instance of viewer instead? 
+                            // is_xsection_viewer_open = true;
                         }
                     });
 
@@ -923,6 +963,26 @@ function getLayers(data, ftype) {
                             iconAnchor: [feature.properties.Label.length * 3.5, 10]
                         })
                     });
+                },
+                onEachFeature: (feature, layer) => {
+                    // add to feature group
+                    switch (feature.properties.XSection) {
+                        case "A":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionA);
+                            break;
+                        case "B":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionB);
+                            break;
+                        case "C":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionC);
+                            break;
+                        case "D":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionD);
+                            break;
+                        default:
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionE);
+                            break;
+                    }; // end of switch statement to add to feature group
                 }
             });
             // xsectionLabels.addTo(map);
@@ -1157,6 +1217,61 @@ function clearGallery() {
         gallery.removeChild(gallery.firstChild);
     }
 }
+
+
+/* ------------------------------------------------------------
+functions and event listeners to show cross section images
+------------------------------------------------------------ */
+
+let is_xsection_viewer_open = false;
+
+async function viewCrossSection(xsection) {
+    const viewer_container = document.getElementById(xsection_viewer_ids.container);
+    const viewer_img = document.getElementById(xsection_viewer_ids.img);
+
+    // destroy existing viewer instance if it exists
+    if (viewer) {
+        viewer.destroy();
+    }
+
+    // initialize viewer.js on next set of images
+    viewer = new Viewer(viewer_container, {
+        inline: false,
+        toolbar: {
+            zoomIn: 1,
+            zoomOut: 1,
+            oneToOne: 1,
+            reset: 1,
+            prev: 1,
+            play: 0,
+            next: 1,
+            rotateLeft: 1,
+            rotateRight: 1,
+            flipHorizontal: 1,
+            flipVertical: 1,
+        }
+    });
+
+    // set img path and label 
+    viewer_img.src = "/public/assets/cross-sections/" + xsection.Image;
+    viewer.alt = xsection.Label || "";
+
+    // update and open viewer 
+    viewer.update();
+    viewer.view(0);
+}
+
+// const view_xsection_btn = document.getElementById(dock_ids.cross_sections)
+const view_xsection_btn = document.getElementById("cross-section-btn");
+view_xsection_btn.addEventListener("click", () => {
+    console.log("Clicked on view cross section button");
+
+    checkLayerExistence(featureLayers.crossSectionLayers.crossSectionA);
+    checkLayerExistence(featureLayers.crossSectionLayers.crossSectionB);
+    checkLayerExistence(featureLayers.crossSectionLayers.crossSectionC);
+    checkLayerExistence(featureLayers.crossSectionLayers.crossSectionD);
+    checkLayerExistence(featureLayers.crossSectionLayers.crossSectionE);
+});
 
 
 /* ------------------------------------------------------------
