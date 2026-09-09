@@ -445,6 +445,13 @@ const featureLayers = {
         boundary1: L.featureGroup(),
         boundary2: L.featureGroup(),
         boundary3: L.featureGroup()
+    },
+    crossSectionLayers: {
+        crossSectionA: L.featureGroup(),
+        crossSectionB: L.featureGroup(),
+        crossSectionC: L.featureGroup(),
+        crossSectionD: L.featureGroup(),
+        crossSectionE: L.featureGroup()
     }
 };
 
@@ -877,10 +884,30 @@ function getLayers(data, ftype) {
                             // getXSectionImage(e.target.feature.properties)
                         }
                     });
+
+                    // add to feature group
+                    switch (feature.properties.XSection) {
+                        case "A":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionA);
+                            break;
+                        case "B":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionB);
+                            break;
+                        case "C":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionC);
+                            break;
+                        case "D":
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionD);
+                            break;
+                        default:
+                            layer.addTo(featureLayers.crossSectionLayers.crossSectionE);
+                            break;
+                    }; // end of switch statement to add to feature group
+
                 } // end of onEachFeature property
             }); // end of L.geoJSON variable assignment
 
-            xsLayer.addTo(map);
+            // xsLayer.addTo(map);
 
             const xsectionLabels = L.geoJSON(data, {
                 pane: 'xsectionPane',
@@ -898,7 +925,7 @@ function getLayers(data, ftype) {
                     });
                 }
             });
-            xsectionLabels.addTo(map);
+            // xsectionLabels.addTo(map);
         } // end of conditional for cross sections 
 
     }); // end of fetch call
