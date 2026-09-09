@@ -1,0 +1,275 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "A",
+                "XSection": "A",
+                "ID": 1,
+                "Image": "geo-map-siegrist-2007-cross-section-a.png"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.9003919,
+                        13.6461282
+                    ],
+                    [
+                        144.7936512,
+                        13.42048
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "B",
+                "XSection": "B",
+                "ID": 2,
+                "Image": "geo-map-siegrist-2007-cross-section-b.png"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.940625,
+                        13.5045909
+                    ],
+                    [
+                        144.8199259,
+                        13.5961209
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "C",
+                "XSection": "C",
+                "ID": 3,
+                "Image": "geo-map-siegrist-2007-cross-section-c.png"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.6770576,
+                        13.4540214
+                    ],
+                    [
+                        144.7892722,
+                        13.3954539
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "D",
+                "XSection": "D",
+                "ID": 4,
+                "Image": "geo-map-siegrist-2007-cross-section-d.png"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.6220451,
+                        13.3410666
+                    ],
+                    [
+                        144.7839351,
+                        13.352917
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "E",
+                "XSection": "E",
+                "ID": 5,
+                "Image": "geo-map-siegrist-2007-cross-section-e.png"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.6504094,
+                        13.3011801
+                    ],
+                    [
+                        144.779593,
+                        13.2989161
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "A",
+                "XSection": "A",
+                "ID": 6,
+                "Image": "geo-map-siegrist-2007-cross-section-a.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.7936471,
+                    13.4204591
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "A'",
+                "XSection": "A",
+                "ID": 7,
+                "Image": "geo-map-siegrist-2007-cross-section-a.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.9004709,
+                    13.6461965
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "B",
+                "XSection": "B",
+                "ID": 8,
+                "Image": "geo-map-siegrist-2007-cross-section-b.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.8197258,
+                    13.5962654
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "B'",
+                "XSection": "B",
+                "ID": 9,
+                "Image": "geo-map-siegrist-2007-cross-section-b.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.940748,
+                    13.5044373
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "C",
+                "XSection": "C",
+                "ID": 10,
+                "Image": "geo-map-siegrist-2007-cross-section-c.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.6769902,
+                    13.4540795
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "C'",
+                "XSection": "C",
+                "ID": 11,
+                "Image": "geo-map-siegrist-2007-cross-section-c.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.7892729,
+                    13.3954535
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "D",
+                "XSection": "D",
+                "ID": 12,
+                "Image": "geo-map-siegrist-2007-cross-section-d.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.6219018,
+                    13.3410722
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "D'",
+                "XSection": "D",
+                "ID": 13,
+                "Image": "geo-map-siegrist-2007-cross-section-d.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.7839397,
+                    13.3529521
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "E",
+                "XSection": "E",
+                "ID": 14,
+                "Image": "geo-map-siegrist-2007-cross-section-e.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.6503454,
+                    13.3011947
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Label": "E'",
+                "XSection": "E",
+                "ID": 15,
+                "Image": "geo-map-siegrist-2007-cross-section-e.png"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    144.7796122,
+                    13.2989166
+                ]
+            }
+        }
+    ]
+}
