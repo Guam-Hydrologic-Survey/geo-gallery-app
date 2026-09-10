@@ -19,22 +19,69 @@ must set map container dimensions (height and width) for visibility
   transform: scale(1.3);
 }
 
-/* custom styles for leaflet tooltip */
+/* custom styles for polygon tooltip */
 .polygon-tooltip {
-    background-color: #2b2b2b;
-    color: #fff;
-    border: 1px solid #666;
-    border-radius: 50px;
-    padding: 6px 10px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Roboto Slab';
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #2b2b2b;
+  color: #fff;
+  border: 1px solid #666;
+  border-radius: 50px;
+  padding: 6px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Roboto Slab';
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .polygon-tooltip::before {
-    border-top-color: #666;
+  border-top-color: #666;
 }
+
+/* custom styles for cross section tooltip */
+
+/* first, strip leaflet's default tooltip for clean card rendering */
+/* .cross-section-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  opacity: 1 !important;
+} */
+
+/* remove default arrow */
+/* .cross-section-tooltip::before {
+  display: none; 
+} */
+
+.cross-section-tooltip-card {
+  width: 220px;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+
+.cross-section-tooltip-card.card-body {
+  text-wrap: wrap;
+}
+
+.cross-section-tooltip-card > h5 {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Roboto Slab';
+}
+
+/* redraw arrow under card */
+/* .cross-section-tooltip-card-arrow {
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-right: 1px solid rgba(0,0,0,0.8);
+  border-bottom: 1px solid rgba(0,0,0,0.8);
+  transform: rotate(45deg);
+  margin: -6px auto 0;
+} */
 
 .leaflet-interactive:focus {
     outline: none;
