@@ -607,8 +607,8 @@ function getLayers(data, ftype) {
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <svg viewBox="0 0 200 200" preserveAspectRatio="none" class="img-fluid rounded-start" role="img" aria-label="Decorative striped rectangle" style="width: 100%; height: 100%; display: block;">
-                                        <rect x="0" y="0" width="200" height="200" fill="#${feature.properties.Hex}"></rect>
+                                    <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="img-fluid rounded-start" role="img" aria-label="Decorative striped rectangle" style="width: 100%; height: 100%; display: block;">
+                                        <rect x="0" y="0" width="100" height="100" fill="#${feature.properties.Hex}"></rect>
                                     </svg>
                                 </div>
                                 <div class="col-md-8">
