@@ -112,18 +112,7 @@ const modalDialog = new bootstrap.Modal(modalElement);
 
 const dock = document.getElementById('dock-control');
 
-// hide and show dock based on visibility of modal
-if (!dock || !modalElement) {
-    console.error('Dock or modal not found');
-} else {
-    modalElement.addEventListener('show.bs.modal', () => {
-        dock.classList.add('hidden');
-    });
-
-    modalElement.addEventListener('hidden.bs.modal', () => {
-        dock.classList.remove('hidden');
-    });
-}
+let galleryOpen = false;
 
 // modalElement.addEventListener('shown.bs.modal', () => {
 //     console.log("Modal gallery is open")
@@ -159,6 +148,40 @@ if (!dock || !xsection_img) {
 
     xsection_img.addEventListener('hidden', () => {
         dock.classList.remove('hidden');
+    });
+}
+
+// hide and show dock based on visibility of modal
+if (!dock || !modalElement) {
+    console.error('Dock or modal not found');
+} else {
+    modalElement.addEventListener('show.bs.modal', () => {
+        dock.classList.add('hidden');
+    });
+
+    modalElement.addEventListener('hidden.bs.modal', () => {
+        // dock.classList.remove('hidden');
+        if (!galleryOpen) {
+            dock.classList.remove('hidden');
+        }
+    });
+}
+
+// hide and show modal based on visibility of viewer 
+if (!gallery || !dock || !modalElement) {
+    console.error('Gallery, dock or modal not found');
+} else {
+    gallery.addEventListener('shown', () => {
+        galleryOpen = true;
+        modalDialog.hide(); // hide modal
+        dock.classList.add('hidden'); // hide dock
+    });
+
+    gallery.addEventListener('hidden', () => {
+        galleryOpen = false;
+        modalDialog.show(); // show modal
+        // dock.classList.remove('hidden'); // show dock
+        // dock.classList.add('hidden'); // dock remains hidden
     });
 }
 
@@ -634,7 +657,8 @@ function getLayers(data, ftype) {
                                         <i class="bi bi-clock-history"></i>
                                         ${feature.properties.Epoch}
                                     </span>
-                                    <p class="card-text">${getDescriptionForPolygon(feature.properties.UnitAbr)}</p>
+
+                                    <p class="card-text" id="polygon-paragraph"></p>
 
                                     <ul class="list-group list-group-horizontal w-100">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -656,6 +680,13 @@ function getLayers(data, ftype) {
                         </div>
                         `;
 
+                        // lookup description for polygon feature and set to target element
+                        const poly_para = document.getElementById("polygon-paragraph");
+
+                        getDescriptionForPolygon(feature.properties.UnitAbr).then(description => {
+                            poly_para.innerText = description;
+                        });
+
                         // show loading screen for image retrieval first and open the modal dialog
                         skeletonDisplay();
                         modalDialog.show();
@@ -667,7 +698,7 @@ function getLayers(data, ftype) {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
                                 gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
-                                console.log(`Sorry, could not find images :-(`);
+                                // console.log(`Sorry, could not find images :-(`);
                             }
                         });
 
@@ -1255,8 +1286,6 @@ function clearGallery() {
 functions and event listeners to show cross section images
 ------------------------------------------------------------ */
 
-let is_xsection_viewer_open = false;
-
 async function viewCrossSection(xsection) {
     const viewer_container = document.getElementById(xsection_viewer_ids.container);
     const viewer_img = document.getElementById(xsection_viewer_ids.img);
@@ -1317,7 +1346,7 @@ async function getDescriptionForPolygon(unit_abr) {
     console.log("Description lookup for Unit Abr: " + unit_abr);
     console.log(info);
 
-    const description = info.paragraph;
+    const description = info[0].paragraph;
 
     // return info.paragraph;
     return description || "No description available for this feature.";
