@@ -98,7 +98,6 @@ async function directoryLookup(full_list, id) {
     const target = Object.keys(full_list).find(key => key === id);
     if (target) {
         found_dir = full_list[target];
-        console.log(`Found ${id}:\n`, found_dir);
     }
     return found_dir;
 }
@@ -160,7 +159,6 @@ app.get('/api/photos/:dir_id', async (req, res) => {
         const filesData = await getPhotosInDirectory(photosDirectory, photosDirectory);
         const foundDir = await directoryLookup(filesData, dirId);
         if (foundDir) {
-            console.log(`Found directory for ${dirId}:`, foundDir);
             res.json({ photos: foundDir });
         } else {
             res.status(404).json({ error: 'Sorry, unable to retrieve photos at this time.' });
@@ -189,8 +187,5 @@ app.get('/api/data/:filename', (req, res) => {
 // start the backend server 
 app.listen(PORT, () => {
     const svr = `http://localhost:${PORT}`;
-    console.log(`\nExample app is listening on ${svr}`);
-    console.log(`>> View Photos API endpoint: ${svr}/api/photos`);
-    console.log(`>> View GeoJSON API endpoint: ${svr}/api/data/points.json`);
-    console.log(`>> View Descriptions API endpoint: ${svr}/descriptions`);
+    console.log(`\nServer: ${svr}`);
 });
