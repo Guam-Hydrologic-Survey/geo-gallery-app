@@ -855,13 +855,26 @@ function getLayers(data, ftype) {
                     }
                 },
                 onEachFeature: (feature, layer) => { 
-                    layer.bindTooltip(
-                        `Cross Section ${feature.properties.Label}`,
+                    // custom cross section tooltip on hover
+
+                    // define card for tooltip 
+                    const xsection_tooltip_card = /* html */ `
+                    <div class="card cross-section-tooltip-card">
+                        <img src="/assets/cross-sections/${feature.properties.Image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5>Cross Section ${feature.properties.Label}</h5>
+                            <p class="card-text">${feature.properties.Description}</p>
+                        </div>
+                    </div>
+                    <div class="cross-section-tooltip-card-arrow"></div>
+                    `;
+
+                    layer.bindTooltip(xsection_tooltip_card,
                         {
                             sticky: true,
                             direction: 'top',
-                            opacity: 0.9,
-                            className: 'polygon-tooltip',
+                            opacity: 1,
+                            className: 'cross-section-tooltip',
                         }
                     );
 
