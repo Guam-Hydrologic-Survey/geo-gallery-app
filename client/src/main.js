@@ -112,6 +112,7 @@ const modalDialog = new bootstrap.Modal(modalElement);
 
 const dock = document.getElementById('dock-control');
 
+// keep track if gallery photo viewer is open 
 let galleryOpen = false;
 
 // modalElement.addEventListener('shown.bs.modal', () => {
@@ -180,8 +181,6 @@ if (!gallery || !dock || !modalElement) {
     gallery.addEventListener('hidden', () => {
         galleryOpen = false;
         modalDialog.show(); // show modal
-        // dock.classList.remove('hidden'); // show dock
-        // dock.classList.add('hidden'); // dock remains hidden
     });
 }
 
@@ -698,13 +697,10 @@ function getLayers(data, ftype) {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
                                 gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
-                                // console.log(`Sorry, could not find images :-(`);
                             }
                         });
 
                         videoLookup(feature.properties.GID);
-
-                        // getDescriptionForPolygon(feature.properties.UnitAbr);
                     });
 
                     layer.on({
@@ -901,7 +897,6 @@ function getLayers(data, ftype) {
                 },
                 onEachFeature: (feature, layer) => { 
                     // custom cross section tooltip on hover
-
                     // define card for tooltip 
                     const xsection_tooltip_card = /* html */ `
                     <div class="card cross-section-tooltip-card">
@@ -939,11 +934,7 @@ function getLayers(data, ftype) {
                             });
                         },
                         click (e) {
-                            // console.log(`Clicked on Cross Section for ${e.target.feature.properties.Label}`);
-                            // viewCrossSection(e.target.feature.properties);
                             // fetch the images for the cross section and display them in the modal
-                            // getXSectionImage(e.target.feature.properties)
-
                             const viewer_container = document.getElementById(xsection_viewer_ids.container);
                             const viewer_img = document.getElementById(xsection_viewer_ids.img);
 
@@ -982,11 +973,8 @@ function getLayers(data, ftype) {
                             // update and open viewer 
                             viewer.update();
                             viewer.view(0);
-
-                            // TODO update tracker of viewer for dock, maybe get instance of viewer instead? 
-                            // is_xsection_viewer_open = true;
-                        }
-                    });
+                        } // end of layer click listener 
+                    }); // end of layer.on
 
                     // add to feature group
                     switch (feature.properties.XSection) {
@@ -1009,8 +997,6 @@ function getLayers(data, ftype) {
 
                 } // end of onEachFeature property
             }); // end of L.geoJSON variable assignment
-
-            // xsLayer.addTo(map);
 
             const xsectionLabels = L.geoJSON(data, {
                 pane: 'xsectionPane',
@@ -1048,7 +1034,6 @@ function getLayers(data, ftype) {
                     }; // end of switch statement to add to feature group
                 }
             });
-            // xsectionLabels.addTo(map);
         } // end of conditional for cross sections 
 
     }); // end of fetch call
@@ -1071,9 +1056,6 @@ async function findImagesSet_v3(searchId) {
 
         const data = await response.json();
         const photos = data.photos;
-
-        console.log(`findImagesSet_v3`);
-        console.log(photos);
         return photos;
 
     } catch (error) {
@@ -1141,15 +1123,6 @@ function displayImages_v3_sub(images) {
     initializeViewer();
 }
 
-function getXSectionImage() {
-    // lookup path from cross_section_images array 
-
-    // fetch the image 
-    // fetch("/public/assets/cross-sections/")
-
-    // display the modal (or maybe use the photo viewer?)
-}
-
 
 /* ------------------------------------------------------------
 functions to retrieve and display available videos 
@@ -1159,26 +1132,16 @@ async function videoLookup(id) {
     // if videos exist for a feature, call display videos 
     const selection = videos.filter(video => video.id === id);
 
-    console.log("Video lookup for ID: " + id);
-    console.log(selection);
-
     if (selection.length > 0) {
-        
-        // document.getElementById(gallery_ids.videos_tab_pane_id).innerHTML = /*html*/ `
-        // ${selection}
-        // <br>
-        // <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Hlg2OLoAacc?si=sjaWNESeFqPR8wdr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        // `;
         document.getElementById(gallery_ids.videos_tab_btn_id).classList.remove("disabled");
         displayVideos(selection);
     } else {
         // add the disabled attribute to the video tab btn 
-        // document.getElementById(gallery_ids.videos_tab_btn_id).removeAttribute("disabled")
         document.getElementById(gallery_ids.videos_tab_btn_id).classList.add("disabled");
 
         document.getElementById(gallery_ids.num_videos).innerHTML = /*html*/ 
-    `<i class="bi bi-play-circle"></i> There are no videos available for this feature
-    `;
+        `<i class="bi bi-play-circle"></i> There are no videos available for this feature
+        `;
 
         const videos_tab_pane = document.getElementById(gallery_ids.video_playlist);
         videos_tab_pane.replaceChildren(); // clear existing content, if any 
@@ -1201,10 +1164,6 @@ function displayVideos(video_list) {
     `;
 
     video_list.forEach((video) => { 
-        // console.log(video.id);
-        // console.log(video.title);
-        // console.log(video.url);
-
         const iframe = document.createElement("iframe");
         iframe.width = "520"; // 560 or 400 or 100% 
         iframe.height = "293"; // 315 or 225 or auto
@@ -1322,11 +1281,8 @@ async function viewCrossSection(xsection) {
     viewer.view(0);
 }
 
-// const view_xsection_btn = document.getElementById(dock_ids.cross_sections)
 const view_xsection_btn = document.getElementById("cross-section-btn");
 view_xsection_btn.addEventListener("click", () => {
-    // console.log("Clicked on view cross section button");
-
     checkLayerExistence(featureLayers.crossSectionLayers.crossSectionA);
     checkLayerExistence(featureLayers.crossSectionLayers.crossSectionB);
     checkLayerExistence(featureLayers.crossSectionLayers.crossSectionC);
@@ -1342,10 +1298,6 @@ lookup descriptions for polygon card
 async function getDescriptionForPolygon(unit_abr) { 
     // if videos exist for a feature, call display videos 
     const info = polygon_units.filter(poly => poly.label.toLowerCase() === unit_abr.toLowerCase());
-
-    console.log("Description lookup for Unit Abr: " + unit_abr);
-    console.log(info);
-
     const description = info[0].paragraph;
 
     // return info.paragraph;
