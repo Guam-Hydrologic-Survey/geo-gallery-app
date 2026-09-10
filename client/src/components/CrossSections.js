@@ -9,7 +9,6 @@ export const xsection_viewer_ids = {
 }
 
 export function CrossSections() {
-    console.log("Added CrossSection viewer to body");
 
     const xsection_viewer_container = document.createElement("div");
     xsection_viewer_container.id = xsection_viewer_ids.container;
@@ -19,6 +18,5 @@ export function CrossSections() {
 
     xsection_viewer_container.append(xsection_viewer_img);
 
-    console.log(xsection_viewer_container);
     return xsection_viewer_container;
 }
