@@ -7,7 +7,8 @@
                 "Label": "A",
                 "XSection": "A",
                 "ID": 1,
-                "Image": "geo-map-siegrist-2007-cross-section-a.png"
+                "Image": "geo-map-siegrist-2007-cross-section-a.png", 
+                "Description": "North Shore Pagu Bay > Tarague Beach"
             },
             "geometry": {
                 "type": "LineString",
@@ -29,7 +30,8 @@
                 "Label": "B",
                 "XSection": "B",
                 "ID": 2,
-                "Image": "geo-map-siegrist-2007-cross-section-b.png"
+                "Image": "geo-map-siegrist-2007-cross-section-b.png",
+                "Description": "Haputo Point > Mount Santa Rosa"
             },
             "geometry": {
                 "type": "LineString",
@@ -51,7 +53,8 @@
                 "Label": "C",
                 "XSection": "C",
                 "ID": 3,
-                "Image": "geo-map-siegrist-2007-cross-section-c.png"
+                "Image": "geo-map-siegrist-2007-cross-section-c.png",
+                "Description": "Sasa Valley > Mount Chachao > Sigua River > Tagachao Point"
             },
             "geometry": {
                 "type": "LineString",
@@ -73,7 +76,8 @@
                 "Label": "D",
                 "XSection": "D",
                 "ID": 4,
-                "Image": "geo-map-siegrist-2007-cross-section-d.png"
+                "Image": "geo-map-siegrist-2007-cross-section-d.png",
+                "Description": "Facpi Island > Fena Valley Reservoir > Talofofo Cave"
             },
             "geometry": {
                 "type": "LineString",
@@ -95,7 +99,8 @@
                 "Label": "E",
                 "XSection": "E",
                 "ID": 5,
-                "Image": "geo-map-siegrist-2007-cross-section-e.png"
+                "Image": "geo-map-siegrist-2007-cross-section-e.png",
+                "Description": "Umatac River > Mount Bolanos > Ugum River > Pauliluc River"
             },
             "geometry": {
                 "type": "LineString",
