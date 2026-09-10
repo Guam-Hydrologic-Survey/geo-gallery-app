@@ -11,3 +11,11 @@ tutorial.css
 .term:hover {
     font-style: italic;
 }
+
+#tutorial ul {
+    list-style: disc;
+}
+
+#tutorial li + li {
+    margin-top: 0.5em;
+}
