@@ -103,7 +103,6 @@ L.Icon.Default.mergeOptions({
 modal handling for photo gallery
 ------------------------------------------------------------ */
 
-
 // modal body
 const gallery = document.getElementById(gallery_ids.gallery);
 
@@ -126,13 +125,13 @@ if (!dock || !modalElement) {
     });
 }
 
-modalElement.addEventListener('shown.bs.modal', () => {
-    console.log("Modal gallery is open")
-});
+// modalElement.addEventListener('shown.bs.modal', () => {
+//     console.log("Modal gallery is open")
+// });
 
-modalElement.addEventListener('hidden.bs.modal', () => {
-    console.log("Modal gallery is hidden");
-});
+// modalElement.addEventListener('hidden.bs.modal', () => {
+//     console.log("Modal gallery is hidden");
+// });
 
 // for photo lightbox
 let viewer;
@@ -147,6 +146,21 @@ document.addEventListener('keydown', (pressed) => {
         }
     }
 }, true);
+
+const xsection_img = document.getElementById(xsection_viewer_ids.container);
+
+// hide and show dock based on visibility of cross section image viewer
+if (!dock || !xsection_img) {
+    console.error('Dock or cross section image not found');
+} else {
+    xsection_img.addEventListener('shown', () => {
+        dock.classList.add('hidden');
+    });
+
+    xsection_img.addEventListener('hidden', () => {
+        dock.classList.remove('hidden');
+    });
+}
 
 
 /* ------------------------------------------------------------
@@ -860,7 +874,7 @@ function getLayers(data, ftype) {
                     // define card for tooltip 
                     const xsection_tooltip_card = /* html */ `
                     <div class="card cross-section-tooltip-card">
-                        <img src="/assets/cross-sections/${feature.properties.Image}" class="card-img-top" alt="...">
+                        <img src="/assets/cross-sections/${feature.properties.Image}" class="card-img-top" alt="cross-section-${feature.properties.XSection.toLowerCase()}-image">
                         <div class="card-body">
                             <h5>Cross Section ${feature.properties.Label}</h5>
                             <p class="card-text">${feature.properties.Description}</p>
@@ -894,7 +908,7 @@ function getLayers(data, ftype) {
                             });
                         },
                         click (e) {
-                            console.log(`Clicked on Cross Section for ${e.target.feature.properties.Label}`);
+                            // console.log(`Clicked on Cross Section for ${e.target.feature.properties.Label}`);
                             // viewCrossSection(e.target.feature.properties);
                             // fetch the images for the cross section and display them in the modal
                             // getXSectionImage(e.target.feature.properties)
@@ -910,18 +924,23 @@ function getLayers(data, ftype) {
                             // initialize viewer.js on next set of images
                             viewer = new Viewer(viewer_container, {
                                 inline: false,
+                                magnifier: {
+                                    size: 120,
+                                    zoomRatio: 3,
+                                    opacity: 0.8
+                                },
                                 toolbar: {
                                     zoomIn: 1,
                                     zoomOut: 1,
                                     oneToOne: 1,
                                     reset: 1,
-                                    prev: 1,
+                                    prev: 0,
                                     play: 0,
-                                    next: 1,
-                                    rotateLeft: 1,
-                                    rotateRight: 1,
-                                    flipHorizontal: 1,
-                                    flipVertical: 1,
+                                    next: 0,
+                                    rotateLeft: 0,
+                                    rotateRight: 0,
+                                    flipHorizontal: 0,
+                                    flipVertical: 0,
                                 }
                             });
 
@@ -1277,7 +1296,7 @@ async function viewCrossSection(xsection) {
 // const view_xsection_btn = document.getElementById(dock_ids.cross_sections)
 const view_xsection_btn = document.getElementById("cross-section-btn");
 view_xsection_btn.addEventListener("click", () => {
-    console.log("Clicked on view cross section button");
+    // console.log("Clicked on view cross section button");
 
     checkLayerExistence(featureLayers.crossSectionLayers.crossSectionA);
     checkLayerExistence(featureLayers.crossSectionLayers.crossSectionB);
