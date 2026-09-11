@@ -2,6 +2,8 @@
 
 Developed by the Guam Hydrologic Survey Information Management Team at WERI
 
+From the project root directory, run the following commands: 
+
 ## Install dependencies 
 
 ```
