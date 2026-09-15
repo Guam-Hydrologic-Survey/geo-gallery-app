@@ -95,7 +95,7 @@ function ToggleBaseMaps() {
     <ul class="list-group">
         <li class="list-group-item">
             <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${basemap_radios.osm}" checked>
-            <label class="form-check-label" for="${basemap_radios.osm}">Open Street Map</label>
+            <label class="form-check-label" for="${basemap_radios.osm}">World Topo Map (ESRI)</label>
         </li>
         <li class="list-group-item">
             <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="${basemap_radios.esri_world_img}">

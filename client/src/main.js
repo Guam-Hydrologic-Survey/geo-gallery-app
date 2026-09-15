@@ -50,32 +50,38 @@ const defaultZoom = 12;
 
 // initialize map
 const map = L.map('map', {
+    attributionControl: false,
     center: center,
     zoom: defaultZoom,
     zoomControl: false,
 });
 
+// add your name and the year the project was made here
+const names = "Guam Hydrologic Survey Information Management Team";
+const year = 2026;
+
+const devs = ` | <a href="https://weri.uog.edu/"><img src="/assets/WERI-Logo.ico" style="height: 15px;"/> WERI</a> - <a href="https://guamhydrologicsurvey.uog.edu/">GHS</a>: ${names} ${year}`;
+
+let attributionControl = L.control.attribution().addTo(map);
+attributionControl.setPrefix('<a href="https://leafletjs.com/">Leaflet</a> | Tiles &copy; Esri | <a href="https://weri.uog.edu/">WERI</a> - <a href="https://guamhydrologicsurvey.uog.edu/">GHS</a>: Guam Hydrologic Survey Information Management Team 2026  ');
+
 // open street map
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap',
         className: 'fade-layer',
     });
 
 // esri imagery map
 const ewi = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri',
         className: 'fade-layer',
     });
 
 // esri world topo map
 const ewtm = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri',
         className: 'fade-layer',
     });
 
 // esri world gray canvas map
 const ewgc = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri',
         className: 'fade-layer',
     });
 
