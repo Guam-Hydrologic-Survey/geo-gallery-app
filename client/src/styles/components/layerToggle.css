@@ -72,3 +72,15 @@ layerToggle.css
     padding: 0px;
     margin: 0px;
 }
+
+#layers-panel-one {
+    min-height: 500px;
+}
+
+#layers-panel-two {
+    min-height: 500px;
+}
+
+#layers-panel-three {
+    min-height: 500px;
+}
