@@ -14,7 +14,7 @@ import { MapContainer } from './components/MapContainer.js';
 import { NavBar } from './components/NavBar2.js';
 import { About } from './components/About2.js';
 import { Legend } from './components/Legend4.js';
-import { Tutorial } from './components/Tutorial2.js';
+import { Tutorial } from './components/Tutorial3.js';
 import { Gallery } from './components/Gallery2.js';
 import { Dock } from './components/Dock2.js';
 import { LayerToggle } from './components/LayerToggle.js';
@@ -114,14 +114,6 @@ const dock = document.getElementById('dock-control');
 
 // keep track if gallery photo viewer is open 
 let galleryOpen = false;
-
-// modalElement.addEventListener('shown.bs.modal', () => {
-//     console.log("Modal gallery is open")
-// });
-
-// modalElement.addEventListener('hidden.bs.modal', () => {
-//     console.log("Modal gallery is hidden");
-// });
 
 // for photo lightbox
 let viewer;
@@ -714,7 +706,6 @@ function getLayers(data, ftype) {
                             // });
 
                             layer.bringToFront();
-                            // console.log(feature.properties.UnitAbr);
                         },
                         mouseout(e) {
                             // polyLayer.resetStyle(e.target);

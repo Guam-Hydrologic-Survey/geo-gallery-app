@@ -21,6 +21,14 @@ export function Tutorial() {
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     `;
 
+    const popover_contents_layer_toggle = /*html*/ `
+    A side panel containing options to change the base map tiles and toggle feature layers on and off. Trigger by clicking on this icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg> 
+    `;
+
+    const popover_contents_layer_transparency = /*html*/ `
+    A side panel containing a slider to change the opacity of the polygon layers. It ranges from 0% to 100% and provides the option to reset to the default polygon layer transparency. Trigger by clicking on this icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-square-icon lucide-scan-square"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect width="8" height="8" x="8" y="8" rx="1"/></svg>
+    `;
+
     // modal body 
     const body = document.createElement("div");
     body.className = "modal-body";
@@ -29,9 +37,9 @@ export function Tutorial() {
     <p class="text-italicize">Here's a quick guide on the app's features:</p>
     <ul>
         <li>To use this map, click on a <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Polygons" data-bs-content="Colored shapes covering areas on the map">polygon</span> or <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Points" data-bs-content="Markers with different icons overlaying the map">point</span> to view available photos from that site.</li>
-        <li>To adjust the visibility of the map features, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Layer Toggle" data-bs-content="A side panel containing options to change the base map tiles and toggle feature layers on and off">layer toggle</span> on the dock at the bottom.</li>
-        <li>To adjust the transparency of the polygon layers, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Adjust Layer Transparency" data-bs-content="A side panel containing a slider to change the opacity of the polygon layers. It ranges from 0% to 100% and provides the option to reset to the default polygon layer transparency.">layer transparency slider</span> on the dock at the bottom.</li>
-        <li>To view cross sections of the aquifer, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="View Cross Sections of the Aquifer" data-bs-content="Adds the cross sections of the aquifer as lines. To view a specific cross section, click on one of the blue lines on the map">cross sections viewer</span> on the dock at the bottom.</li>
+        <li>To adjust the visibility of the map features, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true" data-bs-title="Layer Toggle" data-bs-content='${popover_contents_layer_toggle}'>layer toggle</span> on the dock at the bottom.</li>
+        <li>To adjust the transparency of the polygon layers, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true" data-bs-title="Adjust Layer Transparency" data-bs-content='${popover_contents_layer_transparency}'>layer transparency slider</span> on the dock at the bottom.</li>
+        <li>To view cross sections of the aquifer, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true" data-bs-title="View Cross Sections of the Aquifer" data-bs-content="Adds the cross sections of the aquifer as lines. To view a specific cross section, click on one of the blue lines on the map">cross sections viewer</span> on the dock at the bottom.</li>
         <li>Control the zoom levels of the map using the magnifying glass buttons on the dock at the bottom</li>
         <li>To recenter the map back to its default position, click on the recenter button on the dock at the bottom</li>
     </ul>
@@ -61,8 +69,7 @@ export function Tutorial() {
     const footer = document.createElement("div");
     footer.className = "modal-footer";
     footer.innerHTML = /*html*/ `
-    <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Next</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     `;
 
     // wrapper for header, body, and footer 
@@ -77,9 +84,20 @@ export function Tutorial() {
 
     modal.append(content_wrapper);
 
+    // extend boostrap so svg markup isn't stripped 
+    const allowList = bootstrap.Tooltip.Default.allowList;
+    allowList.svg = ['xmlns', 'width', 'height', 'viewbox', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'class'];
+    allowList.path = ['d', 'fill'];
+    allowList.rect = ['width', 'height', 'x', 'y', 'rx', 'ry'];
+    allowList.circle = ['cx', 'cy', 'r'];
+    allowList.line = ['x1', 'x2', 'y1', 'y2'];
+    allowList.polyline = ['points'];
+    allowList.polygon = ['points'];
+    allowList.use = ['href', 'xlink:href'];
+
     // create instance of bootstrap popovers
     modal.querySelectorAll(`[data-bs-toggle="popover"]`).forEach(el => {
-        new bootstrap.Popover(el);
+        new bootstrap.Popover(el, { allowList: allowList});
     })
 
     return modal;
