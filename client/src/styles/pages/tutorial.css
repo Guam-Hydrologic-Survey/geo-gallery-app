@@ -13,5 +13,20 @@ tutorial.css
 }
 
 #tutorial.modal-body {
-    min-height: 500px;
+    min-height: 600px;
+}
+
+.tab-container > .tab-content {
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.tab-content > .tab-pane {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.tab-content > .tab-pane > ul {
+    list-style-type: disc;
 }

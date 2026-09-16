@@ -29,6 +29,17 @@ export function Tutorial() {
     A side panel containing a slider to change the opacity of the polygon layers. It ranges from 0% to 100% and provides the option to reset to the default polygon layer transparency. Trigger by clicking on this icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-square-icon lucide-scan-square"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect width="8" height="8" x="8" y="8" rx="1"/></svg>
     `;
 
+    const popover_contents_cross_sections = /*html*/ `
+    Adds the cross sections of the aquifer as lines. To view a specific cross section, click on one of the blue lines on the map. To display on the map, click on the button with this icon on the dock below:
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-intersect" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2zm5 10v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2v5a2 2 0 0 1-2 2zm6-8V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2V6a2 2 0 0 1 2-2z"/>
+    </svg>
+    `;
+
+    const popover_contents_recenter = /*html*/ `
+
+    `;
+
     let current = 0;
 
     // modal body 
@@ -39,29 +50,29 @@ export function Tutorial() {
     <p class="text-italicize">Here's a quick guide on the app's features.</p>
     <div class="tab-container">
         <div class="d-flex align-items-start">
-            <ul class="nav nav-pills flex-column me-3" style="min-width: 150px;" role="tablist">
-                <li class="nav-item" role="presentation">
+            <ul class="nav nav-pills nav-fill flex-column me-3" style="min-width: 150px;" role="tablist">
+                <li class="nav-item text-start" role="presentation">
                     <button class="nav-link active" id="tutorial-1" data-bs-toggle="tab" data-bs-target="#tutorial-contents-1" type="button" role="tab">Get started</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-start">
                     <button class="nav-link" id="tutorial-2" data-bs-toggle="tab" data-bs-target="#tutorial-contents-2" type="button" role="tab">Toggle layers</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-start">
                     <button class="nav-link" id="tutorial-3" data-bs-toggle="tab" data-bs-target="#tutorial-contents-3" type="button" role="tab">Adjust layer transparency</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-start">
                     <button class="nav-link" id="tutorial-4" data-bs-toggle="tab" data-bs-target="#tutorial-contents-4" type="button" role="tab">View cross sections</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-start">
                     <button class="nav-link" id="tutorial-5" data-bs-toggle="tab" data-bs-target="#tutorial-contents-5" type="button" role="tab">Zoom controls</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-start">
                     <button class="nav-link" id="tutorial-6" data-bs-toggle="tab" data-bs-target="#tutorial-contents-6" type="button" role="tab">Pin location</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-start">
                     <button class="nav-link" id="tutorial-7" data-bs-toggle="tab" data-bs-target="#tutorial-contents-7" type="button" role="tab">Legend contents</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-start">
                     <button class="nav-link" id="tutorial-8" data-bs-toggle="tab" data-bs-target="#tutorial-contents-8" type="button" role="tab">Navigation contents</button>
                 </li>
             </ul>
@@ -70,36 +81,48 @@ export function Tutorial() {
                 <div class="tab-pane fade show active" id="tutorial-contents-1" role="tabpanel">
                     To use this map, click on a <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Polygons" data-bs-content="Colored shapes covering areas on the map">polygon</span> or <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="Points" data-bs-content="Markers with different icons overlaying the map">point</span> to view available photos from that site.
                     <br><br>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/n9hkel0uOsg?si=Xzszw7KcZKAea3lR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/n9hkel0uOsg?si=Xzszw7KcZKAea3lR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="tab-pane fade" id="tutorial-contents-2" role="tabpanel">
                     To adjust the visibility of the map features, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true" data-bs-title="Layer Toggle" data-bs-content='${popover_contents_layer_toggle}'>layer toggle</span> on the dock at the bottom.
                     <br><br>
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xQV-Jr30wco?si=IXZv0QHdxUHfWg5O" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xQV-Jr30wco?si=IXZv0QHdxUHfWg5O" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="tab-pane fade" id="tutorial-contents-3" role="tabpanel">
                     To adjust the transparency of the polygon layers, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true" data-bs-title="Adjust Layer Transparency" data-bs-content='${popover_contents_layer_transparency}'>layer transparency slider</span> on the dock at the bottom.
                     <br><br>
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AnqjZEAzxOE?si=pY8m6zQggdyVugXX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/AnqjZEAzxOE?si=pY8m6zQggdyVugXX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
                 </div>
                 <div class="tab-pane fade" id="tutorial-contents-4" role="tabpanel">
-                    To view cross sections of the aquifer, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true" data-bs-title="View Cross Sections of the Aquifer" data-bs-content="Adds the cross sections of the aquifer as lines. To view a specific cross section, click on one of the blue lines on the map">cross sections viewer</span> on the dock at the bottom.
+                    To view cross sections of the aquifer, check out the <span class="term" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true" data-bs-title="View Cross Sections of the Aquifer" data-bs-content='${popover_contents_cross_sections}'>cross sections viewer</span> on the dock at the bottom.
                     <br><br>
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YJ4Uhz1elvg?si=oHZIqmceMSLW3zuG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YJ4Uhz1elvg?si=oHZIqmceMSLW3zuG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="tab-pane fade" id="tutorial-contents-5" role="tabpanel">
-                    Control the zoom levels of the map using the magnifying glass buttons on the dock at the bottom. To recenter the map back to its default position, click on the recenter button on the dock at the bottom. 
+                    Control the zoom levels of the map using the magnifying glass buttons on the dock at the bottom. <br>To recenter the map back to its default position, click on the recenter button on the dock at the bottom. 
                     <br><br>
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/q05xVzLajx4?si=nOKKqt99c0C94I8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/q05xVzLajx4?si=nOKKqt99c0C94I8M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="tab-pane fade" id="tutorial-contents-6" role="tabpanel">
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/lRCkfvEpeJU?si=5R-yjOgt5xvuFrTV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    To pin your current location on the map, click on the locate button (denoted by the target icon) on the dock.
+                    <br><br>
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/lRCkfvEpeJU?si=5R-yjOgt5xvuFrTV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="tab-pane fade" id="tutorial-contents-7" role="tabpanel">
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5-a7CwEc6fA?si=p-lESyjqXSUp2qs9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    The legend panel features keys for all the map features, including short descriptions of the geologic layers. 
+                    To open the legend panel, click on the legend button (denoted by the list icon) on the navigation bar (located on the top right of the map).
+                    <br><br>
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5-a7CwEc6fA?si=p-lESyjqXSUp2qs9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="tab-pane fade" id="tutorial-contents-8" role="tabpanel">
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/csTBv0Gfif0?si=t_AJt_bDPx65b3Vk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    The navigation bar, located on the top right corner of the map, features the following buttons from left to right:
+                    <ul>
+                        <li>About (information icon) - Displays the project description and related links (e.g., associated WERI technical reports, references, map libraries on the Guam Hydrologic Survey website)</li>
+                        <li>Tutorial (question mark icon) - Displays a quick walkthrough of the app's features and where to find them</li>
+                        <li>Legend (list icon) - Displays descriptions of the map features</li>
+                        <li>Link (chain link icon) - Dropdown menu of links to the WERI and Guam Hydrologic Survey (GHS) websites</li>
+                    </ul>
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/csTBv0Gfif0?si=t_AJt_bDPx65b3Vk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; compute-pressure" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </div> <!-- end of tab contents -->
 
