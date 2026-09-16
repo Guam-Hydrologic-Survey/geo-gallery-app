@@ -151,7 +151,7 @@ export const polygon_units = [
             label: "Tbl",
             description: "Barrigada limestone",
             hexcode: "c1e1bc",
-            paragraph: "Barrigada limestone (Miocene and Pliocene)-massive well-lithified to friable medium- to coarse-grained white foraminiferal limestone characterized by the Foraminifera Operculina, Gypsina, and Cycloclypeus. Corals and molluscs present at the top of the formation where it locally grades upward into the Mariana limestone. Unconformable with the Mariama limestone in parts of north Guam. Maximum thickness unknown but exceeds 540 feet",
+            paragraph: "Barrigada limestone (Miocene and Pliocene)-massive well-lithified to friable medium- to coarse-grained white foraminiferal limestone characterized by the Foraminifera Operculina, Gypsina, and Cycloclypeus. Corals and molluscs present at the top of the formation where it locally grades upward into the Mariana limestone. Unconformable with the Mariana limestone in parts of north Guam. Maximum thickness unknown but exceeds 540 feet",
             epoch: "Miocene and Pliocene"
         },
         {
