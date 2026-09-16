@@ -12,14 +12,6 @@ tutorial.css
     font-style: italic;
 }
 
-/* #tutorial ul {
-    list-style: disc;
-}
-
-#tutorial li + li {
-    margin-top: 0.5em;
-} */
-
 #tutorial.modal-body {
     min-height: 500px;
 }

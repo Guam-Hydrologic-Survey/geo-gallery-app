@@ -19,14 +19,11 @@ layerToggle.css
 
 .layer-toggle-description {
     font-size: 14px;
-    /* font-style: italic; */
-    /* color: #495057; */
     color: #6c757d;
 }
 
 .layer-row {
     display: flex;
-    /* flex-direction: row; */
     gap: 10px;
     justify-content: space-between;
     align-items: center;
@@ -48,14 +45,8 @@ layerToggle.css
     cursor: pointer;
 }
 
-.layer-swatch {
-    /* height: 30px;
-    width: 30px; */
-}
-
 .layer-key {
     display: flex;
-    /* align-items: center; */
     justify-content: flex-start;
     flex-direction: column;
 }

@@ -4,24 +4,6 @@ nav.css
 - e.g., positioning, height, spacing, and link states 
 ------------------------------------------------------------ */
 
-/* head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.25rem;
-    height: 52px;
-    z-index: 1100;
-} */
-
-/* .bs-btn-group {
-    margin: 20px;
-}
-
-.btn-group { 
-    z-index: 9999;
-    float: right;
-} */
-
 .custom-navbar {
     background-color: rgba(17, 25, 40, 0.75) !important;
     backdrop-filter: blur(16px) saturate(180%);
@@ -35,11 +17,7 @@ nav.css
 #navbar svg {
     width: 24px;
     height: 24px;
-    /* stroke: #333; */
     stroke: white;
-    /* width: 22px;
-    height: 22px;
-    stroke: #fff; */
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
@@ -49,13 +27,11 @@ nav.css
     left: 50%;
     transform: translateX(-50%) translateY(2px);
     white-space: nowrap;
-    /* background-color: #333; */
     background-color: rgba(20, 20, 20, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     color: #fff;
     padding: 4px 8px;
-    /* border-radius: 4px; */
     border-radius: 6px;
     font-size: 12px;
     opacity: 0;

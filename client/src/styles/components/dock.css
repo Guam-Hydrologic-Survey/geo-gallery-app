@@ -47,17 +47,6 @@ dock.css
 }
 
 .dock button {
-    /* background: none;
-    border: none; 
-    background-color: #333;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    transition: transform 0.2s;
-    position: relative; */
-    /* background: rgba(255, 255, 255, 0.08); */
-    /* background-color: #333;
-    border: 1px solid rgba(255, 255, 255, 0.15); */
     background: rgba(255, 255, 255, 0.22);
     border-color: rgba(255, 255, 255, 0.35);
     cursor: pointer;
@@ -71,9 +60,6 @@ dock.css
 }
 
 .dock button:hover {
-    /* transform: scale(1.2); */
-    /* background-color: rgba(0, 0, 0, 0.05); */
-    /* background-color: #131112; */
     transform: scale(1.15);
     background: rgba(255, 255, 255, 0.22);
     border-color: rgba(255, 255, 255, 0.75);
@@ -86,11 +72,7 @@ dock.css
 .dock svg {
     width: 24px;
     height: 24px;
-    /* stroke: #333; */
     stroke: white;
-    /* width: 22px;
-    height: 22px;
-    stroke: #fff; */
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
@@ -100,13 +82,11 @@ dock.css
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
-    /* background-color: #333; */
     background-color: rgba(20, 20, 20, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     color: #fff;
     padding: 4px 8px;
-    /* border-radius: 4px; */
     border-radius: 6px;
     font-size: 12px;
     opacity: 0;
@@ -119,41 +99,3 @@ dock.css
     opacity: 1;
     transform: translateX(-50%) translateY(-4px);
 }
-
-/* .dock .dropdown-toggle::after {
-    display: none;
-}
-
-.dock .dropdown-menu {
-    bottom: 50px;
-    background-color: #222;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.dock .dropdown-item {
-    color: #fff;
-    padding: 10px 16px;
-    font-size: 14px;
-}
-
-.dock .dropdown-item:hover {
-    background-color: #444;
-}
-
-.dock .form-check {
-    padding-left: 2.5rem;
-    color: #fff;
-}
-
-.dock .form-check-input {
-    margin-left: -1.5rem;
-    margin-right: 0.5rem;
-}
-
-.dock .form-check-label {
-    font-size: 14px;
-} */
