@@ -899,7 +899,7 @@ function getLayers(data, ftype) {
                     <div class="card cross-section-tooltip-card">
                         <img src="/assets/cross-sections/${feature.properties.Image}" class="card-img-top" alt="cross-section-${feature.properties.XSection.toLowerCase()}-image">
                         <div class="card-body">
-                            <h5>Cross Section ${feature.properties.Label}</h5>
+                            <h5>Cross Section ${feature.properties.Label} to ${feature.properties.Label}'</h5>
                             <p class="card-text">${feature.properties.Description}</p>
                         </div>
                     </div>
