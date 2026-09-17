@@ -689,7 +689,7 @@ function getLayers(data, ftype) {
                         modalDialog.show();
 
                         findImagesSet_v3(feature.properties.GID).then(target => { 
-                            if (target.images != null) {
+                            if (target && target.images != null) {
                                 displayImages_v3(target.images);
                             } else {
                                 clearGallery();
@@ -832,7 +832,7 @@ function getLayers(data, ftype) {
                         modalDialog.show();
 
                         findImagesSet_v3(feature.properties.PID).then(target => { 
-                            if (target.images != null) {
+                            if (target && target.images != null) {
                                 displayImages_v3(target.images);
                                 document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
@@ -1049,15 +1049,15 @@ async function findImagesSet_v3(searchId) {
 
         if (!response.ok) {
             throw new Error(`API error: ${response.statusText}`);
-        }
+        } 
 
         const data = await response.json();
         const photos = data.photos;
-        return photos;
+        return photos; 
 
     } catch (error) {
         console.error('Error fetching file: ', error);
-        return null;
+        return undefined; 
     }
 }
 
