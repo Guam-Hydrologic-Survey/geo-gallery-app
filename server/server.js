@@ -1,4 +1,4 @@
-// require('dotenv').config(); // load environment variables 
+require('dotenv').config(); // load environment variables 
 
 const express = require('express');
 const cors = require('cors');
@@ -11,8 +11,7 @@ const Papa = require('papaparse');
 
 const app = express();
 
-// const PORT = process.env.PORT || 3000; 
-const PORT = 3000; 
+const PORT = process.env.PORT || 3000; 
 
 const photosDirectory = path.join(__dirname, '../uploads');
 
@@ -26,8 +25,11 @@ app.use(cors()); // enable cors for frontend requests
 app.use(photos_serve, express.static(photosDirectory));
 // app.use('/description', express.static(photosDirectory));
 
+// trust proxy since this is sitting behind NGINX
+app.set('trust proxy', 1);
+
 // server frontend
-// app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 async function detectFileType(filePath) {
     const fileHandle = await fs.promises.open(filePath, 'r');
