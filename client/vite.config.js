@@ -3,23 +3,29 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
     server: {
+       // host: '0.0.0.0', 
+       // port: 5173,
+
+	allowedHosts: 'all',
+
         proxy: {
             // proxy for API endpoints 
             '/api': {
-                target: 'http://localhost:3000', // backend API server
+                target: 'https://geo-gallery-app-backend.loca.lt', // backend API server
                 changeOrigin: true, 
             },
             // proxy for static photos
             '/photos': {
-                target: 'http://localhost:3000',
+                target: 'https://geo-gallery-app-backend.loca.lt',
                 changeOrigin: true
             },
             // proxy for static text files
             '/descriptions': {
-                target: 'http://localhost:3000',
+                target: 'https://geo-gallery-app-backend.loca.lt',
                 changeOrigin: true,
             }
-        }
+	}
+
     },
     plugins: [
         tailwindcss(),

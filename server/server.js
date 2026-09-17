@@ -19,16 +19,17 @@ const image_extensions = ['.jpg', '.jpeg', '.png'];
 
 const photos_serve = '/photos/';
 
-app.use(cors()); // enable cors for frontend requests
+//app.use(cors()); // enable cors for frontend requests
 
 // serve static files 
 app.use(photos_serve, express.static(photosDirectory));
 // app.use('/description', express.static(photosDirectory));
 
-// trust proxy since this is sitting behind NGINX
+// Trust proxy since this is sitting behind NGINX
 app.set('trust proxy', 1);
 
 // server frontend
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 async function detectFileType(filePath) {
@@ -182,9 +183,9 @@ app.get('/api/data/:filename', (req, res) => {
 });
 
 // // SPA fallback for vite apps 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-// });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 // start the backend server 
 app.listen(PORT, () => {
