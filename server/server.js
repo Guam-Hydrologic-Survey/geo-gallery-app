@@ -1,4 +1,4 @@
-// require('dotenv').config(); // load environment variables 
+require('dotenv').config(); // load environment variables 
 
 const express = require('express');
 const cors = require('cors');
@@ -11,8 +11,8 @@ const Papa = require('papaparse');
 
 const app = express();
 
-// const PORT = process.env.PORT || 3000; 
-const PORT = 3000; 
+const PORT = process.env.PORT || 3000; 
+//const PORT = 3000; 
 
 const photosDirectory = path.join(__dirname, '../uploads');
 
@@ -20,14 +20,17 @@ const image_extensions = ['.jpg', '.jpeg', '.png'];
 
 const photos_serve = '/photos/';
 
-app.use(cors()); // enable cors for frontend requests
+//app.use(cors()); // enable cors for frontend requests
 
 // serve static files 
 app.use(photos_serve, express.static(photosDirectory));
 // app.use('/description', express.static(photosDirectory));
 
+// Trust proxy since this is sitting behind NGINX
+app.set('trust proxy', 1);
+
 // server frontend
-// app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 async function detectFileType(filePath) {
     const fileHandle = await fs.promises.open(filePath, 'r');
@@ -180,9 +183,9 @@ app.get('/api/data/:filename', (req, res) => {
 });
 
 // // SPA fallback for vite apps 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-// });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 // start the backend server 
 app.listen(PORT, () => {

@@ -75,7 +75,7 @@ async function findImageSet(apiUrl, searchId) {
             if (point.match(searchId.split("_", 1)[0])) {
                 if (pointData.files && Array.isArray(pointData.files)) {
                     pointData.files.forEach((photo) => {
-                        photosPaths.push('http://localhost:3000/photos/' + photo);
+                        photosPaths.push('/photos/' + photo);
                     }
                 );}
                 break;
