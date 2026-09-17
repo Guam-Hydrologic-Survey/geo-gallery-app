@@ -699,6 +699,7 @@ function getLayers(data, ftype) {
                         })
                         .catch(error => {
                             console.error("Error fetching file: ", error);
+                            document.getElementById(gallery_ids.num_photos).innerText = "";
                             gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, something went wrong loading the photos. Please try again.</p>`;
                         });
 
@@ -847,6 +848,7 @@ function getLayers(data, ftype) {
                         })
                         .catch(error => {
                             console.error("Error fetching file: ", error);
+                            document.getElementById(gallery_ids.num_photos).innerText = "";
                             gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, something went wrong loading the photos. Please try again.</p>`;
                         });
 
