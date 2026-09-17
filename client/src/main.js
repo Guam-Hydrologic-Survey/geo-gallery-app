@@ -689,13 +689,17 @@ function getLayers(data, ftype) {
                         modalDialog.show();
 
                         findImagesSet_v3(feature.properties.GID).then(target => { 
-                            if (target && target.images != null) {
+                            if (target != null) {
                                 displayImages_v3(target.images);
                             } else {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
                                 gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
                             }
+                        })
+                        .catch(error => {
+                            console.error("Error fetching file: ", error);
+                            gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, something went wrong loading the photos. Please try again.</p>`;
                         });
 
                         videoLookup(feature.properties.GID);
@@ -832,16 +836,20 @@ function getLayers(data, ftype) {
                         modalDialog.show();
 
                         findImagesSet_v3(feature.properties.PID).then(target => { 
-                            if (target && target.images != null) {
+                            if (target != null) {
                                 displayImages_v3(target.images);
                                 document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
                                 gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
-                                console.log(`Sorry, could not find images :-(`);
                             }
+                        })
+                        .catch(error => {
+                            console.error("Error fetching file: ", error);
+                            gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, something went wrong loading the photos. Please try again.</p>`;
                         });
+
 
                         videoLookup(feature.properties.PID);
                     });// end of layer on click listener 
@@ -1044,21 +1052,15 @@ image retrieval functions
 
 // updated version 
 async function findImagesSet_v3(searchId) {
-    try {
-        const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
+    const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
 
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        } 
+    if (!response.ok) {
+        throw new Error(`API error: ${response.statusText}`);
+    } 
 
-        const data = await response.json();
-        const photos = data.photos;
-        return photos; 
-
-    } catch (error) {
-        console.error('Error fetching file: ', error);
-        return undefined; 
-    }
+    const data = await response.json();
+    const photos = data.photos;
+    return photos; 
 }
 
 async function displayImages_v3(images) {
