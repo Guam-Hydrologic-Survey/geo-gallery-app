@@ -1054,18 +1054,6 @@ image retrieval functions
 
 
 // updated version 
-async function findImagesSet_v3(searchId) {
-    const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
-
-    if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
-    } 
-
-    const data = await response.json();
-    const photos = data.photos;
-    return photos; 
-}
-
 async function findImagesSet_v4(searchId) {
     // const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
     const [photoRes, thumbRes] = await Promise.all([
@@ -1129,50 +1117,6 @@ async function displayImages_v4(images) {
             img.src = photo.thumb;
             console.log(img.src);
             img.dataset.original = photo.original; // full-res, for lightbox
-
-            img.decode()
-            .then(() => {
-                imgsLoaded++;
-                if (imgsLoaded === images.length) {
-                    displayImages_v3_sub(loadedImgs);
-                }
-            })
-            .catch(() => {
-                imgsLoaded++;
-                if (imgsLoaded === images.length) {
-                    displayImages_v3_sub(loadedImgs);
-                }
-            })
-
-            loadedImgs.push(img);
-        });
-    } else {
-        document.getElementById(gallery_ids.num_photos).innerText = "";
-        gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
-    }
-}
-
-async function displayImages_v3(images) {
-    clearGallery();
-
-    if (images.length > 0) {
-
-        let plural = "";
-        if (images.length == 1) {
-            plural = "photo";
-        } else {
-            plural = "photos";
-        }
-
-        document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
-
-        let loadedImgs = [];
-        let imgsLoaded = 0;
-
-        // new code to display images gallery-style (using viewer.js)
-        images.forEach((imageUrl) => {
-            const img = new Image();
-            img.src = imageUrl;
 
             img.decode()
             .then(() => {
