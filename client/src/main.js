@@ -688,10 +688,10 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v4(feature.properties.GID).then(target => { 
+                        findImagesSet(feature.properties.GID).then(target => { 
                             if (target != null) {
                                 // console.log(target.length);
-                                displayImages_v4(target);
+                                displayImages(target);
                             } else {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
@@ -837,9 +837,9 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v4(feature.properties.PID).then(target => { 
+                        findImagesSet(feature.properties.PID).then(target => { 
                             if (target != null) {
-                                displayImages_v4(target);
+                                displayImages(target);
                                 document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
                                 clearGallery();
@@ -1054,8 +1054,7 @@ image retrieval functions
 
 
 // updated version 
-async function findImagesSet_v4(searchId) {
-    // const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
+async function findImagesSet(searchId) {
     const [photoRes, thumbRes] = await Promise.all([
         fetch(`${API_PHOTOS_URL}/${searchId}`),
         fetch(`${API_THUMBS_URL}/${searchId}`)
@@ -1068,13 +1067,12 @@ async function findImagesSet_v4(searchId) {
     const photos_data = await photoRes.json();
     const originals = photos_data.photos.images || [];
 
-    // console.log(originals);
-
     let thumb_map = {};
+
     if (thumbRes.ok) {
         const thumbs_data = await thumbRes.json();
         const thumb_imgs = thumbs_data.photos.images || [];
-        // console.log(thumb_imgs);
+
         thumb_imgs.forEach(thumb_url => {
             thumb_map[baseNameNoExt(thumb_url)] = thumb_url;
         });
@@ -1091,56 +1089,8 @@ function baseNameNoExt(url) {
     return filename.replace(/\.[^.]+$/, "");
 }
 
-async function displayImages_v4(images) {
+async function displayImages(images) {
     clearGallery();
-
-    // console.log("IMAGES");
-    // console.log(images)
-
-    // if (images.length > 0) {
-
-    //     let plural = "";
-    //     if (images.length == 1) {
-    //         plural = "photo";
-    //     } else {
-    //         plural = "photos";
-    //     }
-
-    //     // update display for number of photos 
-    //     document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
-
-    //     let loadedImgs = new Array(images.length);
-    //     // const concurrency_limit = 6;
-    //     let imgsLoaded = 0;
-
-    //     // display images gallery-style (using viewer.js)
-    //     images.forEach((photo) => {
-    //         const img = new Image();
-    //         img.src = photo.thumb;
-
-    //         console.log(img.src);
-    //         img.dataset.original = photo.original; // full-res photo for lightbox 
-
-    //         img.decode()
-    //         .then(() => {
-    //             imgsLoaded++;
-    //             if (imgsLoaded === images.length) {
-    //                 displayImages_v3_sub(loadedImgs);
-    //             }
-    //         })
-    //         .catch(() => {
-    //             imgsLoaded++;
-    //             if (imgsLoaded === images.length) {
-    //                 displayImages_v3_sub(loadedImgs);
-    //             }
-    //         })
-
-    //         loadedImgs.push(img);
-    //     });
-    // } else {
-    //     document.getElementById(gallery_ids.num_photos).innerText = "";
-    //     gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
-    // }
 
     if (images.length === 0) {
         document.getElementById(gallery_ids.num_photos).innerText = "";
@@ -1196,26 +1146,6 @@ async function displayImages_v4(images) {
     // initialize viewer here
     initializeViewer();
 }
-
-// function displayImages_v3_sub(images) {
-//     const stagger_ms = 50; // delay between each image 
-//     const max_stagger_ms = 600; // the cap
-
-//     images.forEach((img, index) => {
-//         img.classList.add("gallery-img");
-
-//         const delay = index * Math.min(stagger_ms, max_stagger_ms / images.length);
-
-//         setTimeout(() => {
-//             img.classList.add("loaded"); // apply animation class
-//         }, delay); // staggered animation effect
-
-//         gallery.append(img);
-//     });
-
-//     // initialize viewer here
-//     initializeViewer();
-// }
 
 
 /* ------------------------------------------------------------
