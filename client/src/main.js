@@ -22,7 +22,7 @@ import { TransparencySlider } from './components/TransparencySlider.js';
 import { CrossSections } from './components/CrossSections.js';
 
 // constants 
-import { API_PHOTOS_URL } from './constants/index.js';
+import { API_PHOTOS_URL, API_THUMBS_URL } from './constants/index.js';
 import { aerial, cave, sinkhole } from './constants/index.js';
 import { videos } from './constants/index.js';
 import { polygon_units } from './constants/index.js';
@@ -688,9 +688,10 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v3(feature.properties.GID).then(target => { 
+                        findImagesSet_v4(feature.properties.GID).then(target => { 
                             if (target != null) {
-                                displayImages_v3(target.images);
+                                // console.log(target.length);
+                                displayImages_v4(target);
                             } else {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
@@ -836,9 +837,9 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v3(feature.properties.PID).then(target => { 
+                        findImagesSet_v4(feature.properties.PID).then(target => { 
                             if (target != null) {
-                                displayImages_v3(target.images);
+                                displayImages_v4(target);
                                 document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
                                 clearGallery();
@@ -1053,20 +1054,48 @@ image retrieval functions
 
 
 // updated version 
-async function findImagesSet_v3(searchId) {
-    const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
+async function findImagesSet_v4(searchId) {
+    // const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
+    const [photoRes, thumbRes] = await Promise.all([
+        fetch(`${API_PHOTOS_URL}/${searchId}`),
+        fetch(`${API_THUMBS_URL}/${searchId}`)
+    ]);
 
-    if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
+    if (!photoRes.ok) {
+        throw new Error(`API error: ${photoRes.statusText}`);
     } 
 
-    const data = await response.json();
-    const photos = data.photos;
-    return photos; 
+    const photos_data = await photoRes.json();
+    const originals = photos_data.photos.images || [];
+
+    console.log(originals);
+
+    let thumb_map = {};
+    if (thumbRes.ok) {
+        const thumbs_data = await thumbRes.json();
+        const thumb_imgs = thumbs_data.photos.images || [];
+        console.log(thumb_imgs);
+        thumb_imgs.forEach(thumb_url => {
+            thumb_map[baseNameNoExt(thumb_url)] = thumb_url;
+        });
+    }
+
+    return originals.map(original_url => ({
+        original: original_url,
+        thumb: thumb_map[baseNameNoExt(original_url)] || original_url
+    }));
 }
 
-async function displayImages_v3(images) {
+function baseNameNoExt(url) {
+    const filename = url.substring(url.lastIndexOf("/") + 1);
+    return filename.replace(/\.[^.]+$/, "");
+}
+
+async function displayImages_v4(images) {
     clearGallery();
+
+    console.log("IMAGES");
+    console.log(images)
 
     if (images.length > 0) {
 
@@ -1084,7 +1113,7 @@ async function displayImages_v3(images) {
         let imgsLoaded = 0;
 
         // // display images gallery-style (using viewer.js)
-        // images.forEach((imageUrl) => {
+        // images.forEach((photo) => {
         //     const img = new Image();
         //     img.src = imageUrl;
 
@@ -1108,7 +1137,9 @@ async function displayImages_v3(images) {
         function loadOne(imageUrl, index) {
             return new Promise((resolve) => {
                 const img = new Image();
-                img.src = imageUrl;
+                img.src = photo.thumb;
+            console.log(img.src);
+            img.dataset.original = photo.original; // full-res, for lightbox
 
                 img.decode()
                     .then(() => resolve(img))
@@ -1139,6 +1170,9 @@ async function displayImages_v3(images) {
 }
 
 function displayImages_v3_sub(images) {
+    const maxDelay = 600; 
+    const delayPerImg = Math.min(50, maxDelay / images.length);
+
     const stagger_ms = 50; // delay between each image 
     const max_stagger_ms = 600; // the cap
 
@@ -1149,7 +1183,7 @@ function displayImages_v3_sub(images) {
 
         setTimeout(() => {
             img.classList.add("loaded"); // apply animation class
-        }, delay); // staggered animation effect
+        }, index * delayPerImg); // staggered animation effect
 
         gallery.append(img);
     });
@@ -1253,6 +1287,7 @@ function initializeViewer() {
     // initialize viewer.js on next set of images
     viewer = new Viewer(gallery, {
         inline: false,
+        url: 'data-original',
         toolbar: {
             zoomIn: 1,
             zoomOut: 1,
