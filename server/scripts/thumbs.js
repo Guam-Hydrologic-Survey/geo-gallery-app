@@ -56,6 +56,7 @@ async function createThumbnail(src_path) {
 }
 
 (async () => {
+    console.log("Running thumbs.js...")
     await fs.mkdir(thumbs, {recursive: true });
     const files = await walk(uploads_dir);
 
