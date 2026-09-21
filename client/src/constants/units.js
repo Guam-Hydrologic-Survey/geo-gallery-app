@@ -223,7 +223,7 @@ export const polygon_units = [
             label: "QTmr",
             description: "Mariana, Reef facies",
             hexcode: "8cbde5",
-            paragraph: "eet facies (Pliocene and Pleistocene-massive porous, and cavernous white limestone of reef origin, especially along clift taces, made up mostly of corals in position of growth in matrix of encrusting calcareous algae",
+            paragraph: "Reef facies (Pliocene and Pleistocene-massive porous, and cavernous white limestone of reef origin, especially along clift taces, made up mostly of corals in position of growth in matrix of encrusting calcareous algae",
             epoch: "Pliocene and Pleistocene"
         },
         {
