@@ -1106,63 +1106,67 @@ async function displayImages_v4(images) {
             plural = "photos";
         }
 
+        // update display for number of photos 
         document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
 
         let loadedImgs = new Array(images.length);
-        const concurrency_limit = 6;
+        // const concurrency_limit = 6;
         let imgsLoaded = 0;
 
-        // // display images gallery-style (using viewer.js)
-        // images.forEach((photo) => {
-        //     const img = new Image();
-        //     img.src = imageUrl;
+        // display images gallery-style (using viewer.js)
+        images.forEach((photo) => {
+            const img = new Image();
+            img.src = photo.thumb;
 
-        //     img.decode()
-        //     .then(() => {
-        //         imgsLoaded++;
-        //         if (imgsLoaded === images.length) {
-        //             displayImages_v3_sub(loadedImgs);
-        //         }
-        //     })
-        //     .catch(() => {
-        //         imgsLoaded++;
-        //         if (imgsLoaded === images.length) {
-        //             displayImages_v3_sub(loadedImgs);
-        //         }
-        //     })
-
-        //     loadedImgs.push(img);
-        // });
-
-        function loadOne(imageUrl, index) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.src = photo.thumb;
             console.log(img.src);
-            img.dataset.original = photo.original; // full-res, for lightbox
+            img.dataset.original = photo.original; // full-res photo for lightbox 
 
-                img.decode()
-                    .then(() => resolve(img))
-                    .catch(() => resolve(img));
+            img.decode()
+            .then(() => {
+                imgsLoaded++;
+                if (imgsLoaded === images.length) {
+                    displayImages_v3_sub(loadedImgs);
+                }
+            })
+            .catch(() => {
+                imgsLoaded++;
+                if (imgsLoaded === images.length) {
+                    displayImages_v3_sub(loadedImgs);
+                }
+            })
 
-                loadedImgs[index] = img;
-            });
-        } // end loadOne function
+            loadedImgs.push(img);
+        });
 
-        async function worker() {
-            while (imgsLoaded < images.length) {
-                const index = imgsLoaded++;
-                await loadOne(images[index], index);
-            } 
-        } // end worker function
+        // function loadOne(imageUrl, index) {
+        //     return new Promise((resolve) => {
+        //         const img = new Image();
+        //         img.src = photo.thumb;
+        //         console.log(img.src);
+        //         img.dataset.original = photo.original; // full-res, for lightbox
 
-        const workers = Array.from(
-            { length: Math.min(concurrency_limit, images.length) },
-            () => worker()
-        );
+        //         img.decode()
+        //             .then(() => resolve(img))
+        //             .catch(() => resolve(img));
 
-        await Promise.all(workers);
-        displayImages_v3_sub(loadedImgs);
+        //         loadedImgs[index] = img;
+        //     });
+        // } // end loadOne function
+
+        // async function worker() {
+        //     while (imgsLoaded < images.length) {
+        //         const index = imgsLoaded++;
+        //         await loadOne(images[index], index);
+        //     } 
+        // } // end worker function
+
+        // const workers = Array.from(
+        //     { length: Math.min(concurrency_limit, images.length) },
+        //     () => worker()
+        // );
+
+        // await Promise.all(workers);
+        // displayImages_v3_sub(loadedImgs);
     } else {
         document.getElementById(gallery_ids.num_photos).innerText = "";
         gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
@@ -1170,20 +1174,17 @@ async function displayImages_v4(images) {
 }
 
 function displayImages_v3_sub(images) {
-    const maxDelay = 600; 
-    const delayPerImg = Math.min(50, maxDelay / images.length);
-
     const stagger_ms = 50; // delay between each image 
     const max_stagger_ms = 600; // the cap
 
     images.forEach((img, index) => {
         img.classList.add("gallery-img");
 
-        const delay = Math.min(index * stagger_ms, max_stagger_ms);
+        const delay = index * Math.min(stagger_ms, max_stagger_ms / images.length);
 
         setTimeout(() => {
             img.classList.add("loaded"); // apply animation class
-        }, index * delayPerImg); // staggered animation effect
+        }, delay); // staggered animation effect
 
         gallery.append(img);
     });
