@@ -14,10 +14,12 @@ const app = express();
 const PORT = process.env.PORT || 3000; 
 
 const photosDirectory = path.join(__dirname, '../uploads');
+const thumbsDirectory = path.join(__dirname, '../uploads', 'thumbs');
 
 const image_extensions = ['.jpg', '.jpeg', '.png'];
 
 const photos_serve = '/photos/';
+const thumbs_serve = '/thumbs/';
 
 //app.use(cors()); // enable cors for frontend requests
 
@@ -25,11 +27,13 @@ const photos_serve = '/photos/';
 app.use(photos_serve, express.static(photosDirectory));
 // app.use('/description', express.static(photosDirectory));
 
+app.use(thumbs_serve, express.static(thumbsDirectory));
+
+
 // Trust proxy since this is sitting behind NGINX
 app.set('trust proxy', 1);
 
 // server frontend
-app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 async function detectFileType(filePath) {
@@ -50,7 +54,7 @@ async function detectFileType(filePath) {
     }
 }
 
-async function getPhotosInDirectory(dir, basePath) {
+async function getPhotosInDirectory(dir, basePath, servePrefix) {
     let results = {};
 
     try {
@@ -62,7 +66,7 @@ async function getPhotosInDirectory(dir, basePath) {
 
             if (photo.isDirectory()) {
                 // recursively get files from subdirectory 
-                results[photo.name] = await getPhotosInDirectory(photoPath, basePath);
+                results[photo.name] = await getPhotosInDirectory(photoPath, basePath, servePrefix);
             } else {
                 
                 // read a portion of the file buffer for type detection
@@ -73,7 +77,7 @@ async function getPhotosInDirectory(dir, basePath) {
                     if (type.mime.startsWith('image/')) {
                         if (!results['images']) { results['images'] = []; }
                         // results['images'].push(relativePath);
-                        results['images'].push(photos_serve + relativePath); // prepend photos_serve for frontend use
+                        results['images'].push(servePrefix + relativePath); // prepend photos_serve for frontend use
                     } 
                 } else {
                     if (isTextFile(buffer)) {
@@ -159,7 +163,7 @@ app.get('/api/photos', async (req, res) => {
 app.get('/api/photos/:dir_id', async (req, res) => { 
     try {
         const dirId = req.params.dir_id;
-        const filesData = await getPhotosInDirectory(photosDirectory, photosDirectory);
+        const filesData = await getPhotosInDirectory(photosDirectory, photosDirectory, photos_serve);
         const foundDir = await directoryLookup(filesData, dirId);
         if (foundDir) {
             res.json({ photos: foundDir });
@@ -168,6 +172,22 @@ app.get('/api/photos/:dir_id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: 'Sorry, unable to retrieve photos at this time.'});
+    }
+});
+
+// endpoint to get specific thumbnail directory 
+app.get('/api/thumbs/:dir_id', async (req, res) => { 
+    try {
+        const dirId = req.params.dir_id;
+        const filesData = await getPhotosInDirectory(thumbsDirectory, thumbsDirectory, thumbs_serve);
+        const foundDir = await directoryLookup(filesData, dirId);
+        if (foundDir) {
+            res.json({ photos: foundDir });
+        } else {
+            res.status(404).json({ error: 'Sorry, unable to retrieve thumbnails at this time.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Sorry, unable to retrieve thumbnails at this time.'});
     }
 });
 
@@ -182,7 +202,7 @@ app.get('/api/data/:filename', (req, res) => {
     });
 });
 
-// // SPA fallback for vite apps 
+// SPA fallback for vite apps 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
