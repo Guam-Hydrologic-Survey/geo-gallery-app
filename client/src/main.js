@@ -22,7 +22,7 @@ import { TransparencySlider } from './components/TransparencySlider.js';
 import { CrossSections } from './components/CrossSections.js';
 
 // constants 
-import { API_PHOTOS_URL } from './constants/index.js';
+import { API_PHOTOS_URL, API_THUMBS_URL } from './constants/index.js';
 import { aerial, cave, sinkhole } from './constants/index.js';
 import { videos } from './constants/index.js';
 import { polygon_units } from './constants/index.js';
@@ -688,9 +688,10 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v3(feature.properties.GID).then(target => { 
+                        findImagesSet_v4(feature.properties.GID).then(target => { 
                             if (target != null) {
-                                displayImages_v3(target.images);
+                                // console.log(target.length);
+                                displayImages_v4(target);
                             } else {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
@@ -836,9 +837,9 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v3(feature.properties.PID).then(target => { 
+                        findImagesSet_v4(feature.properties.PID).then(target => { 
                             if (target != null) {
-                                displayImages_v3(target.images);
+                                displayImages_v4(target);
                                 document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
                                 clearGallery();
@@ -1065,6 +1066,92 @@ async function findImagesSet_v3(searchId) {
     return photos; 
 }
 
+async function findImagesSet_v4(searchId) {
+    // const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
+    const [photoRes, thumbRes] = await Promise.all([
+        fetch(`${API_PHOTOS_URL}/${searchId}`),
+        fetch(`${API_THUMBS_URL}/${searchId}`)
+    ]);
+
+    if (!photoRes.ok) {
+        throw new Error(`API error: ${photoRes.statusText}`);
+    } 
+
+    const photos_data = await photoRes.json();
+    const originals = photos_data.photos.images || [];
+
+    console.log(originals);
+
+    let thumb_map = {};
+    if (thumbRes.ok) {
+        const thumbs_data = await thumbRes.json();
+        const thumb_imgs = thumbs_data.photos.images || [];
+        console.log(thumb_imgs);
+        thumb_imgs.forEach(thumb_url => {
+            thumb_map[baseNameNoExt(thumb_url)] = thumb_url;
+        });
+    }
+
+    return originals.map(original_url => ({
+        original: original_url,
+        thumb: thumb_map[baseNameNoExt(original_url)] || original_url
+    }));
+}
+
+function baseNameNoExt(url) {
+    const filename = url.substring(url.lastIndexOf("/") + 1);
+    return filename.replace(/\.[^.]+$/, "");
+}
+
+async function displayImages_v4(images) {
+    clearGallery();
+
+    console.log("IMAGES");
+    console.log(images)
+
+    if (images.length > 0) {
+
+        let plural = "";
+        if (images.length == 1) {
+            plural = "photo";
+        } else {
+            plural = "photos";
+        }
+
+        document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
+
+        let loadedImgs = [];
+        let imgsLoaded = 0;
+
+        // new code to display images gallery-style (using viewer.js)
+        images.forEach((photo) => {
+            const img = new Image();
+            img.src = photo.thumb;
+            console.log(img.src);
+            img.dataset.original = photo.original; // full-res, for lightbox
+
+            img.decode()
+            .then(() => {
+                imgsLoaded++;
+                if (imgsLoaded === images.length) {
+                    displayImages_v3_sub(loadedImgs);
+                }
+            })
+            .catch(() => {
+                imgsLoaded++;
+                if (imgsLoaded === images.length) {
+                    displayImages_v3_sub(loadedImgs);
+                }
+            })
+
+            loadedImgs.push(img);
+        });
+    } else {
+        document.getElementById(gallery_ids.num_photos).innerText = "";
+        gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
+    }
+}
+
 async function displayImages_v3(images) {
     clearGallery();
 
@@ -1110,12 +1197,15 @@ async function displayImages_v3(images) {
 }
 
 function displayImages_v3_sub(images) {
+    const maxDelay = 600; 
+    const delayPerImg = Math.min(50, maxDelay / images.length);
+
     images.forEach((img, index) => {
         img.classList.add("gallery-img");
 
         setTimeout(() => {
             img.classList.add("loaded"); // apply animation class
-        }, index * 300); // staggered animation effect
+        }, index * delayPerImg); // staggered animation effect
 
         gallery.append(img);
     });
@@ -1219,6 +1309,7 @@ function initializeViewer() {
     // initialize viewer.js on next set of images
     viewer = new Viewer(gallery, {
         inline: false,
+        url: 'data-original',
         toolbar: {
             zoomIn: 1,
             zoomOut: 1,

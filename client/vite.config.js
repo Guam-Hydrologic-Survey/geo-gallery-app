@@ -11,17 +11,22 @@ export default defineConfig({
         proxy: {
             // proxy for API endpoints 
             '/api': {
-                target: 'https://geo-gallery-app-backend.loca.lt', // backend API server
+                target: 'http://localhost:3000', // backend API server
                 changeOrigin: true, 
             },
             // proxy for static photos
             '/photos': {
-                target: 'https://geo-gallery-app-backend.loca.lt',
-                changeOrigin: true
+                target: 'http://localhost:3000',
+                changeOrigin: true,
+            },
+            // proxy for static thumbnails 
+            '/thumbs': {
+                target: 'http://localhost:3000',
+                changeOrigin: true,
             },
             // proxy for static text files
             '/descriptions': {
-                target: 'https://geo-gallery-app-backend.loca.lt',
+                target: 'http://localhost:3000',
                 changeOrigin: true,
             }
 	}
