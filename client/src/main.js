@@ -1068,13 +1068,13 @@ async function findImagesSet_v4(searchId) {
     const photos_data = await photoRes.json();
     const originals = photos_data.photos.images || [];
 
-    console.log(originals);
+    // console.log(originals);
 
     let thumb_map = {};
     if (thumbRes.ok) {
         const thumbs_data = await thumbRes.json();
         const thumb_imgs = thumbs_data.photos.images || [];
-        console.log(thumb_imgs);
+        // console.log(thumb_imgs);
         thumb_imgs.forEach(thumb_url => {
             thumb_map[baseNameNoExt(thumb_url)] = thumb_url;
         });
@@ -1094,104 +1094,128 @@ function baseNameNoExt(url) {
 async function displayImages_v4(images) {
     clearGallery();
 
-    console.log("IMAGES");
-    console.log(images)
+    // console.log("IMAGES");
+    // console.log(images)
 
-    if (images.length > 0) {
+    // if (images.length > 0) {
 
-        let plural = "";
-        if (images.length == 1) {
-            plural = "photo";
-        } else {
-            plural = "photos";
-        }
+    //     let plural = "";
+    //     if (images.length == 1) {
+    //         plural = "photo";
+    //     } else {
+    //         plural = "photos";
+    //     }
 
-        // update display for number of photos 
-        document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
+    //     // update display for number of photos 
+    //     document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
 
-        let loadedImgs = new Array(images.length);
-        // const concurrency_limit = 6;
-        let imgsLoaded = 0;
+    //     let loadedImgs = new Array(images.length);
+    //     // const concurrency_limit = 6;
+    //     let imgsLoaded = 0;
 
-        // display images gallery-style (using viewer.js)
-        images.forEach((photo) => {
-            const img = new Image();
-            img.src = photo.thumb;
+    //     // display images gallery-style (using viewer.js)
+    //     images.forEach((photo) => {
+    //         const img = new Image();
+    //         img.src = photo.thumb;
 
-            console.log(img.src);
-            img.dataset.original = photo.original; // full-res photo for lightbox 
+    //         console.log(img.src);
+    //         img.dataset.original = photo.original; // full-res photo for lightbox 
 
-            img.decode()
-            .then(() => {
-                imgsLoaded++;
-                if (imgsLoaded === images.length) {
-                    displayImages_v3_sub(loadedImgs);
-                }
-            })
-            .catch(() => {
-                imgsLoaded++;
-                if (imgsLoaded === images.length) {
-                    displayImages_v3_sub(loadedImgs);
-                }
-            })
+    //         img.decode()
+    //         .then(() => {
+    //             imgsLoaded++;
+    //             if (imgsLoaded === images.length) {
+    //                 displayImages_v3_sub(loadedImgs);
+    //             }
+    //         })
+    //         .catch(() => {
+    //             imgsLoaded++;
+    //             if (imgsLoaded === images.length) {
+    //                 displayImages_v3_sub(loadedImgs);
+    //             }
+    //         })
 
-            loadedImgs.push(img);
-        });
+    //         loadedImgs.push(img);
+    //     });
+    // } else {
+    //     document.getElementById(gallery_ids.num_photos).innerText = "";
+    //     gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
+    // }
 
-        // function loadOne(imageUrl, index) {
-        //     return new Promise((resolve) => {
-        //         const img = new Image();
-        //         img.src = photo.thumb;
-        //         console.log(img.src);
-        //         img.dataset.original = photo.original; // full-res, for lightbox
-
-        //         img.decode()
-        //             .then(() => resolve(img))
-        //             .catch(() => resolve(img));
-
-        //         loadedImgs[index] = img;
-        //     });
-        // } // end loadOne function
-
-        // async function worker() {
-        //     while (imgsLoaded < images.length) {
-        //         const index = imgsLoaded++;
-        //         await loadOne(images[index], index);
-        //     } 
-        // } // end worker function
-
-        // const workers = Array.from(
-        //     { length: Math.min(concurrency_limit, images.length) },
-        //     () => worker()
-        // );
-
-        // await Promise.all(workers);
-        // displayImages_v3_sub(loadedImgs);
-    } else {
+    if (images.length === 0) {
         document.getElementById(gallery_ids.num_photos).innerText = "";
         gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
+        return;
     }
-}
 
-function displayImages_v3_sub(images) {
-    const stagger_ms = 50; // delay between each image 
-    const max_stagger_ms = 600; // the cap
+    // update display for number of photos 
+    const plural = images.length === 1 ? "photo" : "photos";
+    document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
 
-    images.forEach((img, index) => {
-        img.classList.add("gallery-img");
+    // set counter for num of images displayed 
+    const concurrency_limit = 6;
+    let next_index = 0;
+    let displayed_count = 0;
 
-        const delay = index * Math.min(stagger_ms, max_stagger_ms / images.length);
+    function loadOne(photo) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = photo.thumb;
+            img.dataset.original = photo.original;
+            img.classList.add("gallery-img");
 
-        setTimeout(() => {
-            img.classList.add("loaded"); // apply animation class
-        }, delay); // staggered animation effect
+            const onReady = () => {
+                const delay = Math.min(displayed_count * 50, 600);
+                displayed_count++;
+                gallery.append(img);
+                requestAnimationFrame(() => {
+                    setTimeout(() => img.classList.add("loaded"), delay);
+                });
 
-        gallery.append(img);
-    });
+                resolve();
+            }; // end of onReady
+
+            img.decode().then(onReady).catch(onReady);
+        });
+    } // end of loadOne
+
+    async function worker() {
+        while (next_index < images.length) {
+            const photo = images[next_index++];
+            await loadOne(photo);
+        }
+    } // end of worker
+
+    const workers = Array.from(
+        { length: Math.min(concurrency_limit, images.length) },
+        () => worker()
+    );
+
+    await Promise.all(workers);
 
     // initialize viewer here
     initializeViewer();
 }
+
+// function displayImages_v3_sub(images) {
+//     const stagger_ms = 50; // delay between each image 
+//     const max_stagger_ms = 600; // the cap
+
+//     images.forEach((img, index) => {
+//         img.classList.add("gallery-img");
+
+//         const delay = index * Math.min(stagger_ms, max_stagger_ms / images.length);
+
+//         setTimeout(() => {
+//             img.classList.add("loaded"); // apply animation class
+//         }, delay); // staggered animation effect
+
+//         gallery.append(img);
+//     });
+
+//     // initialize viewer here
+//     initializeViewer();
+// }
 
 
 /* ------------------------------------------------------------
