@@ -1213,7 +1213,13 @@ function skeletonDisplay() {
 
     document.getElementById(gallery_ids.num_photos).innerHTML = /*html*/ `
     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-    <span role="status">Loading photos...</span>
+    <span role="status">Loading photos... (Please note some photos may take longer to load)</span>
+    `;
+
+    const notice_msg = document.createElement("div");
+    notice_msg.innerHTML = /*html*/ `
+    <br><br>
+    <i class="bi bi-exclamation-circle-fill"></i> Please note some photos may take longer to load
     `;
 
     const skeleton = document.createElement("div");
