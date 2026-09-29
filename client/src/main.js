@@ -688,10 +688,10 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v4(feature.properties.GID).then(target => { 
+                        findImagesSet(feature.properties.GID).then(target => { 
                             if (target != null) {
                                 // console.log(target.length);
-                                displayImages_v4(target);
+                                displayImages(target);
                             } else {
                                 clearGallery();
                                 document.getElementById(gallery_ids.num_photos).innerText = "";
@@ -837,9 +837,9 @@ function getLayers(data, ftype) {
                         skeletonDisplay();
                         modalDialog.show();
 
-                        findImagesSet_v4(feature.properties.PID).then(target => { 
+                        findImagesSet(feature.properties.PID).then(target => { 
                             if (target != null) {
-                                displayImages_v4(target);
+                                displayImages(target);
                                 document.getElementById(gallery_ids.text_description).innerText = target.description || '';
                             } else {
                                 clearGallery();
@@ -1054,8 +1054,7 @@ image retrieval functions
 
 
 // updated version 
-async function findImagesSet_v4(searchId) {
-    // const response = await fetch(`${API_PHOTOS_URL}/${searchId}`);
+async function findImagesSet(searchId) {
     const [photoRes, thumbRes] = await Promise.all([
         fetch(`${API_PHOTOS_URL}/${searchId}`),
         fetch(`${API_THUMBS_URL}/${searchId}`)
@@ -1068,13 +1067,12 @@ async function findImagesSet_v4(searchId) {
     const photos_data = await photoRes.json();
     const originals = photos_data.photos.images || [];
 
-    console.log(originals);
-
     let thumb_map = {};
+
     if (thumbRes.ok) {
         const thumbs_data = await thumbRes.json();
         const thumb_imgs = thumbs_data.photos.images || [];
-        console.log(thumb_imgs);
+
         thumb_imgs.forEach(thumb_url => {
             thumb_map[baseNameNoExt(thumb_url)] = thumb_url;
         });
@@ -1091,68 +1089,59 @@ function baseNameNoExt(url) {
     return filename.replace(/\.[^.]+$/, "");
 }
 
-async function displayImages_v4(images) {
+async function displayImages(images) {
     clearGallery();
 
-    console.log("IMAGES");
-    console.log(images)
-
-    if (images.length > 0) {
-
-        let plural = "";
-        if (images.length == 1) {
-            plural = "photo";
-        } else {
-            plural = "photos";
-        }
-
-        document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
-
-        let loadedImgs = [];
-        let imgsLoaded = 0;
-
-        // new code to display images gallery-style (using viewer.js)
-        images.forEach((photo) => {
-            const img = new Image();
-            img.src = photo.thumb;
-            console.log(img.src);
-            img.dataset.original = photo.original; // full-res, for lightbox
-
-            img.decode()
-            .then(() => {
-                imgsLoaded++;
-                if (imgsLoaded === images.length) {
-                    displayImages_v3_sub(loadedImgs);
-                }
-            })
-            .catch(() => {
-                imgsLoaded++;
-                if (imgsLoaded === images.length) {
-                    displayImages_v3_sub(loadedImgs);
-                }
-            })
-
-            loadedImgs.push(img);
-        });
-    } else {
+    if (images.length === 0) {
         document.getElementById(gallery_ids.num_photos).innerText = "";
         gallery.innerHTML = /*html*/ `<p style="font-style: none; font-size: 20px;">Sorry, there are currently no photos available for this feature.</p>`;
+        return;
     }
-}
 
-function displayImages_v3_sub(images) {
-    const maxDelay = 600; 
-    const delayPerImg = Math.min(50, maxDelay / images.length);
+    // update display for number of photos 
+    const plural = images.length === 1 ? "photo" : "photos";
+    document.getElementById(gallery_ids.num_photos).innerHTML = `<i class="bi bi-images"></i> ${images.length} ${plural} available for this feature`;
 
-    images.forEach((img, index) => {
-        img.classList.add("gallery-img");
+    // set counter for num of images displayed 
+    const concurrency_limit = 6;
+    let next_index = 0;
+    let displayed_count = 0;
 
-        setTimeout(() => {
-            img.classList.add("loaded"); // apply animation class
-        }, index * delayPerImg); // staggered animation effect
+    function loadOne(photo) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = photo.thumb;
+            img.dataset.original = photo.original;
+            img.classList.add("gallery-img");
 
-        gallery.append(img);
-    });
+            const onReady = () => {
+                const delay = Math.min(displayed_count * 50, 600);
+                displayed_count++;
+                gallery.append(img);
+                requestAnimationFrame(() => {
+                    setTimeout(() => img.classList.add("loaded"), delay);
+                });
+
+                resolve();
+            }; // end of onReady
+
+            img.decode().then(onReady).catch(onReady);
+        });
+    } // end of loadOne
+
+    async function worker() {
+        while (next_index < images.length) {
+            const photo = images[next_index++];
+            await loadOne(photo);
+        }
+    } // end of worker
+
+    const workers = Array.from(
+        { length: Math.min(concurrency_limit, images.length) },
+        () => worker()
+    );
+
+    await Promise.all(workers);
 
     // initialize viewer here
     initializeViewer();
@@ -1224,7 +1213,13 @@ function skeletonDisplay() {
 
     document.getElementById(gallery_ids.num_photos).innerHTML = /*html*/ `
     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-    <span role="status">Loading photos...</span>
+    <span role="status">Loading photos... (Please note some photos may take longer to load)</span>
+    `;
+
+    const notice_msg = document.createElement("div");
+    notice_msg.innerHTML = /*html*/ `
+    <br><br>
+    <i class="bi bi-exclamation-circle-fill"></i> Please note some photos may take longer to load
     `;
 
     const skeleton = document.createElement("div");
