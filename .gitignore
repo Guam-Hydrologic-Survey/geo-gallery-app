@@ -1,3 +1,7 @@
+# Local, regenerable files 
+# Directory housing summary of images in uploads/ and thumbs/
+log/ 
+
 # Logs
 logs
 *.log
