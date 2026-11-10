@@ -5,7 +5,7 @@ Description: Creates the Navigation Bar component.
 
 export function NavBar() {
 
-    const title = "MAppFx: Geology Gallery";
+    const title = "MAppFx: Geo Gallery";
 
     const navbar = document.createElement("nav");
     navbar.id = "navbar";
