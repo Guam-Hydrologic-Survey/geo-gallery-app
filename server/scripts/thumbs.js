@@ -13,7 +13,7 @@ const fs = require('fs/promises');
 const path = require('path');
 const sharp = require('sharp');
 
-const uploads_dir = path.resolve(process.env.UPLOADS_DIR || path.join(__dirname, '../uploads'));
+const uploads_dir = path.resolve(process.env.UPLOADS_DIR || path.join(__dirname, '..', '..', 'uploads'));
 const thumbs = path.resolve(process.env.THUMBS_DIR || path.join(uploads_dir, 'thumbs'));
 const img_exts = new Set(['.jpeg', '.jpg', '.png', '.webp', '.tif', '.tiff']);
 
@@ -21,7 +21,7 @@ const width = 400;
 const quality = 75;
 
 // logging
-const log_dir = path.resolve(process.env.LOGS_DIR || path.join(__dirname, 'log'));
+const log_dir = path.resolve(process.env.LOGS_DIR || path.join(__dirname, '..', 'logs'));
 const log_json = path.join(log_dir, 'image-log.json');             // last run, snapshot, history
 const log_txt = path.join(log_dir, 'image-log.txt');               // readable, newest run at the bottom
 const changes_txt = path.join(log_dir, 'image-changes.txt');
@@ -194,6 +194,7 @@ function formatSummary(ranAt, snapshot) {
 
 (async () => {
     console.log("Running thumbs.js...");
+
     await fs.mkdir(thumbs, { recursive: true });
     const files = await walk(uploads_dir);
 
@@ -320,9 +321,13 @@ function formatSummary(ranAt, snapshot) {
     await fs.writeFile(summary_txt, formatSummary(entry.ranAt, now));
 
     const t = entry.totals;
+    const div = "------------------------------------------------------------";
+    console.log(`${div}\nReading images from UPLOADS_DIR: \n${uploads_dir}`);
+    console.log(`\nReading and writing thumbnails to THUMBS_DIR: \n${thumbs}`);
+
     console.log(
-        `------\nRan thumbs.js. Results:\n${t.thumbs_created + t.thumbs_updated} created, ` +
+        `${div}\nRan thumbs.js. Results:\n${t.thumbs_created + t.thumbs_updated} created, ` +
         `${t.thumbs_skipped} up to date, ${t.failed} failed.\n` +
-        `Images: +${t.added} added, -${t.deleted} deleted. \nLog: \n${log_txt} \nSummary: \n${summary_txt}`
+        `Images: +${t.added} added, -${t.deleted} deleted. \n\nLog: \n${log_txt} \n\nSummary: \n${summary_txt}`
     );
 })();
