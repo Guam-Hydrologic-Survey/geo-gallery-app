@@ -1,6 +1,7 @@
 # Local, regenerable files 
 # Directory housing summary of images in uploads/ and thumbs/
-log/ 
+logs/*
+!logs/.gitkeep
 
 # Logs
 logs
