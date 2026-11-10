@@ -21,6 +21,7 @@ const log_dir = path.join(__dirname, "..", "log");
 const log_json = path.join(log_dir, 'thumbs-log.json');       // last run, snapshot, history
 const log_txt = path.join(log_dir, 'thumbs-log.txt');         // readable, newest run at the bottom
 const inventory_txt = path.join(log_dir, 'thumbs-inventory.txt'); // every image per directory (overwritten each run)
+const summary_txt = path.join(log_dir, 'thumbs-summary.txt'); // image count per directory only (overwritten each run)
 const max_history = 200;
 
 // thumbs whose original image no longer exists: always reported.
@@ -127,6 +128,20 @@ function formatInventory(ranAt, snapshot) {
     return lines.join('\n');
 }
 
+function formatSummary(ranAt, snapshot) {
+    const dirs = Object.keys(snapshot).sort();
+    const width = Math.max(0, ...dirs.map((d) => d.length));
+    const lines = [`Image counts as of ${ranAt}`, ''];
+    let total = 0;
+    for (const dir of dirs) {
+        const n = snapshot[dir].length;
+        total += n;
+        lines.push(`${dir.padEnd(width)}  ${n}`);
+    }
+    lines.push('', `Total: ${total} images in ${dirs.length} directories`);
+    return lines.join('\n') + '\n';
+}
+
 (async () => {
     console.log("Running thumbs.js...");
     await fs.mkdir(thumbs, { recursive: true });
@@ -220,11 +235,12 @@ function formatInventory(ranAt, snapshot) {
     await fs.writeFile(log_json, JSON.stringify(newLog, null, 2));
     await fs.appendFile(log_txt, formatRun(entry));
     await fs.writeFile(inventory_txt, formatInventory(entry.ranAt, now));
+    await fs.writeFile(summary_txt, formatSummary(entry.ranAt, now));
 
     const t = entry.totals;
     console.log(
         `------\nRan thumbs.js. Results:\n${t.thumbs_created + t.thumbs_updated} created, ` +
         `${t.thumbs_skipped} up to date, ${t.failed} failed.\n` +
-        `Images: +${t.added} added, -${t.deleted} deleted. \nLog: ${log_txt}`
+        `Images: +${t.added} added, -${t.deleted} deleted. \nLog: \n${log_txt} \nSummary: \n${summary_txt}`
     );
 })();
