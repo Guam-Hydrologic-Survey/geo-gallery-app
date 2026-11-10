@@ -13,8 +13,8 @@ const app = express();
 
 const PORT = process.env.PORT || 3000; 
 
-const photosDirectory = path.join(__dirname, '../uploads');
-const thumbsDirectory = path.join(__dirname, '../uploads', 'thumbs');
+const photosDirectory = path.resolve(process.env.UPLOADS_DIR || path.join(__dirname, '../uploads'));
+const thumbsDirectory = path.resolve(process.env.THUMBS_DIR || path.join(__dirname, '../uploads', 'thumbs'));
 
 const image_extensions = ['.jpg', '.jpeg', '.png'];
 

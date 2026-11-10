@@ -13,15 +13,15 @@ const fs = require('fs/promises');
 const path = require('path');
 const sharp = require('sharp');
 
-const uploads_dir = path.join(__dirname, '..', '..', 'uploads');
-const thumbs = path.join(uploads_dir, 'thumbs');
+const uploads_dir = path.resolve(process.env.UPLOADS_DIR || path.join(__dirname, '../uploads'));
+const thumbs = path.resolve(process.env.THUMBS_DIR || path.join(uploads_dir, 'thumbs'));
 const img_exts = new Set(['.jpeg', '.jpg', '.png', '.webp', '.tif', '.tiff']);
 
 const width = 400;
 const quality = 75;
 
 // logging
-const log_dir = path.join(__dirname, "..", "log");
+const log_dir = path.resolve(process.env.LOGS_DIR || path.join(__dirname, 'log'));
 const log_json = path.join(log_dir, 'image-log.json');             // last run, snapshot, history
 const log_txt = path.join(log_dir, 'image-log.txt');               // readable, newest run at the bottom
 const changes_txt = path.join(log_dir, 'image-changes.txt');
